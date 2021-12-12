@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Container,
   Flex,
@@ -14,6 +15,7 @@ import {
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 
 const SignupForm = ({ animateSlider, isBlur }) => {
+  const navigate = useNavigate();
   return (
     <Container
       bgColor="primary.900"
@@ -86,7 +88,7 @@ const SignupForm = ({ animateSlider, isBlur }) => {
             placeholder="*******"
           />
         </FormControl>
-        <Button marginTop="8" w="100%">
+        <Button marginTop="8" w="100%" onClick={() => navigate("/home")}>
           Signup
         </Button>
         <Text
