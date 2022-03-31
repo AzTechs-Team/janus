@@ -1,5 +1,6 @@
 import React from "react";
-import { Divider, Flex, Image, Spacer } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import { Divider, Flex, Image, Spacer, Tooltip } from "@chakra-ui/react";
 import active_extension from "../assets/active_extension_btn.png";
 import extension1 from "../assets/extension1.png";
 import extension2 from "../assets/extension2.png";
@@ -9,23 +10,39 @@ import settings from "../assets/settings_btn.png";
 
 const largeBtn = (src, alt) => {
   return (
-    <button>
-      <Image borderRadius="full" boxSize="50px" src={src} alt={alt} />
-    </button>
+    <Link to="/home" key={alt}>
+      <Tooltip label={alt} placement="auto" bgColor="primary.900" fontSize="xs">
+        <Image borderRadius="full" boxSize="50px" src={src} alt={alt} />
+      </Tooltip>
+    </Link>
   );
 };
 
 const smallBtn = (src, alt) => {
   return (
-    <button>
-      <Image
-        borderRadius="full"
-        boxSize="40px"
-        src={src}
-        alt={alt}
-        marginY="1"
-      />
-    </button>
+    <Link
+      to={
+        alt === "Profile"
+          ? "/profile"
+          : alt === "Settings"
+          ? "/settings"
+          : "/home"
+      }
+      key={alt}
+    >
+      <Tooltip label={alt} placement="auto" bgColor="primary.900" fontSize="xs">
+        <Image
+          borderRadius="full"
+          boxSize="40px"
+          src={src}
+          alt={alt}
+          marginY="1"
+          _hover={{
+            boxShadow: "dark-lg",
+          }}
+        />
+      </Tooltip>
+    </Link>
   );
 };
 

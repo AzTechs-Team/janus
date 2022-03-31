@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
@@ -10,11 +10,34 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-
+import axios from "axios";
 import { BsArrowRightCircleFill } from "react-icons/bs";
+import auth from "../auth/auth";
 
 const LoginForm = ({ animateSlider, isBlur }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [err, setErr] = useState("");
   const navigate = useNavigate();
+
+  const handleLogin = () => {
+    const info = { email: email, password: password };
+    const headers = {
+      "Content-type": "application/json; charset=UTF-8",
+    };
+    axios
+      .get("http://localhost:8082/json", info, { headers })
+      .then((response) => {
+        let token = response.data["token"];
+        auth.login(token, () => {
+          navigate("/home", { replace: true });
+        });
+      })
+      .catch((error) => {
+        setErr("Error logging in!");
+      });
+  };
+
   return (
     <Container
       bgColor="primary.900"
@@ -56,6 +79,7 @@ const LoginForm = ({ animateSlider, isBlur }) => {
             bgColor="#2B2F3B"
             border="#2B2F3B"
             placeholder="email@email.com/username"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </FormControl>
         <FormControl id="password" textColor="white" marginTop="4">
@@ -65,11 +89,24 @@ const LoginForm = ({ animateSlider, isBlur }) => {
             bgColor="#2B2F3B"
             border="#2B2F3B"
             placeholder="*******"
+            onChange={(e) => setPassword(e.target.password)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleLogin();
+            }}
           />
         </FormControl>
-        <Button marginTop="8" w="100%" onClick={() => navigate("/home")}>
-          Signin
+        <Button marginTop="8" w="100%" onClick={handleLogin}>
+          Login
         </Button>
+        <Text
+          textColor="red.200"
+          marginTop="2"
+          textAlign="center"
+          fontSize="sm"
+          w="100%"
+        >
+          {err}
+        </Text>
         <Text
           textColor="primary.100"
           marginTop="12"

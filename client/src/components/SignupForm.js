@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
@@ -11,11 +11,41 @@ import {
   Input,
   HStack,
 } from "@chakra-ui/react";
-
+import axios from "axios";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
+import auth from "../auth/auth";
 
 const SignupForm = ({ animateSlider, isBlur }) => {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [dob, setDob] = useState("");
+  const [err, setErr] = useState("");
   const navigate = useNavigate();
+
+  const handleSignup = () => {
+    const info = {
+      email: email,
+      password: password,
+      username: username,
+      dob: dob,
+    };
+    const headers = {
+      "Content-type": "application/json; charset=UTF-8",
+    };
+    axios
+      .get("http://localhost:8082/json", info, { headers })
+      .then((response) => {
+        let token = response.data["token"];
+        auth.login(token, () => {
+          navigate("/home", { replace: true });
+        });
+      })
+      .catch((error) => {
+        setErr("Error logging in!");
+      });
+  };
+
   return (
     <Container
       bgColor="primary.900"
@@ -57,6 +87,7 @@ const SignupForm = ({ animateSlider, isBlur }) => {
             bgColor="#2B2F3B"
             border="#2B2F3B"
             placeholder="email@email.com/username"
+            onChange={(e) => setEmail(e.target.value)}
           />
         </FormControl>
         <HStack marginTop="4">
@@ -67,6 +98,7 @@ const SignupForm = ({ animateSlider, isBlur }) => {
               bgColor="#2B2F3B"
               border="#2B2F3B"
               placeholder="username01"
+              onChange={(e) => setUsername(e.target.value)}
             />
           </FormControl>
           <FormControl id="dob" textColor="white">
@@ -76,6 +108,7 @@ const SignupForm = ({ animateSlider, isBlur }) => {
               bgColor="#2B2F3B"
               border="#2B2F3B"
               placeholder="10/12/2000"
+              onChange={(e) => setDob(e.target.value)}
             />
           </FormControl>
         </HStack>
@@ -86,11 +119,21 @@ const SignupForm = ({ animateSlider, isBlur }) => {
             bgColor="#2B2F3B"
             border="#2B2F3B"
             placeholder="*******"
+            onChange={(e) => setPassword(e.target.value)}
           />
         </FormControl>
-        <Button marginTop="8" w="100%" onClick={() => navigate("/home")}>
+        <Button marginTop="8" w="100%" onClick={handleSignup}>
           Signup
         </Button>
+        <Text
+          textColor="red.200"
+          marginTop="2"
+          textAlign="center"
+          fontSize="sm"
+          w="100%"
+        >
+          {err}
+        </Text>
         <Text
           textColor="primary.100"
           marginTop="12"

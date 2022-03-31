@@ -1,20 +1,19 @@
 import React from "react";
-import { Box, Container, Flex, Text } from "@chakra-ui/react";
-import SideNav from "../components/SideNav";
+import { Container, Text } from "@chakra-ui/react";
 
-const HomeScreen = () => {
+const ProfileScreen = () => {
   return (
     <Container centerContent alignSelf="center">
       <Text
         bgGradient="linear(to-l, #4B4CCC, #9C9DF3)"
         bgClip="text"
-        fontSize="6xl"
+        fontSize="xl"
         fontWeight="extrabold"
       >
-        Welcome to Janus
+        User Profile
       </Text>
     </Container>
   );
 };
 
-export default HomeScreen;
+export default ProfileScreen;
