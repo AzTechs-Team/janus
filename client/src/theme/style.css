@@ -1,1 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600&display=swap");
+
+.gray-black-gradient {
+  background: linear-gradient(215deg, #1c1c25, #38405a) !important;
+  cursor: pointer;
+}
+
+.gray-black-gradient:hover {
+  background: linear-gradient(280deg, #1c1c25, #38405a) !important;
+}
+
+.gray-purple-gradient {
+  background: linear-gradient(215deg, #2c2a4a, #4f518c) !important;
+  cursor: pointer;
+  border: 2px solid #979bde;
+}

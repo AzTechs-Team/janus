@@ -11,7 +11,7 @@ function createWindow() {
   const win = new BrowserWindow({
     width: 1200,
     height: 750,
-    minWidth: 800,
+    minWidth: 1000,
     minHeight: 650,
     webPreferences: {
       nodeIntegration: true,
@@ -42,4 +42,3 @@ app.on("activate", () => {
     createWindow();
   }
 });
-

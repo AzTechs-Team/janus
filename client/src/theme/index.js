@@ -5,6 +5,7 @@ const theme = extendTheme({
     primary: {
       100: "#A1A5B0",
       700: "#5A5B83",
+      750: "#232429",
       800: "#1C1C25",
       900: "#15161B",
     },
@@ -22,7 +23,7 @@ const theme = extendTheme({
         borderBottomWidth: "0px !important",
         background: "linear-gradient(to right, #4B4CCC, #9C9DF3)",
         height: "2px",
-        opacity:"1 !important"
+        opacity: "1 !important",
       },
       ".chakra-button": {
         background: "linear-gradient(to right, #4B4CCC, #9C9DF3) !important",

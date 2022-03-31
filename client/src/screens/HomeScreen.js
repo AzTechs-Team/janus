@@ -1,6 +1,5 @@
 import React from "react";
-import { Box, Container, Flex, Text } from "@chakra-ui/react";
-import SideNav from "../components/SideNav";
+import { Container, Text } from "@chakra-ui/react";
 
 const HomeScreen = () => {
   return (

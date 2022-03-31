@@ -26,6 +26,8 @@ const smallBtn = (src, alt) => {
           ? "/profile"
           : alt === "Settings"
           ? "/settings"
+          : alt === "More extensions"
+          ? "/extensions"
           : "/home"
       }
       key={alt}
