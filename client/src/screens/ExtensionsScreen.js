@@ -18,16 +18,14 @@ const ExtensionsScreen = () => {
   };
 
   return (
-    <Box bgColor="primary.750" w="100vw" h="100vh">
-      <Flex flexDir="row" p="6" height="100%" width="100%">
-        <ExtensionsCol
-          active={active}
-          values={Object.keys(extensions)}
-          handleClick={updateActive}
-        />
-        <ExtensionsContent content={extensions[active]} />
-      </Flex>
-    </Box>
+    <Flex flexDir="row" p="6" width="94vw">
+      <ExtensionsCol
+        active={active}
+        values={Object.keys(extensions)}
+        handleClick={updateActive}
+      />
+      <ExtensionsContent content={extensions[active]} />
+    </Flex>
   );
 };
 

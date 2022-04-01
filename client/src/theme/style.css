@@ -14,3 +14,8 @@
   cursor: pointer;
   border: 2px solid #979bde;
 }
+
+.icon-btn {
+  background: none #1c1c25 !important;
+  border-radius: 25px;
+}
