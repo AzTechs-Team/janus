@@ -7,10 +7,10 @@ const HomeScreen = () => {
       <Text
         bgGradient="linear(to-l, #4B4CCC, #9C9DF3)"
         bgClip="text"
-        fontSize="6xl"
+        fontSize="3xl"
         fontWeight="extrabold"
       >
-        Welcome to Janus
+        Dashboard
       </Text>
     </Container>
   );

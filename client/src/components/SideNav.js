@@ -59,7 +59,9 @@ const returnPath = (alt) => {
     ? "/settings"
     : alt === "Download extensions"
     ? "/extensions"
-    : "/home";
+    : alt === "Home"
+    ? "/home"
+    : "/example";
 };
 
 const SideNav = () => {

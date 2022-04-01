@@ -10,7 +10,7 @@ const SettingsScreen = () => {
       <Text
         bgGradient="linear(to-l, #4B4CCC, #9C9DF3)"
         bgClip="text"
-        fontSize="xl"
+        fontSize="3xl"
         fontWeight="extrabold"
       >
         User Settings

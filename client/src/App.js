@@ -14,6 +14,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import ExtensionsScreen from "./screens/ExtensionsScreen";
+import ExampleScreen from "./screens/ExampleScreen";
 
 const App = () => {
   const navigate = useNavigate();
@@ -67,6 +68,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <BaseScreen children={<ExtensionsScreen />} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/example"
+          element={
+            <ProtectedRoute>
+              <BaseScreen children={<ExampleScreen />} />
             </ProtectedRoute>
           }
         />

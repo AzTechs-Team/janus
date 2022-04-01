@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Text } from "@chakra-ui/react";
 
-const ProfileScreen = () => {
+const ExampleScreen = () => {
   return (
     <Container centerContent alignSelf="center">
       <Text
@@ -10,10 +10,10 @@ const ProfileScreen = () => {
         fontSize="3xl"
         fontWeight="extrabold"
       >
-        User Profile
+        Details of the extension!
       </Text>
     </Container>
   );
 };
 
-export default ProfileScreen;
+export default ExampleScreen;
