@@ -1,30 +1,29 @@
 import React, { useState } from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import ExtensionsCol from "../components/ExtensionsCol";
 import ExtensionsContent from "../components/ExtensionsContent";
+import { info } from "../assets/content/extensions";
 
 const ExtensionsScreen = () => {
-  const extensions = {
-    Todos: "Todos description",
-    Notes: "Notes description",
-    Notifications: "Notifications description",
-  };
+  // const extensions = {
+  //   Todos: "Todos description",
+  //   Notes: "Notes description",
+  //   Notifications: "Notifications description",
+  // };
 
-  const [active, setActive] = useState("");
+  const [active, setActive] = useState("Todos");
 
   const updateActive = (active) => {
-    console.log("active", active);
     setActive(active);
   };
-
   return (
     <Flex flexDir="row" p="6" width="94vw">
       <ExtensionsCol
         active={active}
-        values={Object.keys(extensions)}
+        values={Object.keys(info)}
         handleClick={updateActive}
       />
-      <ExtensionsContent content={extensions[active]} />
+      <ExtensionsContent content={info[active]} />
     </Flex>
   );
 };

@@ -4,13 +4,16 @@ const theme = extendTheme({
   colors: {
     primary: {
       100: "#A1A5B0",
+      200: "#4B516A",
       700: "#5A5B83",
       750: "#232429",
       800: "#1C1C25",
       900: "#15161B",
     },
     accent: {
+      100: "#C4C4FF",
       200: "#9C9DF3",
+      700: "#29293E",
     },
   },
   fonts: {
@@ -24,14 +27,6 @@ const theme = extendTheme({
         background: "linear-gradient(to right, #4B4CCC, #9C9DF3)",
         height: "2px",
         opacity: "1 !important",
-      },
-      ".chakra-button": {
-        background: "linear-gradient(to right, #4B4CCC, #9C9DF3) !important",
-        color: "#fff !important",
-        borderRadius: "25px !important",
-      },
-      ".chakra-button:hover": {
-        background: "linear-gradient(to left, #4B4CCC, #9C9DF3) !important",
       },
       ".chakra-input:focus": {
         boxShadow: "0 0 0 1px #9C9DF3 !important",

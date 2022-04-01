@@ -18,7 +18,7 @@ const buttons = (active, name, handleClick) => {
       paddingY={2}
       color="white"
       width={60}
-      height={16}
+      height={12}
       borderRadius="xl"
       className={
         name === active ? "gray-purple-gradient" : "gray-black-gradient"

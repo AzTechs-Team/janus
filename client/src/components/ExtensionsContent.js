@@ -1,16 +1,30 @@
 import React from "react";
-import { Container, Text } from "@chakra-ui/react";
+import { Container, HStack, Spacer, VStack } from "@chakra-ui/react";
+import NameCard from "./NameCard";
+import TabsContainer from "./TabsContainer";
+import ExtensionQuickLinks from "./ExtensionQuickLinks";
+import BlurredBox from "./BlurredBox";
 
 const ExtensionsContent = ({ content }) => {
+  console.log("in hereee", content);
   return (
     <Container
       bgColor="primary.800"
-      p="6"
+      p={16}
       borderRadius="xl"
       height="100%"
       maxW="100%"
     >
-      <Text color="white">{content}</Text>
+      <NameCard content={content} />
+      <HStack alignItems="flex-start">
+        <TabsContainer content={content} />
+        <Spacer />
+        <VStack paddingTop={10} gridGap={3}>
+          <ExtensionQuickLinks />
+          <BlurredBox />
+          <BlurredBox />
+        </VStack>
+      </HStack>
     </Container>
   );
 };

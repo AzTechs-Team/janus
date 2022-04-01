@@ -34,6 +34,7 @@ const smallBtn = (src, alt, navigate, setActive) => {
       }}
       marginTop={2}
       key={alt}
+      borderRadius={25}
     >
       <Tooltip label={alt} placement="auto" bgColor="primary.900" fontSize="xs">
         <Image
