@@ -9,10 +9,10 @@ if (require("electron-squirrel-startup")) {
 
 function createWindow() {
   const win = new BrowserWindow({
-    width: 1200,
-    height: 750,
-    minWidth: 800,
-    minHeight: 650,
+    width: 1450,
+    height: 800,
+    minWidth: 1450,
+    minHeight: 800,
     webPreferences: {
       nodeIntegration: true,
     },
@@ -42,4 +42,3 @@ app.on("activate", () => {
     createWindow();
   }
 });
-

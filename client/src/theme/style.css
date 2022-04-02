@@ -1,1 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600&display=swap');
+@import url(https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600&display=swap);
+
+.gray-black-gradient {
+  background: linear-gradient(215deg, #1c1c25, #38405a) !important;
+  cursor: pointer;
+}
+
+.gray-black-gradient:hover {
+  background: linear-gradient(280deg, #1c1c25, #38405a) !important;
+}
+
+.gray-purple-gradient {
+  background: linear-gradient(215deg, #2c2a4a, #4f518c) !important;
+  cursor: pointer;
+  border: 2px solid #979bde;
+}
+
+.icon-btn {
+  background: none #1c1c25 !important;
+  border-radius: 25px;
+}
+
+.purple-button-gradient {
+  background: linear-gradient(to right, #4b4ccc, #9c9df3) !important;
+  color: #fff !important;
+  border-radius: 25px !important;
+}
+
+.purple-button-gradient:hover {
+  background: linear-gradient(to left, #4b4ccc, #9c9df3) !important;
+}
+
+.blur {
+  box-shadow: inset 0 0 2000px rgba(90, 90, 107, 0.5);
+  opacity: 1;
+  position: absolute;
+  background: inherit;
+}

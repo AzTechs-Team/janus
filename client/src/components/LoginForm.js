@@ -95,7 +95,12 @@ const LoginForm = ({ animateSlider, isBlur }) => {
             }}
           />
         </FormControl>
-        <Button marginTop="8" w="100%" onClick={handleLogin}>
+        <Button
+          marginTop="8"
+          w="100%"
+          onClick={handleLogin}
+          className="purple-button-gradient"
+        >
           Login
         </Button>
         <Text
@@ -122,6 +127,7 @@ const LoginForm = ({ animateSlider, isBlur }) => {
           w="70%"
           alignSelf="center"
           rightIcon={<BsArrowRightCircleFill color="white" />}
+          className="purple-button-gradient"
         >
           Signup
         </Button>

@@ -20,6 +20,7 @@ const SettingsScreen = () => {
         onClick={() => {
           auth.logout(() => navigate("/", { replace: true }));
         }}
+        className="purple-button-gradient"
       >
         Signout
       </Button>

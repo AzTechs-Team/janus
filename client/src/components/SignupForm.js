@@ -122,7 +122,12 @@ const SignupForm = ({ animateSlider, isBlur }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </FormControl>
-        <Button marginTop="8" w="100%" onClick={handleSignup}>
+        <Button
+          marginTop="8"
+          w="100%"
+          onClick={handleSignup}
+          className="purple-button-gradient"
+        >
           Signup
         </Button>
         <Text
@@ -149,6 +154,7 @@ const SignupForm = ({ animateSlider, isBlur }) => {
           w="70%"
           alignSelf="center"
           leftIcon={<BsArrowLeftCircleFill color="white" />}
+          className="purple-button-gradient"
         >
           Login
         </Button>
