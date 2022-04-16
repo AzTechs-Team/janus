@@ -1,5 +1,5 @@
 import React from "react";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import { MdOutlineKeyboardArrowDown, MdLogout } from "react-icons/md";
 import {
   Button,
   ButtonGroup,
@@ -11,14 +11,15 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import extension_img from "../assets/extension_img.png";
+import profile_icon from "../assets/profile_icon.png";
 
-const NameCard = ({ content }) => {
+const NameCard = ({ content, id }) => {
   return (
     <HStack marginBottom={12} gridGap={6}>
       <Image
         borderRadius="full"
         boxSize="100px"
-        src={extension_img}
+        src={id === 0 ? profile_icon : extension_img}
         alt="Dan Abramov"
       />
       <VStack alignItems="flex-start" color="white" width="45%">
@@ -33,20 +34,20 @@ const NameCard = ({ content }) => {
           width={36}
           textAlign="left"
           color="white"
-          bgColor="#55904F"
+          bgColor={id === 0 ? "#BD5050" : "#55904F"}
           _hover={{
-            background: "#396039",
+            background: id === 0 ? "#9B4444" : "#396039",
           }}
         >
-          Install
+          {id === 0 ? "Logout" : "Install"}
         </Button>
         <IconButton
           color="white"
-          bgColor="#396039"
+          bgColor={id === 0 ? "#9B4444" : "#396039"}
           _hover={{
-            background: "#55904F",
+            background: id === 0 ? "#BD5050" : "#55904F",
           }}
-          icon={<MdOutlineKeyboardArrowDown />}
+          icon={id === 0 ? <MdLogout /> : <MdOutlineKeyboardArrowDown />}
         />
       </ButtonGroup>
     </HStack>

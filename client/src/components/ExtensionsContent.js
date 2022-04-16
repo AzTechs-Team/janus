@@ -15,7 +15,7 @@ const ExtensionsContent = ({ content }) => {
       height="100%"
       maxW="100%"
     >
-      <NameCard content={content} />
+      <NameCard content={content} id={1} />
       <HStack alignItems="flex-start">
         <TabsContainer content={content} />
         <Spacer />
