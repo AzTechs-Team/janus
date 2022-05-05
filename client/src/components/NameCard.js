@@ -12,8 +12,12 @@ import {
 } from "@chakra-ui/react";
 import extension_img from "../assets/extension_img.png";
 import profile_icon from "../assets/profile_icon.png";
+import auth from "../auth/auth";
+import { useNavigate } from "react-router-dom";
 
 const NameCard = ({ content, id }) => {
+  const navigate = useNavigate();
+
   return (
     <HStack marginBottom={12} gridGap={6}>
       <Image
@@ -38,6 +42,13 @@ const NameCard = ({ content, id }) => {
           _hover={{
             background: id === 0 ? "#9B4444" : "#396039",
           }}
+          onClick={
+            id === 0
+              ? () => {
+                  auth.logout(() => navigate("/", { replace: true }));
+                }
+              : null
+          }
         >
           {id === 0 ? "Logout" : "Install"}
         </Button>

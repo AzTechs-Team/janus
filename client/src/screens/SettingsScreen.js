@@ -1,30 +1,25 @@
-import React from "react";
-import { Button, Container, Text } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import auth from "../auth/auth";
+import React, { useState } from "react";
+import { Flex } from "@chakra-ui/react";
+import ExtensionsCol from "../components/ExtensionsCol";
+import { info } from "../assets/content/settings";
+import SettingsContent from "../components/SettingsContent";
 
 const SettingsScreen = () => {
-  const navigate = useNavigate();
+  const [active, setActive] = useState("About");
+
+  const updateActive = (active) => {
+    setActive(active);
+    console.log(info[active]);
+  };
   return (
-    <Container centerContent alignSelf="center">
-      <Text
-        bgGradient="linear(to-l, #4B4CCC, #9C9DF3)"
-        bgClip="text"
-        fontSize="3xl"
-        fontWeight="extrabold"
-      >
-        User Settings
-      </Text>
-      <Button
-        marginTop="10"
-        onClick={() => {
-          auth.logout(() => navigate("/", { replace: true }));
-        }}
-        className="purple-button-gradient"
-      >
-        Signout
-      </Button>
-    </Container>
+    <Flex flexDir="row" p="6" width="94vw">
+      <ExtensionsCol
+        active={active}
+        values={Object.keys(info)}
+        handleClick={updateActive}
+      />
+      <SettingsContent content={info[active]} />
+    </Flex>
   );
 };
 
