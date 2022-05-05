@@ -79,7 +79,6 @@ const ExtensionsCol = ({ active, values, handleClick }) => {
           children={<BiSearchAlt fontSize={20} />}
         />
         <Input
-          type="search"
           placeholder="Search..."
           bgColor="#2B2F3B"
           border="accent.200"
