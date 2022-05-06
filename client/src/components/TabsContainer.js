@@ -20,6 +20,10 @@ const TabsContainer = ({ content }) => {
     >
       <TabList width="40vw" color="primary.200" borderBottomColor="primary.200">
         <Tab
+          _active={{
+            backgroundColor: "primary.800",
+          }}
+          _focus={{ outlineStyle: "none" }}
           _selected={{
             color: "accent.200",
             borderBottomColor: "accent.200",
@@ -28,6 +32,8 @@ const TabsContainer = ({ content }) => {
           Overview
         </Tab>
         <Tab
+          _active={{ backgroundColor: "primary.800" }}
+          _focus={{ outlineStyle: "none" }}
           _selected={{
             color: "accent.200",
             borderBottomColor: "accent.200",
@@ -36,6 +42,8 @@ const TabsContainer = ({ content }) => {
           About
         </Tab>
         <Tab
+          _active={{ backgroundColor: "primary.800" }}
+          _focus={{ outlineStyle: "none" }}
           _selected={{
             color: "accent.200",
             borderBottomColor: "accent.200",
