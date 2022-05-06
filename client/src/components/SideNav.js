@@ -30,6 +30,7 @@ const smallBtn = (src, alt, navigate, setActive) => {
     <IconButton
       onClick={() => {
         if (alt !== "Profile" && alt !== "Settings") setActive(alt);
+        else setActive("Home");
         navigate(returnPath(alt));
       }}
       marginTop={2}
