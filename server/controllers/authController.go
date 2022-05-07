@@ -35,7 +35,3 @@ func Register(ctx *fiber.Ctx) error {
 func panic(err error) {
 	fmt.Println(err)
 }
-
-// func createUser(ctx *fiber.Ctx, user *models.User, collection *models.Collection) error {
-// 	return err
-// }
