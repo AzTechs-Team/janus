@@ -1,0 +1,17 @@
+{
+  "name": "micro_services",
+  "version": "1.0.0",
+  "description": "",
+  "main": "htr.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@azure/cognitiveservices-computervision": "^8.2.0",
+    "async": "^3.2.3",
+    "dotenv": "^16.0.0"
+  }
+}
