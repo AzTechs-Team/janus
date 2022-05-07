@@ -26,6 +26,6 @@ A productivity desktop application that can make our workflow faster and easier
 
 ## Developers
 
-@ashwinadiga01 <br>
-@nimit2801 <br>
-@shreyaparadkar
+[@ashwinadiga01](https://github.com/ashwinadiga) <br>
+[@nimit2801](https://github.com/nimit2801) <br>
+[@shreyaparadkar](https://github.com/shreyaparadkar)
