@@ -10,6 +10,7 @@ import (
 
 func main() {
 	fmt.Printf(connect.Stringiy)
+	connect.ConnectPlease()
 	app := fiber.New()
 
 	routes.Setup(app)

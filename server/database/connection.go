@@ -23,24 +23,24 @@ func goDotEnvVariable(key string) string {
 	return os.Getenv(key)
 }
 
-var collection *mongo.Collection
-var ctx = context.TODO()
+var Collection *mongo.Collection
+var Ctx_ = context.TODO()
 var Stringiy = "Hello World"
 
-func init() {
+func ConnectPlease() {
 	MONGO_URI := goDotEnvVariable("MONGO_URI")
 	clientOptions := options.Client().ApplyURI(MONGO_URI)
-	client, err := mongo.Connect(ctx, clientOptions)
+	client, err := mongo.Connect(Ctx_, clientOptions)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = client.Ping(ctx, nil)
+	err = client.Ping(Ctx_, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	collection = client.Database("testDatabases").Collection("test")
+	Collection = client.Database("testDatabases").Collection("test")
 	if err != nil {
 		log.Fatal(err)
 	}
