@@ -25,17 +25,17 @@ const LoginForm = ({ animateSlider, isBlur }) => {
     const headers = {
       "Content-type": "application/json; charset=UTF-8",
     };
-    axios
-      .get("http://localhost:8082/json", info, { headers })
-      .then((response) => {
-        let token = response.data["token"];
-        auth.login(token, () => {
+    // axios
+    //   .get("http://localhost:8082/json", info, { headers })
+    //   .then((response) => {
+    //     let token = response.data["token"];
+        auth.login("token", () => {
           navigate("/home", { replace: true });
         });
-      })
-      .catch((error) => {
-        setErr("Error logging in!");
-      });
+      // })
+      // .catch((error) => {
+      //   setErr("Error logging in!");
+      // });
   };
 
   return (
@@ -73,12 +73,12 @@ const LoginForm = ({ animateSlider, isBlur }) => {
         </Text>
         <Divider marginBottom="6" size="sm" />
         <FormControl id="email" textColor="white">
-          <FormLabel>Username/email</FormLabel>
+          <FormLabel>Email</FormLabel>
           <Input
             type="email"
             bgColor="#2B2F3B"
             border="#2B2F3B"
-            placeholder="email@email.com/username"
+            placeholder="email@email.com"
             onChange={(e) => setEmail(e.target.value)}
           />
         </FormControl>
