@@ -22,7 +22,6 @@ func Register(ctx *fiber.Ctx) error {
 		Phone:    data["phone"],
 		Password: password,
 	}
-
 	userAdded, err := connect.Collection.InsertOne(connect.Ctx_, user)
 	if err != nil {
 		panic(err)
@@ -30,6 +29,10 @@ func Register(ctx *fiber.Ctx) error {
 	// createUser(ctx, user, collection)
 
 	return ctx.JSON(userAdded)
+}
+
+func log(str string) {
+	fmt.Println(str)
 }
 
 func panic(err error) {

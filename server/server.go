@@ -13,6 +13,7 @@ func main() {
 	connect.ConnectPlease()
 	app := fiber.New()
 
+	// utils.CreateIndexEmail()
 	routes.Setup(app)
 
 	app.Listen(":8082")
