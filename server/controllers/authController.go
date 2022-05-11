@@ -3,9 +3,10 @@ package controller
 import (
 	"fmt"
 
-	"github.com/gofiber/fiber/v2"
+	fiber "github.com/gofiber/fiber/v2"
 	connect "github.com/nimit2801/janus/database"
 	"github.com/nimit2801/janus/models"
+	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -24,7 +25,10 @@ func Register(ctx *fiber.Ctx) error {
 	}
 	userAdded, err := connect.Collection.InsertOne(connect.Ctx_, user)
 	if err != nil {
-		panic(err)
+		var duplicate bool = mongo.IsDuplicateKeyError(err)
+		if duplicate {
+			return ctx.Status(fiber.StatusBadRequest).SendString("The Email id already exists!")
+		}
 	}
 	// createUser(ctx, user, collection)
 

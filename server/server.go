@@ -15,6 +15,5 @@ func main() {
 
 	// utils.CreateIndexEmail()
 	routes.Setup(app)
-
 	app.Listen(":8082")
 }
