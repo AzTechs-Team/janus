@@ -14,6 +14,8 @@ import extension2 from "../assets/extension2.png";
 import more_extensions from "../assets/more_extensions_btn.png";
 import profile from "../assets/profile_btn.png";
 import settings from "../assets/settings_btn.png";
+import todo from "../assets/todo_btn.png";
+
 
 const largeBtn = (src, alt) => {
   return (
@@ -60,6 +62,8 @@ const returnPath = (alt) => {
     ? "/settings"
     : alt === "Download extensions"
     ? "/extensions"
+    : alt === "Todo"
+    ? "/todo"
     : alt === "Home"
     ? "/home"
     : "/example";
@@ -71,6 +75,7 @@ const SideNav = () => {
     "Extension 1": extension1,
     "Extension 2": extension2,
     "Download extensions": more_extensions,
+    "Todo":todo
   };
   const [active, setActive] = useState("Home");
   const navigate = useNavigate();

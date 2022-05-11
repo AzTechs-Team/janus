@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600&display=swap);
 
+/* auth screen */
 .gray-black-gradient {
   background: linear-gradient(215deg, #1c1c25, #38405a) !important;
   cursor: pointer;
@@ -37,6 +38,7 @@
   background: inherit;
 }
 
+/* dashboard */
 .calendar{
   background-color: #29293E !important;
   padding: 4px 15px;

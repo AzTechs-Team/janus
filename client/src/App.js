@@ -15,6 +15,8 @@ import SettingsScreen from "./screens/SettingsScreen";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import ExtensionsScreen from "./screens/ExtensionsScreen";
 import ExampleScreen from "./screens/ExampleScreen";
+import TodoScreen from "./screens/TodoScreen";
+
 
 const App = () => {
   const navigate = useNavigate();
@@ -76,6 +78,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <BaseScreen children={<ExampleScreen />} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/todo"
+          element={
+            <ProtectedRoute>
+              <BaseScreen children={<TodoScreen />} />
             </ProtectedRoute>
           }
         />
