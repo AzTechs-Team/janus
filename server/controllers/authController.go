@@ -6,21 +6,12 @@ import (
 	fiber "github.com/gofiber/fiber/v2"
 	connect "github.com/nimit2801/janus/database"
 	"github.com/nimit2801/janus/models"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
 )
 
-// type user struct {
-// 	Name         string `bson:"name,omitempty"`
-// 	Email        string `bson:"email"`
-// 	Phone        int    `bson:"phone"`
-// 	Password     string `bson:"password"`
-// 	AccessToken  string `bson:"accesstoken,omitempty"`
-// 	RefreshToken string `bson:"refreshToken,omitempty"`
-// }
-
 func Register(ctx *fiber.Ctx) error {
-	// var data map[string]string
 	temp := models.User{}
 	if err := ctx.BodyParser(&temp); err != nil {
 		return err
@@ -42,9 +33,33 @@ func Register(ctx *fiber.Ctx) error {
 			return ctx.Status(fiber.StatusBadRequest).SendString("The Email id already exists!")
 		}
 	}
-	// createUser(ctx, user, collection)'
 
 	return ctx.JSON(userAdded)
+}
+
+func Login(ctx *fiber.Ctx) error {
+	temp := models.User{}
+	if err := ctx.BodyParser(&temp); err != nil {
+		return err
+	}
+
+	var user models.User
+
+	filter := bson.D{{"email", temp.Email}}
+
+	err_ := connect.Collection.FindOne(connect.Ctx_, filter).Decode(&user)
+	if err_ != nil {
+		panic(err_)
+		return err_
+	}
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(temp.Password)); err != nil {
+		ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"message": "Incorrect Password",
+		})
+	}
+	return ctx.JSON(fiber.Map{
+		"message": "Access Granted",
+	})
 }
 
 func panic(err error) {
