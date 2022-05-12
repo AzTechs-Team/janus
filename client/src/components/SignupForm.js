@@ -42,7 +42,7 @@ const SignupForm = ({ animateSlider, isBlur }) => {
         });
       })
       .catch((error) => {
-        setErr("Error logging in!");
+        setErr("Error signing in!");
       });
   };
 
@@ -86,7 +86,7 @@ const SignupForm = ({ animateSlider, isBlur }) => {
             type="email"
             bgColor="#2B2F3B"
             border="#2B2F3B"
-            placeholder="email@email.com/username"
+            placeholder="email@email.com"
             onChange={(e) => setEmail(e.target.value)}
           />
         </FormControl>

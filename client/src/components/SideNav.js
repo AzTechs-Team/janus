@@ -13,6 +13,7 @@ import notesExtension from "../assets/notes_btn.png";
 import more_extensions from "../assets/more_extensions_btn.png";
 import profile from "../assets/profile_btn.png";
 import settings from "../assets/settings_btn.png";
+import todoExtension from "../assets/todo_btn.png";
 
 const largeBtn = (src, alt) => {
   return (
@@ -57,6 +58,7 @@ const SideNav = () => {
   const nav = {
     Home: { path: "/home", img: active_extension },
     Notes: { path: "/notes", img: notesExtension },
+    Todos: { path: "/todos", img: todoExtension },
     "Download extensions": { path: "/extensions", img: more_extensions },
   };
   const [active, setActive] = useState("Home");

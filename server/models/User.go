@@ -1,15 +1,10 @@
 package models
 
-import (
-	"go.mongodb.org/mongo-driver/bson/primitive"
-)
-
 type User struct {
-	Id           primitive.ObjectID `bson:"id"`
-	Name         string             `json:"name"`
-	Email        string             `json:"email"`
-	Phone        string             `json:"phone"`
-	Password     []byte             `json:"password"`
-	AccessToken  string             `json:"accesstoken"`
-	RefreshToken string             `json:"refreshtoken"`
+	Name         string `json:"name" bson:"name,omitempty"`
+	Email        string `json:"email" bson:"email"`
+	Phone        int    `json:"phone" bson:"phone"`
+	Password     string `json:"-" bson:"password"`
+	AccessToken  string `json:"accessToken,omitempty" bson:"-"`
+	RefreshToken string `json:"refreshToken,omitempty" bson:"-"`
 }
