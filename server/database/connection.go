@@ -26,6 +26,7 @@ func goDotEnvVariable(key string) string {
 var Collection *mongo.Collection
 var Ctx_ = context.TODO()
 var Stringiy = "Hello World"
+var SecretKey = goDotEnvVariable("SECRET-KEY")
 
 func ConnectPlease() {
 	MONGO_URI := goDotEnvVariable("MONGO_URI")

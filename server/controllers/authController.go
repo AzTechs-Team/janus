@@ -3,6 +3,9 @@ package controller
 import (
 	"fmt"
 
+	"time"
+
+	"github.com/dgrijalva/jwt-go/v4"
 	fiber "github.com/gofiber/fiber/v2"
 	connect "github.com/nimit2801/janus/database"
 	"github.com/nimit2801/janus/models"
@@ -57,9 +60,78 @@ func Login(ctx *fiber.Ctx) error {
 			"message": "Incorrect Password",
 		})
 	}
-	return ctx.JSON(fiber.Map{
-		"message": "Access Granted",
+
+	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
+		Issuer:    user.Email,
+		ExpiresAt: jwt.NewTime(float64(time.Now().Add(time.Hour * 24).Unix())), // One Day
 	})
+
+	token, err := claims.SignedString([]byte(connect.SecretKey))
+
+	if err != nil {
+		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Internal Server Error, login not successful",
+		})
+	}
+
+	cookie := fiber.Cookie{
+		Name:     "accessToken",
+		Value:    token,
+		Expires:  time.Now().Add(time.Hour * 24),
+		HTTPOnly: true,
+	}
+
+	ctx.Cookie(&cookie)
+
+	// return ctx.JSON(fiber.Map{
+	// 	"message": "successful",
+	// })
+	return ctx.JSON(user)
+}
+
+func Logout(ctx *fiber.Ctx) error {
+	cookie := fiber.Cookie{
+		Name:     "accessToken",
+		Value:    "",
+		Expires:  time.Now().Add(-time.Hour),
+		HTTPOnly: true,
+	}
+
+	ctx.Cookie(&cookie)
+
+	return ctx.JSON(fiber.Map{
+		"message": "user logged out",
+	})
+}
+
+// this controller for user can act as home page or something :D
+
+func User(ctx *fiber.Ctx) error {
+	cookie := ctx.Cookies("accessToken")
+
+	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(connect.SecretKey), nil
+	})
+
+	if err != nil {
+		return ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"message": "You're not authourized",
+		})
+	}
+
+	claims := token.Claims.(*jwt.StandardClaims)
+
+	var user models.User
+
+	filter := bson.D{{"email", claims.Issuer}}
+
+	err_ := connect.Collection.FindOne(connect.Ctx_, filter).Decode(&user)
+	if err_ != nil {
+		panic(err_)
+		return err_
+	}
+
+	return ctx.Status(200).JSON(user)
 }
 
 func panic(err error) {
