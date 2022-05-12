@@ -22,5 +22,6 @@ func main() {
 		Format: "[${ip}]:${port} ${status} - ${method} ${path}\n",
 	}))
 	routes.Setup(app)
+	// controller.CreateNewTodo()
 	app.Listen(":8082")
 }
