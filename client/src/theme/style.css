@@ -87,3 +87,12 @@
   border-radius: 12px;
   color: #38405a !important;
 }
+
+.divider-todo {
+   background: rgba(175, 175, 246, 0) !important;
+   height: 140px;
+   overflow: hidden;
+   border-style: dashed  !important;
+   border-color: rgba(175, 175, 246, 0.3) !important;
+   border-top-width: 3px !important;
+  }
