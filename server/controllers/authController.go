@@ -3,33 +3,135 @@ package controller
 import (
 	"fmt"
 
-	"github.com/gofiber/fiber/v2"
+	"time"
+
+	"github.com/dgrijalva/jwt-go/v4"
+	fiber "github.com/gofiber/fiber/v2"
 	connect "github.com/nimit2801/janus/database"
 	"github.com/nimit2801/janus/models"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
 )
 
 func Register(ctx *fiber.Ctx) error {
-	var data map[string]string
-	if err := ctx.BodyParser(&data); err != nil {
+	temp := models.User{}
+	if err := ctx.BodyParser(&temp); err != nil {
 		return err
 	}
-
-	password, _ := bcrypt.GenerateFromPassword([]byte(data["password"]), 14)
+	fmt.Println(temp)
+	password_, _ := bcrypt.GenerateFromPassword([]byte(temp.Password), 14)
+	password := string(password_[:])
 	user := models.User{
-		Name:     data["name"],
-		Email:    data["email"],
-		Phone:    data["phone"],
+		Name:     temp.Name,
+		Email:    temp.Email,
+		Phone:    temp.Phone,
 		Password: password,
 	}
-
 	userAdded, err := connect.Collection.InsertOne(connect.Ctx_, user)
 	if err != nil {
 		panic(err)
+		var duplicate bool = mongo.IsDuplicateKeyError(err)
+		if duplicate {
+			return ctx.Status(fiber.StatusBadRequest).SendString("The Email id already exists!")
+		}
 	}
-	// createUser(ctx, user, collection)
 
 	return ctx.JSON(userAdded)
+}
+
+func Login(ctx *fiber.Ctx) error {
+	temp := models.User{}
+	if err := ctx.BodyParser(&temp); err != nil {
+		return err
+	}
+
+	var user models.User
+
+	filter := bson.D{{"email", temp.Email}}
+
+	err_ := connect.Collection.FindOne(connect.Ctx_, filter).Decode(&user)
+	if err_ != nil {
+		panic(err_)
+		return err_
+	}
+	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(temp.Password)); err != nil {
+		return ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"message": "Incorrect Password",
+		})
+	}
+
+	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
+		Issuer:    user.Email,
+		ExpiresAt: jwt.NewTime(float64(time.Now().Add(time.Hour * 24).Unix())), // One Day
+	})
+
+	token, err := claims.SignedString([]byte(connect.SecretKey))
+
+	if err != nil {
+		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Internal Server Error, login not successful",
+		})
+	}
+
+	cookie := fiber.Cookie{
+		Name:     "accessToken",
+		Value:    token,
+		Expires:  time.Now().Add(time.Hour * 24),
+		HTTPOnly: true,
+	}
+
+	ctx.Cookie(&cookie)
+
+	// return ctx.JSON(fiber.Map{
+	// 	"message": "successful",
+	// })
+	return ctx.JSON(user)
+}
+
+func Logout(ctx *fiber.Ctx) error {
+	cookie := fiber.Cookie{
+		Name:     "accessToken",
+		Value:    "",
+		Expires:  time.Now().Add(-time.Hour),
+		HTTPOnly: true,
+	}
+
+	ctx.Cookie(&cookie)
+
+	return ctx.JSON(fiber.Map{
+		"message": "user logged out",
+	})
+}
+
+// this controller for user can act as home page or something :D
+
+func User(ctx *fiber.Ctx) error {
+	cookie := ctx.Cookies("accessToken")
+
+	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(connect.SecretKey), nil
+	})
+
+	if err != nil {
+		return ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"message": "You're not authourized",
+		})
+	}
+
+	claims := token.Claims.(*jwt.StandardClaims)
+
+	var user models.User
+
+	filter := bson.D{{"email", claims.Issuer}}
+
+	err_ := connect.Collection.FindOne(connect.Ctx_, filter).Decode(&user)
+	if err_ != nil {
+		panic(err_)
+		return err_
+	}
+
+	return ctx.Status(200).JSON(user)
 }
 
 func panic(err error) {

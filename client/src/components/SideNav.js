@@ -9,19 +9,17 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 import active_extension from "../assets/active_extension_btn.png";
-import extension1 from "../assets/extension1.png";
-import extension2 from "../assets/extension2.png";
+import notesExtension from "../assets/notes_btn.png";
 import more_extensions from "../assets/more_extensions_btn.png";
 import profile from "../assets/profile_btn.png";
 import settings from "../assets/settings_btn.png";
-import todo from "../assets/todo_btn.png";
-
+import todoExtension from "../assets/todo_btn.png";
 
 const largeBtn = (src, alt) => {
   return (
-    <Link to={returnPath(alt)} key={alt}>
+    <Link to={src.path} key={alt}>
       <Tooltip label={alt} placement="auto" bgColor="primary.900" fontSize="xs">
-        <Image borderRadius="full" boxSize="50px" src={src} alt={alt} />
+        <Image borderRadius="full" boxSize="50px" src={src.img} alt={alt} />
       </Tooltip>
     </Link>
   );
@@ -33,17 +31,18 @@ const smallBtn = (src, alt, navigate, setActive) => {
       onClick={() => {
         if (alt !== "Profile" && alt !== "Settings") setActive(alt);
         else setActive("Home");
-        navigate(returnPath(alt));
+        navigate(src.path);
       }}
       marginTop={2}
       key={alt}
       borderRadius={25}
+      _focus={{ outlineStyle: "none" }}
     >
       <Tooltip label={alt} placement="auto" bgColor="primary.900" fontSize="xs">
         <Image
           borderRadius="full"
           boxSize="40px"
-          src={src}
+          src={src.img}
           alt={alt}
           marginY="1"
           _hover={{
@@ -55,35 +54,20 @@ const smallBtn = (src, alt, navigate, setActive) => {
   );
 };
 
-const returnPath = (alt) => {
-  return alt === "Profile"
-    ? "/profile"
-    : alt === "Settings"
-    ? "/settings"
-    : alt === "Download extensions"
-    ? "/extensions"
-    : alt === "Todo"
-    ? "/todo"
-    : alt === "Home"
-    ? "/home"
-    : "/example";
-};
-
 const SideNav = () => {
   const nav = {
-    Home: active_extension,
-    "Extension 1": extension1,
-    "Extension 2": extension2,
-    "Download extensions": more_extensions,
-    "Todo":todo
+    Home: { path: "/home", img: active_extension },
+    Notes: { path: "/notes", img: notesExtension },
+    Todos: { path: "/todos", img: todoExtension },
+    "Download extensions": { path: "/extensions", img: more_extensions },
   };
   const [active, setActive] = useState("Home");
   const navigate = useNavigate();
 
-  const settingBtnDetails = [
-    [profile, "Profile"],
-    [settings, "Settings"],
-  ];
+  const settingBtnDetails = {
+    Profile: { path: "/profile", img: profile },
+    Settings: { path: "/settings", img: settings },
+  };
 
   return (
     <Flex
@@ -105,8 +89,8 @@ const SideNav = () => {
       )}
       <Spacer />
       <Divider marginBottom="3" />
-      {settingBtnDetails.map((detail) =>
-        smallBtn(detail[0], detail[1], navigate, setActive)
+      {Object.keys(settingBtnDetails).map((detail) =>
+        smallBtn(settingBtnDetails[detail], detail, navigate, setActive)
       )}
     </Flex>
   );

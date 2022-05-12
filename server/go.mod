@@ -6,6 +6,7 @@ require go.mongodb.org/mongo-driver v1.8.4
 
 require (
 	github.com/andybalholm/brotli v1.0.4 // indirect
+	github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1 // indirect
 	github.com/fatih/color v1.9.0 // indirect
 	github.com/fsnotify/fsnotify v1.4.9 // indirect
 	github.com/githubnemo/CompileDaemon v1.4.0 // indirect

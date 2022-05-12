@@ -15,6 +15,7 @@ import SettingsScreen from "./screens/SettingsScreen";
 import ProtectedRoute from "./auth/ProtectedRoute";
 import ExtensionsScreen from "./screens/ExtensionsScreen";
 import ExampleScreen from "./screens/ExampleScreen";
+import NotesScreen from "./screens/NotesScreen";
 import TodoScreen from "./screens/TodoScreen";
 
 
@@ -62,6 +63,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <BaseScreen children={<SettingsScreen />} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/notes"
+          element={
+            <ProtectedRoute>
+              <BaseScreen children={<NotesScreen />} />
             </ProtectedRoute>
           }
         />
