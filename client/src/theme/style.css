@@ -87,3 +87,26 @@
   border-radius: 12px;
   color: #38405a !important;
 }
+
+.react-grid-item{
+  background-color: #D6D6FE !important;
+  color:#1c1c25
+}
+
+
+@media only screen and (min-width: 1450px) {
+  .notes_grid {
+    margin-left:2.5% !important;
+    margin-right:2% !important;
+  }
+}
+@media only screen and (min-width: 1600px) {
+  .notes_grid {
+    margin-left:15% !important;
+    margin-right:15% !important;
+  }
+}
+
+.overlay-bg{
+  backdrop-filter: blur(10px);
+}
