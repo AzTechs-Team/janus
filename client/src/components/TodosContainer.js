@@ -10,13 +10,6 @@ import {
 } from "@chakra-ui/react";
 import ModalContainer from "./ModalContainer";
 
-const getDescriptionLen = (desc) => {
-  const len = desc.length;
-  if (len <= 25) return 50;
-  else if (len <= 50) return 120;
-  else return 200;
-};
-
 const TodosContainer = ({ todoList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
@@ -27,9 +20,9 @@ const TodosContainer = ({ todoList }) => {
         {todoList.title}
       </Text>
       <Box>
-        {todoList.todo.slice(0, 3).map((t) => {
+        {todoList.todo.slice(0, 3).map((t, i) => {
           return (
-            <>
+            <React.Fragment key={i}>
               <Text
                 bgGradient="linear(to-b, #FFF, rgba(255,255,255,0.1))"
                 bgClip="text"
@@ -38,7 +31,7 @@ const TodosContainer = ({ todoList }) => {
                 {t.value}
               </Text>
               <Divider my={1} className="divider-todo2" />
-            </>
+            </React.Fragment>
           );
         })}
       </Box>
@@ -65,6 +58,7 @@ const TodosContainer = ({ todoList }) => {
       </HStack>
       <ModalContainer
         id="ReadTodos"
+        todoList={todoList}
         onClose={onClose}
         btnRef={btnRef}
         isOpen={isOpen}
