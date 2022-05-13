@@ -47,7 +47,7 @@ const TodosGrid = () => {
       overflowX="auto"
     >
       <GridLayout
-        className="layout notes_grid"
+        className="layout notes_grid scrollbar"
         layout={layout}
         cols={8}
         rowHeight={30}

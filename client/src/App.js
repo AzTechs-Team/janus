@@ -18,7 +18,6 @@ import ExampleScreen from "./screens/ExampleScreen";
 import NotesScreen from "./screens/NotesScreen";
 import TodoScreen from "./screens/TodoScreen";
 
-
 const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
