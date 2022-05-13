@@ -46,6 +46,7 @@ const NoteContainer = ({ note }) => {
         </Text>
       </HStack>
       <ModalContainer
+      id="Notes"
         onClose={onClose}
         btnRef={btnRef}
         isOpen={isOpen}

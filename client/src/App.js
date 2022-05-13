@@ -91,7 +91,7 @@ const App = () => {
           }
         />
         <Route
-          path="/todo"
+          path="/todos"
           element={
             <ProtectedRoute>
               <BaseScreen children={<TodoScreen />} />

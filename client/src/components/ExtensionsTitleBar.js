@@ -77,7 +77,7 @@ const ExtensionsTitleBar = ({ title, btn }) => {
           </Button>
         </HStack>
       </VStack>
-      <ModalContainer onClose={onClose} btnRef={btnRef} isOpen={isOpen} />
+      <ModalContainer id={title} onClose={onClose} btnRef={btnRef} isOpen={isOpen} />
     </>
   );
 };
