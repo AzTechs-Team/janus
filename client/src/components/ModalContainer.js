@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   HStack,
@@ -14,8 +14,11 @@ import { IoIosArrowBack } from "react-icons/io";
 import { MdDeleteForever } from "react-icons/md";
 import NotesOverlay from "./NotesOverlay";
 import AddTodosOverlay from "./AddTodosOverlay";
+import TodosOverlay from "./TodosOverlay";
 
 const ModalContainer = ({ id, onClose, btnRef, isOpen, note }) => {
+  const [title, setTitle] = useState(note ? note.title : "");
+
   return (
     <Modal onClose={onClose} finalFocusRef={btnRef} isOpen={isOpen} isCentered>
       <ModalOverlay className="overlay-bg" />
@@ -43,18 +46,23 @@ const ModalContainer = ({ id, onClose, btnRef, isOpen, note }) => {
             size="lg"
             border="none"
             mr={5}
-            value={note ? note.title : ""}
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
           />
 
           <MdDeleteForever color="#F56D64" size="28" />
         </ModalHeader>
         <ModalBody>
-          {
-            
-            id=="Notes"? <NotesOverlay desc={note ? note.description : ""} onClose={onClose} />
-            :<AddTodosOverlay onClose={onClose}/>
-
-          }
+          {id === "Notes" ? (
+            <NotesOverlay
+              desc={note ? note.description : ""}
+              onClose={onClose}
+            />
+          ) : id === "ReadTodos" ? (
+            <TodosOverlay onClose={onClose} />
+          ) : (
+            <AddTodosOverlay onClose={onClose} />
+          )}
         </ModalBody>
       </ModalContent>
     </Modal>

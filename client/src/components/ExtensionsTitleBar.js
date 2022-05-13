@@ -36,21 +36,20 @@ const ExtensionsTitleBar = ({ title, btn }) => {
         >
           {title}
         </Text>
-        <HStack width="100%">
-          <InputGroup alignSelf="flex-start">
+        <HStack justifyContent="space-between" width="100%">
+          <InputGroup alignSelf="flex-start" width="65%">
             <InputLeftElement
               color="accent.200"
               pointerEvents="none"
               children={<BiSearchAlt fontSize={20} />}
             />
             <Input
-              width="65%"
               placeholder="Search..."
               bgColor="#2B2F3B"
               border="accent.200"
               color="white"
               value={search}
-              onChange={setSearch}
+              onChange={(e) => setSearch(e.target.value)}
             />
             {search.length > 0 ? (
               <InputRightElement
@@ -77,7 +76,12 @@ const ExtensionsTitleBar = ({ title, btn }) => {
           </Button>
         </HStack>
       </VStack>
-      <ModalContainer id={title} onClose={onClose} btnRef={btnRef} isOpen={isOpen} />
+      <ModalContainer
+        id={title}
+        onClose={onClose}
+        btnRef={btnRef}
+        isOpen={isOpen}
+      />
     </>
   );
 };
