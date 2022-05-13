@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  Box,
   HStack,
   Input,
   Modal,
@@ -14,10 +13,12 @@ import { IoIosArrowBack } from "react-icons/io";
 import { MdDeleteForever } from "react-icons/md";
 import NotesOverlay from "./NotesOverlay";
 import AddTodosOverlay from "./AddTodosOverlay";
-import TodosOverlay from "./TodosOverlay";
+import ReadTodosOverlay from "./ReadTodosOverlay";
 
-const ModalContainer = ({ id, onClose, btnRef, isOpen, note }) => {
-  const [title, setTitle] = useState(note ? note.title : "");
+const ModalContainer = ({ id, onClose, btnRef, isOpen, note, todoList }) => {
+  const [title, setTitle] = useState(
+    note ? note.title : todoList ? todoList.title : ""
+  );
 
   return (
     <Modal onClose={onClose} finalFocusRef={btnRef} isOpen={isOpen} isCentered>
@@ -59,7 +60,7 @@ const ModalContainer = ({ id, onClose, btnRef, isOpen, note }) => {
               onClose={onClose}
             />
           ) : id === "ReadTodos" ? (
-            <TodosOverlay onClose={onClose} />
+            <ReadTodosOverlay todoList={todoList} onClose={onClose} />
           ) : (
             <AddTodosOverlay onClose={onClose} />
           )}

@@ -39,6 +39,28 @@ const theme = extendTheme({
       },
     },
   },
+  components: {
+    Checkbox: {
+      baseStyle: {
+        icon: {
+          color: "#15161B",
+        },
+        control: {
+          border: "1px",
+          borderColor: "#686A98",
+          borderRadius: "base",
+          _checked: {
+            background: "#686A98 !important",
+            borderColor: "#686A98",
+          },
+        },
+        label: {
+          fontWeight: "medium",
+          color: "gray.900",
+        },
+      },
+    },
+  },
 });
 
 export default theme;
