@@ -1,5 +1,13 @@
 import React, { useRef } from "react";
-import { Text, Spacer, HStack, Button, useDisclosure } from "@chakra-ui/react";
+import {
+  Text,
+  Spacer,
+  HStack,
+  Button,
+  useDisclosure,
+  Divider,
+  Box,
+} from "@chakra-ui/react";
 import ModalContainer from "./ModalContainer";
 
 const getDescriptionLen = (desc) => {
@@ -9,21 +17,31 @@ const getDescriptionLen = (desc) => {
   else return 200;
 };
 
-const NoteContainer = ({ note }) => {
+const TodosContainer = ({ todoList }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
   return (
     <>
       <Text pb={4} casing="uppercase" fontWeight="bold">
-        {note.title}
+        {todoList.title}
       </Text>
-      <Text
-        bgGradient="linear(to-b, #FFF, rgba(255,255,255,0.1))"
-        bgClip="text"
-      >
-        {note.description.slice(0, getDescriptionLen(note.description)) + "..."}
-      </Text>
+      <Box>
+        {todoList.todo.slice(0, 3).map((t) => {
+          return (
+            <>
+              <Text
+                bgGradient="linear(to-b, #FFF, rgba(255,255,255,0.1))"
+                bgClip="text"
+                fontSize="xs"
+              >
+                {t.value}
+              </Text>
+              <Divider my={1} className="divider-todo2" />
+            </>
+          );
+        })}
+      </Box>
       <Spacer />
       <HStack>
         <Button
@@ -42,18 +60,17 @@ const NoteContainer = ({ note }) => {
         </Button>
         <Spacer />
         <Text color="accent.100" fontSize="xs" fontWeight="bold">
-          5 May, 2022
+          {todoList.createdAt}
         </Text>
       </HStack>
       <ModalContainer
-        id="Notes"
+        id="ReadTodos"
         onClose={onClose}
         btnRef={btnRef}
         isOpen={isOpen}
-        note={note}
       />
     </>
   );
 };
 
-export default NoteContainer;
+export default TodosContainer;

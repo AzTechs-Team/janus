@@ -1,13 +1,14 @@
 import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import GridLayout from "react-grid-layout";
-import { notes } from "../assets/content/notes";
+import { todos } from "../assets/content/todos";
 import bg from "../assets/notes_bg.png";
 import "../theme/grid.css";
+import TodosContainer from "./TodosContainer";
 
 let x_loc = 0;
 
-const generateLayout = (i, note) => {
+const generateLayout = (i, todo) => {
   const y = Math.ceil(0.6 * 6) + 1;
   const minW = 2;
   const minH = 4;
@@ -30,8 +31,8 @@ const generateLayout = (i, note) => {
 
 const TodosGrid = () => {
   const layout = [];
-  notes.map((note, i) => {
-    layout.push(generateLayout(i, note));
+  todos.map((todo, i) => {
+    layout.push(generateLayout(i, todo));
     return null;
   });
 
@@ -55,7 +56,7 @@ const TodosGrid = () => {
         allowOverlap={false}
         isResizable={false}
       >
-        {notes.map((note, i) => {
+        {todos.map((todo, i) => {
           return (
             <Flex
               bg="blue.600"
@@ -69,7 +70,7 @@ const TodosGrid = () => {
               flexDirection="column"
               p={6}
             >
-              {/* <NoteContainer note={note} /> */}
+              <TodosContainer todoList={todo} />
             </Flex>
           );
         })}
