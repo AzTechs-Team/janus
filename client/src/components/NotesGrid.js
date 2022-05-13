@@ -48,7 +48,7 @@ const NotesGrid = () => {
     <Box
       bgColor="accent.700"
       borderRadius="xl"
-      height={{ base: "68vh", lg: "75vh" }}
+      height="70vh"
       py={4}
       px={6}
       overflowY="auto"

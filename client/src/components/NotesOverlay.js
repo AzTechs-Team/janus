@@ -9,12 +9,12 @@ const NotesOverlay = ({ onClose, desc }) => {
       <Textarea
         placeholder="Note description"
         border="none"
-        height="35vh"
+        height="50vh"
         bgColor="primary.900"
         value={text}
         onChange={(e) => setText(e.target.value)}
         _focus={{ outlineStyle: "none" }}
-        resize={false}
+        resize="none"
         borderRadius="xl"
         mb={5}
       />

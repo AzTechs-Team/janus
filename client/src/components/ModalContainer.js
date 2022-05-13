@@ -49,12 +49,14 @@ const ModalContainer = ({ id, onClose, btnRef, isOpen, note }) => {
           <MdDeleteForever color="#F56D64" size="28" />
         </ModalHeader>
         <ModalBody>
-          {
-            
-            id=="Notes"? <NotesOverlay desc={note ? note.description : ""} onClose={onClose} />
-            :<AddTodosOverlay onClose={onClose}/>
-
-          }
+          {id === "Notes" ? (
+            <NotesOverlay
+              desc={note ? note.description : ""}
+              onClose={onClose}
+            />
+          ) : (
+            <AddTodosOverlay onClose={onClose} />
+          )}
         </ModalBody>
       </ModalContent>
     </Modal>
