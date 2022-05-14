@@ -3,7 +3,6 @@ import { Box, Flex } from "@chakra-ui/react";
 import GridLayout from "react-grid-layout";
 
 import NoteContainer from "./NoteContainer";
-import { notes } from "../assets/content/notes";
 import bg from "../assets/notes_bg.png";
 import "../theme/grid.css";
 
@@ -37,9 +36,9 @@ const generateLayout = (i, note) => {
   };
 };
 
-const NotesGrid = () => {
+const NotesGrid = ({ notesCollection }) => {
   const layout = [];
-  notes.map((note, i) => {
+  notesCollection.map((note, i) => {
     layout.push(generateLayout(i, note));
     return null;
   });
@@ -64,7 +63,7 @@ const NotesGrid = () => {
         allowOverlap={false}
         isResizable={false}
       >
-        {notes.map((note, i) => {
+        {notesCollection.map((note, i) => {
           return (
             <Flex
               bg="blue.600"

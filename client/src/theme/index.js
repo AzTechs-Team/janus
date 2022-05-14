@@ -54,10 +54,6 @@ const theme = extendTheme({
             borderColor: "#686A98",
           },
         },
-        label: {
-          fontWeight: "medium",
-          color: "gray.900",
-        },
       },
     },
   },

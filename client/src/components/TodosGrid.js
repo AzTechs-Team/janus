@@ -1,38 +1,36 @@
 import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import GridLayout from "react-grid-layout";
-import { todos } from "../assets/content/todos";
-import bg from "../assets/notes_bg.png";
+import bg from "../assets/todos_bg.png";
 import "../theme/grid.css";
 import TodosContainer from "./TodosContainer";
 
-let x_loc = 0;
+const TodosGrid = ({ todosCollection }) => {
+  let x_loc = 0;
 
-const generateLayout = (i, todo) => {
-  const y = Math.ceil(0.6 * 6) + 1;
-  const minW = 2;
-  const minH = 4;
-  const maxW = 2;
-  const maxH = 12;
-  if (x_loc !== 6) x_loc += 2;
-  else x_loc = 0;
-  return {
-    x: x_loc,
-    y: Math.floor(i / 6) * y,
-    w: 2,
-    h: 6,
-    i: i.toString(),
-    minW,
-    maxW,
-    minH,
-    maxH,
+  const generateLayout = (i) => {
+    const y = Math.ceil(0.6 * 6) + 1;
+    const minW = 2;
+    const minH = 4;
+    const maxW = 2;
+    const maxH = 12;
+    if (x_loc !== 6) x_loc += 2;
+    else x_loc = 0;
+    return {
+      x: x_loc,
+      y: Math.floor(i / 6) * y,
+      w: 2,
+      h: 6,
+      i: i.toString(),
+      minW,
+      maxW,
+      minH,
+      maxH,
+    };
   };
-};
-
-const TodosGrid = () => {
   const layout = [];
-  todos.map((todo, i) => {
-    layout.push(generateLayout(i, todo));
+  todosCollection.map((_, i) => {
+    layout.push(generateLayout(i));
     return null;
   });
 
@@ -56,7 +54,7 @@ const TodosGrid = () => {
         allowOverlap={false}
         isResizable={false}
       >
-        {todos.map((todo, i) => {
+        {todosCollection.map((todo, i) => {
           return (
             <Flex
               bg="blue.600"
@@ -64,8 +62,6 @@ const TodosGrid = () => {
               key={i.toString()}
               bgImage={bg}
               bgPosition="center"
-              bgRepeat="no-repeat"
-              objectFit="scale-down"
               borderRadius="xl"
               flexDirection="column"
               p={6}

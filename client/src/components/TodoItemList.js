@@ -9,7 +9,14 @@ import React from "react";
 import { RiSendPlane2Fill } from "react-icons/ri";
 import TodoItem from "./TodoItem";
 
-const TodoItemList = ({ todo, setTodo, onAddTodo, onDeleteTodo, todoList }) => {
+const TodoItemList = ({
+  todo,
+  setTodo,
+  onAddTodo,
+  onToggleTodo,
+  onDeleteTodo,
+  todoList,
+}) => {
   return (
     <>
       <Divider my={6} py={-1} className="divider-todo" />
@@ -19,6 +26,8 @@ const TodoItemList = ({ todo, setTodo, onAddTodo, onDeleteTodo, todoList }) => {
 
       <InputGroup>
         <Input
+          maxLength={60}
+          isRequired
           fontSize={14}
           placeholder="Add a todo"
           borderColor="accent.300"
@@ -27,7 +36,6 @@ const TodoItemList = ({ todo, setTodo, onAddTodo, onDeleteTodo, todoList }) => {
           onKeyDown={(e) =>
             e.key === "Enter" ? onAddTodo(e.target.value) : null
           }
-          color="accent.300"
         />
         <InputRightElement
           mx={2}
@@ -37,7 +45,13 @@ const TodoItemList = ({ todo, setTodo, onAddTodo, onDeleteTodo, todoList }) => {
         />
       </InputGroup>
       {todoList.map((item, id) => (
-        <TodoItem item={item} id={id} onDeleteTodo={onDeleteTodo} />
+        <TodoItem
+          key={id}
+          item={item}
+          id={id}
+          onToggleTodo={onToggleTodo}
+          onDeleteTodo={onDeleteTodo}
+        />
       ))}
     </>
   );

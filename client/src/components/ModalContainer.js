@@ -41,6 +41,7 @@ const ModalContainer = ({ id, onClose, btnRef, isOpen, note, todoList }) => {
           alignItems="center"
         >
           <Input
+            maxLength={20}
             placeholder="Add Title"
             fontWeight="bold"
             fontSize="xl"

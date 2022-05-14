@@ -10,7 +10,7 @@ import { MdDeleteForever } from "react-icons/md";
 
 const TodoItem = ({ screen, item, id, onDeleteTodo, onToggleTodo }) => {
   return (
-    <InputGroup my={4}>
+    <InputGroup my={4} w="50">
       <InputLeftElement>
         <Checkbox
           isChecked={item.isDone}

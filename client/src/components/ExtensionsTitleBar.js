@@ -9,19 +9,26 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { TiDelete } from "react-icons/ti";
 import { GrAdd } from "react-icons/gr";
 import ModalContainer from "./ModalContainer";
 
-const ExtensionsTitleBar = ({ title, btn }) => {
+const ExtensionsTitleBar = ({
+  search,
+  setSearch,
+  onSearch,
+  reset,
+  title,
+  btn,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
-  const [search, setSearch] = useState("");
 
   const onClear = () => {
     setSearch("");
+    reset();
   };
 
   return (
@@ -48,8 +55,9 @@ const ExtensionsTitleBar = ({ title, btn }) => {
               bgColor="#2B2F3B"
               border="accent.200"
               color="white"
+              onChange={(text) => onSearch(text.target.value)}
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              // onChange={(e) => setSearch(e.target.value)}
             />
             {search.length > 0 ? (
               <InputRightElement
@@ -60,6 +68,7 @@ const ExtensionsTitleBar = ({ title, btn }) => {
               />
             ) : null}
           </InputGroup>
+
           <Button
             rightIcon={<GrAdd color="accent.700" size="20" />}
             bgColor="accent.100"
