@@ -10,7 +10,6 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { BsArrowRightCircleFill } from "react-icons/bs";
 import auth from "../auth/auth";
 
@@ -20,22 +19,25 @@ const LoginForm = ({ animateSlider, isBlur }) => {
   const [err, setErr] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    const info = { email: email, password: password };
+  const handleLogin = async () => {
+    const info = JSON.stringify({ email: email, password: password });
     const headers = {
       "Content-type": "application/json; charset=UTF-8",
     };
-    // axios
-    //   .get("http://localhost:8082/json", info, { headers })
-    //   .then((response) => {
-    //     let token = response.data["token"];
-        auth.login("token", () => {
+    try {
+      const res = await fetch("http://localhost:8082/api/Login", {
+        method: "POST",
+        headers: headers,
+        credentials: "include",
+        body: info,
+      });
+      if (res)
+        auth.login(() => {
           navigate("/home", { replace: true });
         });
-      // })
-      // .catch((error) => {
-      //   setErr("Error logging in!");
-      // });
+    } catch (error) {
+      setErr("Error logging in! Try again!");
+    }
   };
 
   return (

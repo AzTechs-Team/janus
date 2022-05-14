@@ -7,13 +7,13 @@ class Auth {
     }
   }
 
-  login(token, redirectPath) {
+  login(redirectPath) {
     this.authenticated = true;
     localStorage.setItem(
       "login",
       JSON.stringify({
         loginStatus: true,
-        token: token,
+        // token: token,
       })
     );
     redirectPath();

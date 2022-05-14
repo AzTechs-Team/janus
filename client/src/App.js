@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Routes as Switch,
   Route,
@@ -17,25 +17,26 @@ import ExtensionsScreen from "./screens/ExtensionsScreen";
 import ExampleScreen from "./screens/ExampleScreen";
 import NotesScreen from "./screens/NotesScreen";
 import TodoScreen from "./screens/TodoScreen";
+import auth from "./auth/auth";
+import { getUserInfo } from "./helpers/getUserInfo";
 
 const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [user, setUser] = useState(getUserInfo);
 
   useEffect(() => {
-    if (localStorage.login) {
+    if (localStorage.login || Object.keys(user).length > 1) {
       const login = JSON.parse(localStorage.login);
-      //  const decoded = jwt_decode(login.token);
-
-      //  const currentTime = Date.now() / 1000;
-      //  if (decoded.exp < currentTime) {
-      //    auth.logout(() => {
-      //      history.push("/");
-      //    });
-      //  }
-      if (login && location.pathname === "/") navigate("/home");
+      if (
+        (login && location.pathname === "/") ||
+        (user && location.pathname === "/")
+      )
+        navigate("/home");
+    } else {
+      auth.logout(() => navigate("/"));
     }
-  });
+  }, [location.pathname, navigate, user]);
 
   return (
     <Box bgColor="primary.900">

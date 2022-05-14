@@ -11,7 +11,6 @@ import {
   Input,
   HStack,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import auth from "../auth/auth";
 
@@ -23,27 +22,31 @@ const SignupForm = ({ animateSlider, isBlur }) => {
   const [err, setErr] = useState("");
   const navigate = useNavigate();
 
-  const handleSignup = () => {
-    const info = {
+  const handleSignup = async () => {
+    const info = JSON.stringify({
       email: email,
       password: password,
-      username: username,
+      name: username,
       dob: dob,
-    };
+      phone: 9999999999,
+    });
     const headers = {
       "Content-type": "application/json; charset=UTF-8",
     };
-    axios
-      .get("http://localhost:8082/json", info, { headers })
-      .then((response) => {
-        let token = response.data["token"];
-        auth.login(token, () => {
+    try {
+      const res = await fetch("http://localhost:8082/api/Register", {
+        method: "POST",
+        headers: headers,
+        credentials: "include",
+        body: info,
+      });
+      if (res)
+        auth.login(() => {
           navigate("/home", { replace: true });
         });
-      })
-      .catch((error) => {
-        setErr("Error signing in!");
-      });
+    } catch (error) {
+      setErr("Error signing up! Try again!");
+    }
   };
 
   return (
