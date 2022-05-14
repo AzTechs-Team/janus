@@ -10,29 +10,51 @@ import {
   FormLabel,
   Input,
   HStack,
+  Tooltip,
 } from "@chakra-ui/react";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import auth from "../auth/auth";
+import {
+  validateEmail,
+  validateName,
+  validatePassword,
+  validatePhone,
+} from "../auth/validators";
 
 const SignupForm = ({ animateSlider, isBlur }) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [dob, setDob] = useState("");
+  const [phone, setPhone] = useState(0);
   const [err, setErr] = useState("");
   const navigate = useNavigate();
 
   const handleSignup = async () => {
+    if (validateEmail(email)) {
+      setErr("Enter valid email");
+      return;
+    } else if (validateName(username)) {
+      setErr("Enter valid name");
+      return;
+    } else if (validatePassword(password)) {
+      setErr("Enter valid password");
+      return;
+    } else if (validatePhone(phone)) {
+      setErr("Enter valid phone number");
+      return;
+    }
+
     const info = JSON.stringify({
       email: email,
       password: password,
       name: username,
-      dob: dob,
-      phone: 9999999999,
+      phone: phone,
     });
+
     const headers = {
       "Content-type": "application/json; charset=UTF-8",
     };
+
     try {
       const res = await fetch("http://localhost:8082/api/Register", {
         method: "POST",
@@ -83,7 +105,7 @@ const SignupForm = ({ animateSlider, isBlur }) => {
           Create your account
         </Text>
         <Divider marginBottom="6" size="sm" />
-        <FormControl id="email" textColor="white">
+        <FormControl id="email" textColor="white" isRequired>
           <FormLabel>Email</FormLabel>
           <Input
             type="email"
@@ -94,30 +116,40 @@ const SignupForm = ({ animateSlider, isBlur }) => {
           />
         </FormControl>
         <HStack marginTop="4">
-          <FormControl id="username" textColor="white">
-            <FormLabel>Username</FormLabel>
+          <FormControl id="username" textColor="white" isRequired>
+            <FormLabel>Name</FormLabel>
             <Input
+              width={72}
+              isRequired
               type="text"
               bgColor="#2B2F3B"
               border="#2B2F3B"
-              placeholder="username01"
+              placeholder="User name"
               onChange={(e) => setUsername(e.target.value)}
             />
           </FormControl>
-          <FormControl id="dob" textColor="white">
-            <FormLabel>Date of Birth</FormLabel>
+          <FormControl id="phone" textColor="white">
+            <FormLabel>Phone</FormLabel>
             <Input
               type="text"
               bgColor="#2B2F3B"
               border="#2B2F3B"
-              placeholder="10/12/2000"
-              onChange={(e) => setDob(e.target.value)}
+              placeholder="9999999999"
+              onChange={(e) => setPhone(e.target.value)}
             />
           </FormControl>
         </HStack>
-        <FormControl id="password" textColor="white" marginTop="4">
-          <FormLabel>Password</FormLabel>
+        <FormControl id="password" textColor="white" marginTop="4" isRequired>
+          <Tooltip
+            label="Password should have 8 characters, including uppercase, lowecase, number and symbol"
+            placement="top"
+            bgColor="primary.800"
+            fontSize="xs"
+          >
+            <FormLabel>Password</FormLabel>
+          </Tooltip>
           <Input
+            isRequired
             type="password"
             bgColor="#2B2F3B"
             border="#2B2F3B"

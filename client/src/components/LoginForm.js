@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { BsArrowRightCircleFill } from "react-icons/bs";
 import auth from "../auth/auth";
+import { validateEmail } from "../auth/validators";
 
 const LoginForm = ({ animateSlider, isBlur }) => {
   const [email, setEmail] = useState("");
@@ -20,6 +21,11 @@ const LoginForm = ({ animateSlider, isBlur }) => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    if (validateEmail(email)) {
+      setErr("Enter valid email");
+      return;
+    }
+
     const info = JSON.stringify({ email: email, password: password });
     const headers = {
       "Content-type": "application/json; charset=UTF-8",
@@ -74,7 +80,7 @@ const LoginForm = ({ animateSlider, isBlur }) => {
           Sign in to your account
         </Text>
         <Divider marginBottom="6" size="sm" />
-        <FormControl id="email" textColor="white">
+        <FormControl id="email" textColor="white" isRequired>
           <FormLabel>Email</FormLabel>
           <Input
             type="email"
@@ -84,7 +90,7 @@ const LoginForm = ({ animateSlider, isBlur }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
         </FormControl>
-        <FormControl id="password" textColor="white" marginTop="4">
+        <FormControl id="password" textColor="white" marginTop="4" isRequired>
           <FormLabel>Password</FormLabel>
           <Input
             type="password"
