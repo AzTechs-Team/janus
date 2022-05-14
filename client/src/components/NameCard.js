@@ -1,5 +1,9 @@
 import React from "react";
-import { MdOutlineKeyboardArrowDown, MdLogout } from "react-icons/md";
+import {
+  MdOutlineKeyboardArrowDown,
+  MdLogout,
+  MdOutlineStyle,
+} from "react-icons/md";
 import {
   Button,
   ButtonGroup,
@@ -39,6 +43,12 @@ const NameCard = ({ content, id }) => {
           textAlign="left"
           color="white"
           bgColor={id === 0 ? "#BD5050" : "#55904F"}
+          _focus={{
+            outlineStyle: "none",
+          }}
+          _active={{
+            background: id === 0 ? "#BD5050" : "#55904F",
+          }}
           _hover={{
             background: id === 0 ? "#9B4444" : "#396039",
           }}
@@ -55,6 +65,12 @@ const NameCard = ({ content, id }) => {
         <IconButton
           color="white"
           bgColor={id === 0 ? "#9B4444" : "#396039"}
+          _active={{
+            background: id === 0 ? "#9B4444" : "#396039",
+          }}
+          _focus={{
+            outlineStyle: "none",
+          }}
           _hover={{
             background: id === 0 ? "#BD5050" : "#55904F",
           }}
