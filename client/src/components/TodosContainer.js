@@ -28,7 +28,7 @@ const TodosContainer = ({ todoList }) => {
                 bgClip="text"
                 fontSize="xs"
               >
-                {t.value}
+                {t.value.slice(0, 38) + "..."}
               </Text>
               <Divider my={1} className="divider-todo2" />
             </React.Fragment>

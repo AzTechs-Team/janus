@@ -13,6 +13,7 @@ const TodoUploadImage = ({
   todo,
   todoList,
   onDeleteTodo,
+  onToggleTodo,
   setTodo,
 }) => {
   return (
@@ -70,6 +71,7 @@ const TodoUploadImage = ({
       <TodoItemList
         onAddTodo={onAddTodo}
         onDeleteTodo={onDeleteTodo}
+        onToggleTodo={onToggleTodo}
         setTodo={setTodo}
         todo={todo}
         todoList={todoList}

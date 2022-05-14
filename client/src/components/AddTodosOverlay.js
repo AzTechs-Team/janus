@@ -29,10 +29,22 @@ const AddTodosOverlay = ({ onClose }) => {
 
   const onAddTodo = () => {
     let temp = todoList;
-    temp.push(todo);
+    const t = {
+      value: todo,
+      isDone: false,
+      createdAt: "12 - April - 2022",
+    };
+    temp.push(t);
     setTodoList(temp);
     setTodoList([...todoList]);
     setTodo("");
+  };
+
+  const onToggleTodo = (j) => {
+    let temp = todoList;
+    temp[j].isDone = !temp[j].isDone;
+    setTodoList(temp);
+    setTodoList([...todoList]);
   };
 
   const onDeleteImage = (j) => {
@@ -63,6 +75,7 @@ const AddTodosOverlay = ({ onClose }) => {
           image={image}
           onDeleteImage={onDeleteImage}
           onAddTodo={onAddTodo}
+          onToggleTodo={onToggleTodo}
           onDeleteTodo={onDeleteTodo}
           setTodo={setTodo}
           todo={todo}
