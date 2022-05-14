@@ -24,6 +24,7 @@ class Auth {
     localStorage.removeItem("login");
     try {
       await fetch("http://localhost:8082/api/Logout", {
+        method: "POST",
         credentials: "include",
       });
     } catch (error) {
