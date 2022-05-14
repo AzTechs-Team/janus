@@ -97,7 +97,7 @@ const LoginForm = ({ animateSlider, isBlur }) => {
             bgColor="#2B2F3B"
             border="#2B2F3B"
             placeholder="*******"
-            onChange={(e) => setPassword(e.target.password)}
+            onChange={(e) => setPassword(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === "Enter") handleLogin();
             }}

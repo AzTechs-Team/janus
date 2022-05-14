@@ -23,20 +23,16 @@ import { getUserInfo } from "./helpers/getUserInfo";
 const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [user, setUser] = useState(getUserInfo);
+  // const user = useState(getUserInfo);
 
   useEffect(() => {
-    if (localStorage.login || Object.keys(user).length > 1) {
-      const login = JSON.parse(localStorage.login);
-      if (
-        (login && location.pathname === "/") ||
-        (user && location.pathname === "/")
-      )
-        navigate("/home");
-    } else {
+    if (localStorage.login) {
+      // const login = JSON.parse(localStorage.login);
+      if (localStorage.login && location.pathname === "/") navigate("/home");
+    } else if (location.pathname !== "/") {
       auth.logout(() => navigate("/"));
     }
-  }, [location.pathname, navigate, user]);
+  }, [location.pathname, navigate]);
 
   return (
     <Box bgColor="primary.900">
