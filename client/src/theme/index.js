@@ -37,6 +37,15 @@ const theme = extendTheme({
       ".chakra-input:focus": {
         boxShadow: "0 0 0 1px #9C9DF3 !important",
       },
+      "&::-webkit-scrollbar": {
+        width: "6px",
+        borderRadius: "12px",
+        backgroundColor: `primary.800`,
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: `accent.200`,
+        borderRadius: "12px",
+      },
     },
   },
   components: {

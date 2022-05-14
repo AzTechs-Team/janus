@@ -10,7 +10,6 @@
     "@chakra-ui/react": "^1.7.2",
     "@emotion/react": "^11.7.0",
     "@emotion/styled": "^11.6.0",
-    "axios": "^0.24.0",
     "electron-is-dev": "^2.0.0",
     "electron-squirrel-startup": "^1.0.0",
     "frameless-titlebar": "^2.1.4",
@@ -34,6 +33,7 @@
     "package": "react-scripts build && electron-forge package",
     "make": "react-scripts build && electron-forge make"
   },
+  "proxy": "http://localhost:8082/",
   "eslintConfig": {
     "extends": [
       "react-app",
