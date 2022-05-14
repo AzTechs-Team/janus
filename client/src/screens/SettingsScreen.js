@@ -9,7 +9,6 @@ const SettingsScreen = () => {
 
   const updateActive = (active) => {
     setActive(active);
-    console.log(info[active]);
   };
   return (
     <Flex flexDir="row" p="6" width="94vw">
