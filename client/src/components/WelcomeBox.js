@@ -2,7 +2,7 @@ import React from "react";
 import { Text, Image, VStack } from "@chakra-ui/react";
 import welcome from "../assets/welcome_bg.png";
 
-const WelcomeBox = () => {
+const WelcomeBox = ({ name }) => {
   return (
     <>
       <Image width="75%" src={welcome} alt="welcome" position="relative" />
@@ -14,7 +14,7 @@ const WelcomeBox = () => {
           paddingBottom="3"
           fontWeight="bold"
         >
-          Hello John Doe!
+          Hello {name ? name : "User"}!
         </Text>
         <Text>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Iaculis

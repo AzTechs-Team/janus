@@ -2,7 +2,7 @@ import React from "react";
 import { HStack, Spacer, Text, Image } from "@chakra-ui/react";
 import profile from "../assets/profile_btn.png";
 
-const DashboardNav = () => {
+const DashboardNav = ({ name }) => {
   return (
     <HStack>
       <Text fontSize="2xl" fontWeight="extrabold">
@@ -10,7 +10,7 @@ const DashboardNav = () => {
       </Text>
       <Spacer />
       <Text fontSize="lg" paddingRight={2}>
-        John Doe
+        {name ? name : "User"}
       </Text>
       <Image
         borderRadius="full"
