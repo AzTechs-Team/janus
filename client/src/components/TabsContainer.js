@@ -62,13 +62,30 @@ const TabsContainer = ({ content }) => {
       >
         <TabPanels>
           <TabPanel>
-            <Text fontSize="sm">{content["overview"]}</Text>
+            {/* <Text fontSize="sm"> */}
+
+            <div
+              className="content"
+              dangerouslySetInnerHTML={{ __html: content["overview"] }}
+            ></div>
+
+            {/* </Text> */}
           </TabPanel>
           <TabPanel>
-            <Text fontSize="sm">{content["about"]}</Text>
+            {/* <Text fontSize="sm"> */}
+            <div
+              className="content"
+              dangerouslySetInnerHTML={{ __html: content["about"] }}
+            ></div>
+            {/* </Text> */}
           </TabPanel>
           <TabPanel>
-            <Text fontSize="sm">{content["settings"]}</Text>
+            {/* <Text fontSize="sm"> */}
+            <div
+              className="content"
+              dangerouslySetInnerHTML={{ __html: content["settings"] }}
+            ></div>
+            {/* </Text> */}
           </TabPanel>
         </TabPanels>
       </Box>
