@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import {
+  Button,
   HStack,
   Input,
   Modal,
   ModalBody,
   ModalContent,
+  ModalFooter,
   ModalHeader,
   ModalOverlay,
   Text,
@@ -15,10 +17,31 @@ import NotesOverlay from "./NotesOverlay";
 import AddTodosOverlay from "./AddTodosOverlay";
 import ReadTodosOverlay from "./ReadTodosOverlay";
 
-const ModalContainer = ({ id, onClose, btnRef, isOpen, note, todoList }) => {
+const ModalContainer = ({
+  id,
+  onClose,
+  btnRef,
+  isOpen,
+  note,
+  todoList,
+  updateNote,
+  updateTodo,
+}) => {
   const [title, setTitle] = useState(
     note ? note.title : todoList ? todoList.title : ""
   );
+  const [text, setText] = useState(note ? note.description : todoList);
+
+  const onSave = (title, text) => {
+    if (id === "Notes") {
+      updateNote(note, title, text);
+      onClose();
+    } else {
+      updateTodo(text);
+      console.log(text, "in modal contatiner, set text text");
+      onClose();
+    }
+  };
 
   return (
     <Modal onClose={onClose} finalFocusRef={btnRef} isOpen={isOpen} isCentered>
@@ -57,15 +80,46 @@ const ModalContainer = ({ id, onClose, btnRef, isOpen, note, todoList }) => {
         <ModalBody>
           {id === "Notes" ? (
             <NotesOverlay
-              desc={note ? note.description : ""}
+              text={text}
               onClose={onClose}
+              onSave={onSave}
+              setText={setText}
             />
           ) : id === "ReadTodos" ? (
-            <ReadTodosOverlay todoList={todoList} onClose={onClose} />
+            <ReadTodosOverlay todoList={text} setText={setText} />
           ) : (
             <AddTodosOverlay onClose={onClose} />
           )}
         </ModalBody>
+
+        <ModalFooter>
+          <HStack justifyContent="flex-end" mt={-4}>
+            <Button
+              bgColor="primary.200"
+              color="accent.100"
+              _active={{ bgColor: "primary.200" }}
+              _hover={{ bgColor: "primary.200" }}
+              _focus={{ outlineStyle: "none" }}
+              size="sm"
+              px={8}
+              onClick={onClose}
+            >
+              Cancel
+            </Button>
+            <Button
+              bgColor="accent.100"
+              color="accent.700"
+              _active={{ bgColor: "accent.50" }}
+              _hover={{ bgColor: "accent.50" }}
+              _focus={{ outlineStyle: "none" }}
+              size="sm"
+              px={8}
+              onClick={() => onSave(title, text)}
+            >
+              Save
+            </Button>
+          </HStack>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   );

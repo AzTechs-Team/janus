@@ -1,19 +1,15 @@
 import {
-  Button,
   HStack,
   Input,
   InputGroup,
   InputLeftElement,
   InputRightElement,
   Text,
-  useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { TiDelete } from "react-icons/ti";
-import { GrAdd } from "react-icons/gr";
-import ModalContainer from "./ModalContainer";
 
 const ExtensionsTitleBar = ({
   search,
@@ -23,9 +19,6 @@ const ExtensionsTitleBar = ({
   title,
   btn,
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
-
   const onClear = () => {
     setSearch("");
     reset();
@@ -57,7 +50,6 @@ const ExtensionsTitleBar = ({
               color="white"
               onChange={(text) => onSearch(text.target.value)}
               value={search}
-              // onChange={(e) => setSearch(e.target.value)}
             />
             {search.length > 0 ? (
               <InputRightElement
@@ -68,29 +60,8 @@ const ExtensionsTitleBar = ({
               />
             ) : null}
           </InputGroup>
-
-          <Button
-            rightIcon={<GrAdd color="accent.700" size="20" />}
-            bgColor="accent.100"
-            color="accent.700"
-            _active={{ bgColor: "accent.50" }}
-            _hover={{ bgColor: "accent.50" }}
-            width="18%"
-            iconSpacing="12"
-            size="md"
-            ref={btnRef}
-            onClick={onOpen}
-          >
-            {btn}
-          </Button>
         </HStack>
       </VStack>
-      <ModalContainer
-        id={title}
-        onClose={onClose}
-        btnRef={btnRef}
-        isOpen={isOpen}
-      />
     </>
   );
 };

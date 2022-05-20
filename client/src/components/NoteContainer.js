@@ -9,7 +9,7 @@ const getDescriptionLen = (desc) => {
   else return 200;
 };
 
-const NoteContainer = ({ note }) => {
+const NoteContainer = ({ note, updateNote }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
@@ -51,6 +51,7 @@ const NoteContainer = ({ note }) => {
         btnRef={btnRef}
         isOpen={isOpen}
         note={note}
+        updateNote={updateNote}
       />
     </>
   );
