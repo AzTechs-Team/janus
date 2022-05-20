@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"encoding/json"
+	"fmt"
 	"log"
 	"time"
 
@@ -10,6 +12,23 @@ import (
 	"github.com/nimit2801/janus/utils"
 	"go.mongodb.org/mongo-driver/bson"
 )
+
+type Q struct{}
+
+func GithubPayload(ctx *fiber.Ctx) error {
+	var notif map[string]interface{}
+	if err := ctx.BodyParser(&notif); err != nil {
+		fmt.Print("error hai :D")
+	}
+	fmt.Println(notif["action"])
+	new_ := notif["action"]
+	ans, err := json.MarshalIndent(&new_, "", "    ")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(ans))
+	return ctx.SendString("we did")
+}
 
 func CreateNewTodoGroup(ctx *fiber.Ctx) error {
 	cookie := ctx.Cookies("accessToken")

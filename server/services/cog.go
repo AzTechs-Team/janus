@@ -59,47 +59,44 @@ func Ggs() {
 
 	// Format and display the JSON result
 	// jsonFormatted, _ := json.MarshalIndent(f, "", "  ")
-	Ggs2(resp.Header.Get("Operation-Location"))
+	fmt.Printf(resp.Header.Get("Operation-Location"))
+	// Ggs2(resp.Header.Get("Operation-Location"))
 }
 
-func Ggs2(operation_location string) {
+func Ggs2() {
+	operation_location := "https://janus-vision.cognitiveservices.azure.com/vision/v3.2/read/analyzeResults/f6950b04-1b6a-4384-9603-22a6c6a50665"
 	// Add your Computer Vision subscription key and endpoint to your environment variables.
 	subscriptionKey := "f49ad0084f014b96819aa2af05f22cff"
 	uri := operation_location
-	// Create the HTTP client
 	client := &http.Client{
-		Timeout: time.Second * 2,
+		Timeout: time.Second * 4,
 	}
 
-	// Create the POST request, passing the image URL in the request body
+	// Create the HTTP client
 	req, err := http.NewRequest("GET", uri, nil)
+	req.Header.Add("Content-Type", "application/json")
+	req.Header.Add("Ocp-Apim-Subscription-Key", subscriptionKey)
+
 	if err != nil {
 		panic(err)
 	}
 
-	// Add request headers
-	req.Header.Add("Ocp-Apim-Subscription-Key", subscriptionKey)
-
-	// Send the request and retrieve the response
 	resp, err := client.Do(req)
 	if err != nil {
 		panic(err)
 	}
 
-	defer resp.Body.Close()
+	fmt.Print(resp)
+}
 
-	// Read the response body
-	// Note, data is a byte array
-	data, err := ioutil.ReadAll(resp.Body)
+func Ggs3() {
+	subscriptionKey := "f49ad0084f014b96819aa2af05f22cff"
+	req, err := http.NewRequest("GET", "https://janus-vision.cognitiveservices.azure.com/vision/v3.2/read/analyzeResults/f6950b04-1b6a-4384-9603-22a6c6a50665", nil)
+	req.Header.Add("Ocp-Apim-Subscription-Key", subscriptionKey)
+
 	if err != nil {
 		panic(err)
 	}
 
-	// Parse the JSON data from the byte array
-	var f interface{}
-	json.Unmarshal(data, &f)
-
-	// Format and display the JSON result
-	// jsonFormatted, _ := json.MarshalIndent(f, "", "  ")
-	fmt.Print(resp)
+	fmt.Print(req)
 }

@@ -8,15 +8,18 @@ const SettingsContent = ({ content }) => {
       bgColor="primary.800"
       p={16}
       borderRadius="xl"
-      height="100%"
+      maxH="94vh"
       maxW="100%"
-      color="white"
+      color="primary.100"
+      overflowY="auto"
     >
       <Text fontSize="3xl">{content["title"]}</Text>
-      <Text color="primary.100" paddingTop="5">
-        {" "}
-        {content["description"]}
-      </Text>
+      {/* <Text color="primary.100" paddingTop="5"> */}
+      <div
+        className="content"
+        dangerouslySetInnerHTML={{ __html: content["description"] }}
+      ></div>
+      {/* </Text> */}
     </Container>
   );
 };

@@ -13,5 +13,6 @@ func Setup(app *fiber.App) {
 	app.Post("/api/TodoGroup", controller.CreateNewTodoGroup)
 	app.Get("/api/TodoGroup", controller.ReadAllTodogroup)
 	// app.Put("/api/TodoGroup", controller.UpdateSingleTodogroup)
+	app.Post("/api/Payload", controller.GithubPayload)
 	app.Get("/", controller.Hello)
 }
