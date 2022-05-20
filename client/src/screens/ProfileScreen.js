@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Container, HStack, Spacer, Text, VStack } from "@chakra-ui/react";
 import NameCard from "../components/NameCard";
 import BlurredBox from "../components/BlurredBox";
 import ProfileInfo from "../components/ProfileInfo";
+import { getUserInfo } from "../helpers/getUserInfo";
 
 const ProfileScreen = () => {
-  const content = {
-    title: "John doe",
-    description: "Short description about John doe!",
+  const details = {
+    name: "username01",
+    email: "email@email.com",
+    "Date of birth": "03/09/11",
+    "phone No.": "+XX XXXXXXXXXX",
+    gender: "Male",
   };
 
+  const [userDetails, setUserDetails] = useState(details);
   const temp = [1, 2, 3, 4];
 
-  const details = {
-    Username: "username01",
-    Email: "email@email.com",
-    "Date of birth": "03/09/11",
-    "Phone No.": "+XX XXXXXXXXXX",
-    Gender: "Male",
-  };
+  useEffect(() => {
+    const getDetails = async () => {
+      const info = await getUserInfo();
+      setUserDetails(info);
+    };
+    getDetails();
+  }, []);
 
   return (
     <Container
@@ -30,7 +35,13 @@ const ProfileScreen = () => {
       maxH="100%"
       maxW="92%"
     >
-      <NameCard content={content} id={0} />
+      <NameCard
+        content={{
+          title: userDetails.name,
+          description: `Short description of ${userDetails.name}`,
+        }}
+        id={0}
+      />
       <HStack alignItems="flex-start">
         <Box
           height="54vh"
@@ -39,10 +50,10 @@ const ProfileScreen = () => {
           p={12}
           borderRadius="2xl"
         >
-          {Object.keys(details).map((detail) => (
+          {Object.keys(userDetails).map((detail) => (
             <ProfileInfo
               text={detail}
-              placeholder={details[detail]}
+              placeholder={userDetails[detail]}
               key={detail}
             />
           ))}

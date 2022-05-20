@@ -9,19 +9,26 @@ import {
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { TiDelete } from "react-icons/ti";
 import { GrAdd } from "react-icons/gr";
 import ModalContainer from "./ModalContainer";
 
-const ExtensionsTitleBar = ({ title, btn }) => {
+const ExtensionsTitleBar = ({
+  search,
+  setSearch,
+  onSearch,
+  reset,
+  title,
+  btn,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
-  const [search, setSearch] = useState("");
 
   const onClear = () => {
     setSearch("");
+    reset();
   };
 
   return (
@@ -36,21 +43,21 @@ const ExtensionsTitleBar = ({ title, btn }) => {
         >
           {title}
         </Text>
-        <HStack width="100%">
-          <InputGroup alignSelf="flex-start">
+        <HStack justifyContent="space-between" width="100%">
+          <InputGroup alignSelf="flex-start" width="65%">
             <InputLeftElement
               color="accent.200"
               pointerEvents="none"
               children={<BiSearchAlt fontSize={20} />}
             />
             <Input
-              width="65%"
               placeholder="Search..."
               bgColor="#2B2F3B"
               border="accent.200"
               color="white"
+              onChange={(text) => onSearch(text.target.value)}
               value={search}
-              onChange={setSearch}
+              // onChange={(e) => setSearch(e.target.value)}
             />
             {search.length > 0 ? (
               <InputRightElement
@@ -61,6 +68,7 @@ const ExtensionsTitleBar = ({ title, btn }) => {
               />
             ) : null}
           </InputGroup>
+
           <Button
             rightIcon={<GrAdd color="accent.700" size="20" />}
             bgColor="accent.100"
@@ -77,7 +85,12 @@ const ExtensionsTitleBar = ({ title, btn }) => {
           </Button>
         </HStack>
       </VStack>
-      <ModalContainer onClose={onClose} btnRef={btnRef} isOpen={isOpen} />
+      <ModalContainer
+        id={title}
+        onClose={onClose}
+        btnRef={btnRef}
+        isOpen={isOpen}
+      />
     </>
   );
 };

@@ -1,45 +1,36 @@
 import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import GridLayout from "react-grid-layout";
-
-import NoteContainer from "./NoteContainer";
-import bg from "../assets/notes_bg.png";
+import bg from "../assets/todos_bg.png";
 import "../theme/grid.css";
+import TodosContainer from "./TodosContainer";
 
-const getRatio = (note) => {
-  const len = note.description.length;
-  if (len <= 25) return 1.2;
-  else if (len <= 50) return 8;
-  else return 12;
-};
+const TodosGrid = ({ todosCollection }) => {
+  let x_loc = 0;
 
-let x_loc = 0;
-
-const generateLayout = (i, note) => {
-  const y = Math.ceil(0.6 * getRatio(note)) + 1;
-  const minW = 2;
-  const minH = 4;
-  const maxW = 2;
-  const maxH = 12;
-  if (x_loc !== 6) x_loc += 2;
-  else x_loc = 0;
-  return {
-    x: x_loc,
-    y: Math.floor(i / 6) * y,
-    w: 2,
-    h: y,
-    i: i.toString(),
-    minW,
-    maxW,
-    minH,
-    maxH,
+  const generateLayout = (i) => {
+    const y = Math.ceil(0.6 * 6) + 1;
+    const minW = 2;
+    const minH = 4;
+    const maxW = 2;
+    const maxH = 12;
+    if (x_loc !== 6) x_loc += 2;
+    else x_loc = 0;
+    return {
+      x: x_loc,
+      y: Math.floor(i / 6) * y,
+      w: 2,
+      h: 6,
+      i: i.toString(),
+      minW,
+      maxW,
+      minH,
+      maxH,
+    };
   };
-};
-
-const NotesGrid = ({ notesCollection }) => {
   const layout = [];
-  notesCollection.map((note, i) => {
-    layout.push(generateLayout(i, note));
+  todosCollection.map((_, i) => {
+    layout.push(generateLayout(i));
     return null;
   });
 
@@ -63,7 +54,7 @@ const NotesGrid = ({ notesCollection }) => {
         allowOverlap={false}
         isResizable={false}
       >
-        {notesCollection.map((note, i) => {
+        {todosCollection.map((todo, i) => {
           return (
             <Flex
               bg="blue.600"
@@ -71,13 +62,11 @@ const NotesGrid = ({ notesCollection }) => {
               key={i.toString()}
               bgImage={bg}
               bgPosition="center"
-              bgRepeat="no-repeat"
-              objectFit="scale-down"
               borderRadius="xl"
               flexDirection="column"
               p={6}
             >
-              <NoteContainer note={note} />
+              <TodosContainer todoList={todo} />
             </Flex>
           );
         })}
@@ -86,4 +75,4 @@ const NotesGrid = ({ notesCollection }) => {
   );
 };
 
-export default NotesGrid;
+export default TodosGrid;

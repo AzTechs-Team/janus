@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import {
-  Box,
   HStack,
   Input,
   Modal,
@@ -13,8 +12,14 @@ import {
 import { IoIosArrowBack } from "react-icons/io";
 import { MdDeleteForever } from "react-icons/md";
 import NotesOverlay from "./NotesOverlay";
+import AddTodosOverlay from "./AddTodosOverlay";
+import ReadTodosOverlay from "./ReadTodosOverlay";
 
-const ModalContainer = ({ onClose, btnRef, isOpen, note }) => {
+const ModalContainer = ({ id, onClose, btnRef, isOpen, note, todoList }) => {
+  const [title, setTitle] = useState(
+    note ? note.title : todoList ? todoList.title : ""
+  );
+
   return (
     <Modal onClose={onClose} finalFocusRef={btnRef} isOpen={isOpen} isCentered>
       <ModalOverlay className="overlay-bg" />
@@ -23,7 +28,7 @@ const ModalContainer = ({ onClose, btnRef, isOpen, note }) => {
         color="accent.50"
         borderRadius="lg"
         maxW="50%"
-        h="65vh"
+        h="80vh"
         p={6}
       >
         <HStack pb={4} onClick={onClose} cursor="pointer">
@@ -36,19 +41,30 @@ const ModalContainer = ({ onClose, btnRef, isOpen, note }) => {
           alignItems="center"
         >
           <Input
-            placeholder="Title"
+            maxLength={20}
+            placeholder="Add Title"
             fontWeight="bold"
             fontSize="xl"
             size="lg"
             border="none"
             mr={5}
-            value={note ? note.title : ""}
+            onChange={(e) => setTitle(e.target.value)}
+            value={title}
           />
 
           <MdDeleteForever color="#F56D64" size="28" />
         </ModalHeader>
         <ModalBody>
-          <NotesOverlay desc={note ? note.description : ""} onClose={onClose} />
+          {id === "Notes" ? (
+            <NotesOverlay
+              desc={note ? note.description : ""}
+              onClose={onClose}
+            />
+          ) : id === "ReadTodos" ? (
+            <ReadTodosOverlay todoList={todoList} onClose={onClose} />
+          ) : (
+            <AddTodosOverlay onClose={onClose} />
+          )}
         </ModalBody>
       </ModalContent>
     </Modal>

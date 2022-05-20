@@ -37,6 +37,33 @@ const theme = extendTheme({
       ".chakra-input:focus": {
         boxShadow: "0 0 0 1px #9C9DF3 !important",
       },
+      "&::-webkit-scrollbar": {
+        width: "6px",
+        borderRadius: "12px",
+        backgroundColor: `primary.800`,
+      },
+      "&::-webkit-scrollbar-thumb": {
+        backgroundColor: `accent.200`,
+        borderRadius: "12px",
+      },
+    },
+  },
+  components: {
+    Checkbox: {
+      baseStyle: {
+        icon: {
+          color: "#15161B",
+        },
+        control: {
+          border: "1px",
+          borderColor: "#686A98",
+          borderRadius: "base",
+          _checked: {
+            background: "#686A98 !important",
+            borderColor: "#686A98",
+          },
+        },
+      },
     },
   },
 });

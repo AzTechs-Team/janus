@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Routes as Switch,
   Route,
@@ -17,26 +17,22 @@ import ExtensionsScreen from "./screens/ExtensionsScreen";
 import ExampleScreen from "./screens/ExampleScreen";
 import NotesScreen from "./screens/NotesScreen";
 import TodoScreen from "./screens/TodoScreen";
-
+import auth from "./auth/auth";
+import { getUserInfo } from "./helpers/getUserInfo";
 
 const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  // const user = useState(getUserInfo);
 
   useEffect(() => {
     if (localStorage.login) {
-      const login = JSON.parse(localStorage.login);
-      //  const decoded = jwt_decode(login.token);
-
-      //  const currentTime = Date.now() / 1000;
-      //  if (decoded.exp < currentTime) {
-      //    auth.logout(() => {
-      //      history.push("/");
-      //    });
-      //  }
-      if (login && location.pathname === "/") navigate("/home");
+      // const login = JSON.parse(localStorage.login);
+      if (localStorage.login && location.pathname === "/") navigate("/home");
+    } else if (location.pathname !== "/") {
+      auth.logout(() => navigate("/"));
     }
-  });
+  }, [location.pathname, navigate]);
 
   return (
     <Box bgColor="primary.900">
@@ -91,7 +87,7 @@ const App = () => {
           }
         />
         <Route
-          path="/todo"
+          path="/todos"
           element={
             <ProtectedRoute>
               <BaseScreen children={<TodoScreen />} />

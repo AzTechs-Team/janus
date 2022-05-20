@@ -6,7 +6,6 @@ import ExtensionQuickLinks from "./ExtensionQuickLinks";
 import BlurredBox from "./BlurredBox";
 
 const ExtensionsContent = ({ content }) => {
-  console.log("in hereee", content);
   return (
     <Container
       bgColor="primary.800"

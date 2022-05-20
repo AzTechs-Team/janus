@@ -39,82 +39,103 @@
 }
 
 /* dashboard */
-.calendar{
-  background-color: #29293E !important;
+.calendar {
+  background-color: #29293e !important;
   padding: 4px 15px;
-  color:white;
+  color: white;
   border-radius: 25px;
   justify-content: center;
-  border:none !important;
+  border: none !important;
   font-size: small;
-  font-family: 'Manrope';
+  font-family: Manrope;
 }
 
-.react-calendar__navigation{
+.react-calendar__navigation {
   margin-bottom: 0 !important;
 }
 
-.react-calendar__month-view__weekdays__weekday abbr{
-  color:#979bde;
+.react-calendar__month-view__weekdays__weekday abbr {
+  color: #979bde;
   text-decoration: none !important;
 }
 
-.react-calendar__month-view__days, .react-calendar__month-view__days__day--weekend, .react-calendar__navigation__label{
-  color: #D6D6FE !important;
- }
-.react-calendar__month-view__days__day--neighboringMonth{
-  color: #A1A5B0 !important;
+.react-calendar__month-view__days,
+.react-calendar__month-view__days__day--weekend,
+.react-calendar__navigation__label {
+  color: #d6d6fe !important;
+}
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: #a1a5b0 !important;
 }
 
-.react-calendar__tile--now, 
-.react-calendar__tile:enabled:hover, 
-.react-calendar__tile:focus, 
-.react-calendar__navigation__arrow:hover, 
-.react-calendar__navigation__arrow:focus, 
+.react-calendar__tile--now,
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:focus,
+.react-calendar__navigation__arrow:hover,
+.react-calendar__navigation__arrow:focus,
 .react-calendar__navigation__label:hover,
-.react-calendar__navigation__label:focus{
+.react-calendar__navigation__label:focus {
   background-color: #38405a !important;
-  color: #D6D6FE !important;
+  color: #d6d6fe !important;
   border-radius: 12px;
 }
 
-.react-calendar__tile{
-  padding:6.47px 10px !important;
+.react-calendar__tile {
+  padding: 6.47px 10px !important;
 }
 
-.react-calendar__tile--active{
-  background-color: #D6D6FE !important;
+.react-calendar__tile--active {
+  background-color: #d6d6fe !important;
   border-radius: 12px;
   color: #38405a !important;
 }
 
 .divider-todo {
-   background: rgba(175, 175, 246, 0) !important;
-   height: 140px;
-   overflow: hidden;
-   border-style: dashed  !important;
-   border-color: rgba(175, 175, 246, 0.3) !important;
-   border-top-width: 3px !important;
-  }
-.react-grid-item{
-  background-color: #D6D6FE !important;
-  color:#1c1c25
+  background: rgba(175, 175, 246, 0) !important;
+  height: 140px;
+  overflow: hidden;
+  border-style: dashed !important;
+  border-color: rgba(175, 175, 246, 0.3) !important;
+  border-top-width: 3px !important;
 }
 
+.divider-todo2 {
+  background: rgba(175, 175, 246, 0) !important;
+  overflow: hidden;
+  border-style: dashed !important;
+  border-color: rgba(175, 175, 246, 0.15) !important;
+  border-top-width: 3px !important;
+}
+
+.react-grid-item {
+  background-color: #d6d6fe !important;
+  color: #1c1c25;
+}
 
 @media only screen and (min-width: 1450px) {
   .notes_grid {
-    margin-left:2.5% !important;
-    margin-right:2% !important;
+    margin-left: 2.5% !important;
+    margin-right: 2% !important;
   }
 }
 @media only screen and (min-width: 1600px) {
   .notes_grid {
-    margin-left:15% !important;
-    margin-right:15% !important;
+    margin-left: 15% !important;
+    margin-right: 15% !important;
   }
 }
 
-.overlay-bg{
+.overlay-bg {
   backdrop-filter: blur(10px);
+}
+
+.scrollbar::-webkit-scrollbar{
+  width: 6px !important;
+  border-radius: 12px !important;
+  background-color: #1C1C25 !important;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: #9c9df3 !important;
+  border-radius: 12px !important;
 }

@@ -7,21 +7,29 @@ class Auth {
     }
   }
 
-  login(token, redirectPath) {
+  login(redirectPath) {
     this.authenticated = true;
     localStorage.setItem(
       "login",
       JSON.stringify({
         loginStatus: true,
-        token: token,
+        // token: token,
       })
     );
     redirectPath();
   }
 
-  logout(redirectPath) {
+  async logout(redirectPath) {
     this.authenticated = false;
     localStorage.removeItem("login");
+    try {
+      await fetch("http://localhost:8082/api/Logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (error) {
+      console.log(error);
+    }
     redirectPath();
   }
 
