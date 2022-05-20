@@ -9,8 +9,8 @@ import (
 	fiber "github.com/gofiber/fiber/v2"
 	connect "github.com/nimit2801/janus/database"
 	"github.com/nimit2801/janus/models"
+	"github.com/nimit2801/janus/utils"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -105,22 +105,15 @@ func Logout(ctx *fiber.Ctx) error {
 func User(ctx *fiber.Ctx) error {
 	cookie := ctx.Cookies("accessToken")
 
-	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(connect.SecretKey), nil
-	})
-
-	if err != nil {
+	if len(cookie) == 0 {
 		return ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 			"message": "You're not authourized",
 		})
 	}
-
-	claims := token.Claims.(*jwt.StandardClaims)
+	ID := utils.StringID(cookie)
 
 	var user models.User
-	ID, err := primitive.ObjectIDFromHex(claims.Issuer)
 
-	fmt.Print(claims.Issuer)
 	filter := bson.D{{"_id", ID}}
 
 	err_ := connect.Collection.FindOne(connect.Ctx_, filter).Decode(&user)
