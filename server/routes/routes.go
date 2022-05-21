@@ -10,6 +10,8 @@ func Setup(app *fiber.App) {
 	app.Post("/api/Login", controller.Login)
 	app.Post("/api/Logout", controller.Logout)
 	app.Get("/api/User", controller.User)
-	app.Post("/api/TodoGroup", controller.CreateNewTodo)
+	app.Post("/api/TodoGroup", controller.CreateNewTodoGroup)
+	app.Get("/api/TodoGroup", controller.ReadAllTodogroup)
+	// app.Put("/api/TodoGroup", controller.UpdateSingleTodogroup)
 	app.Get("/", controller.Hello)
 }

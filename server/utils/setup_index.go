@@ -3,8 +3,10 @@ package utils
 import (
 	"fmt"
 
+	"github.com/dgrijalva/jwt-go/v4"
 	connect "github.com/nimit2801/janus/database"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -17,6 +19,19 @@ func CreateIndexEmail() {
 		Options: options.Index().SetUnique(true),
 	}
 	connect.Collection.Indexes().CreateOne(connect.Ctx_, indexModel)
+}
+
+func StringID(cookie string) primitive.ObjectID {
+	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
+		return []byte(connect.SecretKey), nil
+	})
+
+	claims := token.Claims.(*jwt.StandardClaims)
+	ID, err := primitive.ObjectIDFromHex(claims.Issuer)
+	if err != nil {
+		Panic(err)
+	}
+	return ID
 }
 
 func Panic(err error) {

@@ -9,25 +9,21 @@ import (
 	fiber "github.com/gofiber/fiber/v2"
 	connect "github.com/nimit2801/janus/database"
 	"github.com/nimit2801/janus/models"
+	"github.com/nimit2801/janus/utils"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
 )
 
 func Register(ctx *fiber.Ctx) error {
-	temp := models.User{}
-	if err := ctx.BodyParser(&temp); err != nil {
+	user := new(models.User)
+	if err := ctx.BodyParser(&user); err != nil {
 		return err
 	}
-	fmt.Println(temp)
-	password_, _ := bcrypt.GenerateFromPassword([]byte(temp.Password), 14)
+	fmt.Println(user)
+	password_, _ := bcrypt.GenerateFromPassword([]byte(user.Password), 14)
 	password := string(password_[:])
-	user := models.User{
-		Name:     temp.Name,
-		Email:    temp.Email,
-		Phone:    temp.Phone,
-		Password: password,
-	}
+	user.Password = password
 	userAdded, err := connect.Collection.InsertOne(connect.Ctx_, user)
 	if err != nil {
 		panic(err)
@@ -62,7 +58,7 @@ func Login(ctx *fiber.Ctx) error {
 	}
 
 	claims := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.StandardClaims{
-		Issuer:    user.Email,
+		Issuer:    user.ID.Hex(),
 		ExpiresAt: jwt.NewTime(float64(time.Now().Add(time.Hour * 24).Unix())), // One Day
 	})
 
@@ -109,21 +105,16 @@ func Logout(ctx *fiber.Ctx) error {
 func User(ctx *fiber.Ctx) error {
 	cookie := ctx.Cookies("accessToken")
 
-	token, err := jwt.ParseWithClaims(cookie, &jwt.StandardClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return []byte(connect.SecretKey), nil
-	})
-
-	if err != nil {
+	if len(cookie) == 0 {
 		return ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
 			"message": "You're not authourized",
 		})
 	}
-
-	claims := token.Claims.(*jwt.StandardClaims)
+	ID := utils.StringID(cookie)
 
 	var user models.User
 
-	filter := bson.D{{"email", claims.Issuer}}
+	filter := bson.D{{"_id", ID}}
 
 	err_ := connect.Collection.FindOne(connect.Ctx_, filter).Decode(&user)
 	if err_ != nil {
@@ -132,6 +123,7 @@ func User(ctx *fiber.Ctx) error {
 	}
 
 	return ctx.Status(200).JSON(user)
+	// return ctx.SendString("We're working <3")
 }
 
 func panic(err error) {
