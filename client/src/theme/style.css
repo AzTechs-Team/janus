@@ -38,6 +38,13 @@
   background: inherit;
 }
 
+.blur2 {
+  background-image: url("https://cdn.discordapp.com/attachments/823980455509491732/977492689417285662/Notification_info_background-4.png");
+  /* width: 258.16px;
+  height: 121.9px; */
+  border-radius: 15px;
+}
+
 /* dashboard */
 .calendar {
   background-color: #29293e !important;
@@ -129,10 +136,10 @@
   backdrop-filter: blur(10px);
 }
 
-.scrollbar::-webkit-scrollbar{
+.scrollbar::-webkit-scrollbar {
   width: 6px !important;
   border-radius: 12px !important;
-  background-color: #1C1C25 !important;
+  background-color: #1c1c25 !important;
 }
 
 .scrollbar::-webkit-scrollbar-thumb {
