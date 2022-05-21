@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Routes as Switch,
   Route,
@@ -18,7 +18,6 @@ import ExampleScreen from "./screens/ExampleScreen";
 import NotesScreen from "./screens/NotesScreen";
 import TodoScreen from "./screens/TodoScreen";
 import auth from "./auth/auth";
-import { getUserInfo } from "./helpers/getUserInfo";
 
 const App = () => {
   const navigate = useNavigate();
