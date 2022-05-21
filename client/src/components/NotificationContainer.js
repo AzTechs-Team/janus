@@ -7,9 +7,8 @@ import {
   useDisclosure,
   Box,
   Image,
-  Container,
 } from "@chakra-ui/react";
-import ModalContainer from "./ModalContainer";
+import NotificationModalContainer from "./NotificationModalContainer";
 import { FiExternalLink } from "react-icons/fi";
 
 const getDescriptionLen = (desc) => {
@@ -22,13 +21,12 @@ const getDescriptionLen = (desc) => {
 const NotificationContainer = ({ notification }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
-  console.log(notification.url);
   return (
     <>
       <HStack pb={2} px={3} spacing={4}>
-        <Image h={14} w={14} borderRadius="50px" src={notification.url} />
+        <Image h={14} w={14} borderRadius="50px" src={notification.avatarUrl} />
         <Text casing="uppercase" fontWeight="bold" fontSize="14px">
-          {notification.title}
+          {notification.descriptive.repoName}
         </Text>
       </HStack>
 
@@ -47,16 +45,16 @@ const NotificationContainer = ({ notification }) => {
             fontSize="12px"
             color="accent.100"
           >
-            {notification.title}
+            {notification.descriptive.repoName}
           </Text>
-          <FiExternalLink color="accent.100" size="10" />
+          <FiExternalLink fontColor="accent.100" size="10" />
         </HStack>
 
         <Text fontSize="10px">
-          {notification.description.slice(
+          {notification.desc.slice(
             0,
             90,
-            getDescriptionLen(notification.description)
+            getDescriptionLen(notification.desc)
           ) + "..."}
         </Text>
         <Spacer></Spacer>
@@ -65,7 +63,6 @@ const NotificationContainer = ({ notification }) => {
             size="sm"
             bgColor="accent.700"
             inlineSize={28}
-            pr={10}
             borderRadius={10}
             fontSize="10px"
             _hover={{ bgColor: "accent.600" }}
@@ -87,14 +84,12 @@ const NotificationContainer = ({ notification }) => {
             _hover={{ bgColor: "accent.600" }}
             _focus={{ outlineStyle: "none" }}
             _active={{ bgColor: "accent.600" }}
-            onClick={onOpen}
           >
             Remind Me Later
           </Button>
         </HStack>
       </Box>
-      <ModalContainer
-        id="Notifications"
+      <NotificationModalContainer
         onClose={onClose}
         btnRef={btnRef}
         isOpen={isOpen}

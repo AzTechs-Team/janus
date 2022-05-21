@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Box, Button, Flex, useDisclosure } from "@chakra-ui/react";
+import React from "react";
+import { Box, Flex } from "@chakra-ui/react";
 import GridLayout from "react-grid-layout";
 
 import NotificationContainer from "./NotificationContainer";
@@ -7,8 +7,9 @@ import bg from "../assets/notification_bg.png";
 import "../theme/grid.css";
 
 const NotificationGrid = ({ notificationCollection }) => {
+  const layout = [];
   let x_loc = 0;
-  const generateLayout = useCallback((i) => {
+  const generateLayout = (i) => {
     const y = Math.ceil(0.6 * 6) + 1;
     const minW = 2;
     const minH = 4;
@@ -27,21 +28,12 @@ const NotificationGrid = ({ notificationCollection }) => {
       minH,
       maxH,
     };
-  }, []);
+  };
 
-  const [notifications, setNotification] = useState(notificationCollection);
-  const [layout, setLayout] = useState([]);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = useRef();
-
-  useEffect(() => {
-    let t = [];
-    notifications.map((notification, i) => {
-      t.push(generateLayout(i, notification));
-      return null;
-    });
-    setLayout(t);
-  }, [notifications]);
+  notificationCollection.map((notification, i) => {
+    layout.push(generateLayout(i, notification));
+    return null;
+  });
 
   return (
     <>
@@ -62,10 +54,9 @@ const NotificationGrid = ({ notificationCollection }) => {
             rowHeight={30}
             width={1150}
             maxRows={5}
-            // allowOverlap={false}
             isResizable={false}
           >
-            {notifications.map((notification, i) => {
+            {notificationCollection.map((notification, i) => {
               return (
                 <Flex
                   bg="blue.600"

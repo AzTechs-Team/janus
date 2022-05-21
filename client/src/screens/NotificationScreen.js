@@ -10,34 +10,27 @@ const NotificationScreen = () => {
     useState(notification);
   const [search, setSearch] = useState("");
 
-  // const onSearch = (text) => {
-  //   if (text) {
-  //     const newData = notification.filter(function (item) {
-  //       const userData = item.title
-  //         ? item.title.toUpperCase()
-  //         : "".toUpperCase();
-  //       const textData = text.toUpperCase();
-  //       return userData.indexOf(textData) > -1;
-  //     });
+  const onSearch = (text) => {
+    if (text) {
+      const newData = notification.filter(function (item) {
+        const userData = item.descriptive.repoName
+          ? item.descriptive.repoName.toUpperCase()
+          : "".toUpperCase();
+        const textData = text.toUpperCase();
+        return userData.indexOf(textData) > -1;
+      });
 
-  //     setNotificationCollection(newData);
-  //     setSearch(text);
-  //   } else {
-  //     setNotificationCollection(notification);
-  //     setSearch(text);
-  //   }
-  // };
-
-  // const reset = () => {
-  //   setNotificationCollection(notification);
-  // };
-
-  const onSearch = () => {
-    console.log("On search log");
+      console.log("aaaa", newData);
+      setNotificationCollection(newData);
+      setSearch(text);
+    } else {
+      setNotificationCollection(notification);
+      setSearch(text);
+    }
   };
 
   const reset = () => {
-    console.log("Reset log");
+    setNotificationCollection(notification);
   };
 
   return (
