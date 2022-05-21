@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Text, Image, VStack } from "@chakra-ui/react";
 import welcome from "../assets/welcome_bg.png";
+import { getQuotes } from "../helpers/getQuotes";
 
 const WelcomeBox = ({ name }) => {
+  const [quote, setQuote] = useState("");
+
+  const generateQuotes = useCallback(async () => {
+    setQuote(await getQuotes());
+  }, []);
+
+  useEffect(() => {
+    generateQuotes();
+  }, [generateQuotes]);
+
   return (
     <>
       <Image width="75%" src={welcome} alt="welcome" position="relative" />
@@ -16,12 +27,7 @@ const WelcomeBox = ({ name }) => {
         >
           Hello {name ? name : "User"}!
         </Text>
-        <Text>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Iaculis
-          aenean tristique malesuada ipsum at eget. Pharetra cursus purus
-          habitasse iaculis at porttitor. Morbi non mauris nibh aliquet. aenean
-          tristique malesuada ipsum at eget. Pharetra cursus purus
-        </Text>
+        <Text alignSelf="flex-start">{quote}</Text>
       </VStack>
     </>
   );
