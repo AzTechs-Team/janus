@@ -1,8 +1,10 @@
 import React from "react";
 import { HStack, Spacer, Text, Image } from "@chakra-ui/react";
 import profile from "../assets/profile_btn.png";
+import { useNavigate } from "react-router-dom";
 
 const DashboardNav = ({ name }) => {
+  const navigate = useNavigate();
   return (
     <HStack>
       <Text fontSize="2xl" fontWeight="extrabold">
@@ -18,6 +20,8 @@ const DashboardNav = ({ name }) => {
         src={profile}
         alt={"Profile"}
         marginRight={8}
+        cursor="pointer"
+        onClick={() => navigate("/profile")}
       />
     </HStack>
   );
