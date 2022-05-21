@@ -34,6 +34,18 @@ func StringID(cookie string) primitive.ObjectID {
 	return ID
 }
 
+// type Client struct {
+// 	Conn     *websocket.Conn
+// 	ClientId string `json:"clientId"`
+// 	Username string `json:"username"`
+// 	RoomId   string `json:"roomId"`
+// 	Message  chan *Message
+// }
+
+// func (c *Client) WriteMessage() {
+
+// }
+
 func Panic(err error) {
 	fmt.Println(err)
 }

@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	// main "github.com/nimit2801/janus"
 	connect "github.com/nimit2801/janus/database"
 	"github.com/nimit2801/janus/models"
 	"github.com/nimit2801/janus/utils"
@@ -21,12 +22,13 @@ func GithubPayload(ctx *fiber.Ctx) error {
 		fmt.Print("error hai :D")
 	}
 	fmt.Println(notif["action"])
-	new_ := notif["action"]
-	ans, err := json.MarshalIndent(&new_, "", "    ")
+	// new_ := notif["action"]
+	ans, err := json.MarshalIndent(&notif, "", "    ")
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println(string(ans))
+	// main.CC.WriteMessage(1, make([]byte, 4))
 	return ctx.SendString("we did")
 }
 
