@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   Box,
+  Flex,
   Container,
   HStack,
   Spacer,
@@ -95,7 +96,7 @@ const ProfileScreen = () => {
             <BlurredBox key={t} />
           ))}
 
-          <Text fontWeight="bold" color="white" pt={2}>
+          <Text fontWeight="bold" color="white" pt={6}>
             Your extensions
           </Text>
           {extensions.map((t) => (
@@ -109,20 +110,26 @@ const ProfileScreen = () => {
               borderRadius="lg"
               cursor="pointer"
             >
-              <Container
+              <Box
                 className="blur"
                 width={44}
                 height={10}
                 centerContent
                 borderRadius="lg"
               >
-                <HStack pt={1} gridGap={1}>
-                  <Image src={t.image} width={8} />
+                <Flex
+                  pt={1.5}
+                  pl={4}
+                  gridGap={3}
+                  flexDirection="row"
+                  alignItems="flex-start"
+                >
+                  <Image src={t.image} width={7} />
                   <Text color="white" fontSize="md">
                     {t.name}
                   </Text>
-                </HStack>
-              </Container>
+                </Flex>
+              </Box>
             </Container>
           ))}
         </VStack>

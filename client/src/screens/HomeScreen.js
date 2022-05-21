@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Container, HStack, Text, VStack, Image } from "@chakra-ui/react";
+import {
+  Container,
+  HStack,
+  Text,
+  VStack,
+  Image,
+  Flex,
+  Box,
+} from "@chakra-ui/react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import GraphContainer from "../components/GraphContainer";
@@ -15,7 +23,6 @@ import blurred_box_bg from "../assets/blurred_box_bg2.png";
 const HomeScreen = () => {
   const [date, setDate] = useState(new Date());
   const [userDetails, setUserDetails] = useState({});
-  const apps = [1];
   const extensions = [
     {
       name: "Notifications",
@@ -57,21 +64,14 @@ const HomeScreen = () => {
       </HStack>
       <HStack pt={4} spacing={6}>
         <GraphContainer />
-        <VStack>
-          <Text fontWeight="bold" fontSize="md" color="white" pb={1}>
-            Top extensions
-          </Text>
-          {apps.map((e) => (
-            <BlurredBox key={e} />
-          ))}
-
+        <VStack spacing="4">
           <Text fontWeight="bold" color="white" pt={1}>
             Your extensions
           </Text>
           {extensions.map((t) => (
             <Container
               width={48}
-              height={14}
+              height={16}
               bgImage={blurred_box_bg}
               bgPosition="center"
               centerContent
@@ -79,20 +79,26 @@ const HomeScreen = () => {
               borderRadius="lg"
               cursor="pointer"
             >
-              <Container
+              <Box
                 className="blur"
                 width={44}
-                height={10}
+                height={12}
                 centerContent
                 borderRadius="lg"
               >
-                <HStack pt={1} gridGap={1}>
-                  <Image src={t.image} width={8} />
+                <Flex
+                  pt={2.5}
+                  pl={4}
+                  gridGap={3}
+                  flexDirection="row"
+                  alignItems="flex-start"
+                >
+                  <Image src={t.image} width={7} />
                   <Text color="white" fontSize="md">
                     {t.name}
                   </Text>
-                </HStack>
-              </Container>
+                </Flex>
+              </Box>
             </Container>
           ))}
         </VStack>
