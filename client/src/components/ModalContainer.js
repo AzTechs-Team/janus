@@ -27,6 +27,7 @@ const ModalContainer = ({
   updateNote,
   updateTodo,
   deleteNote,
+  deleteTodo,
 }) => {
   const [title, setTitle] = useState(
     note ? note.title : todoList ? todoList.title : ""
@@ -48,7 +49,7 @@ const ModalContainer = ({
       deleteNote(note);
       onClose();
     } else {
-      // updateTodo(title, text);
+      deleteTodo(todoList);
       onClose();
     }
   };

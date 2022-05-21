@@ -64,12 +64,28 @@ const TodosGrid = ({ todosCollection }) => {
     setTodos(temp);
     if (!flag) {
       let t = [];
-      todos.map((note, i) => {
-        t.push(generateLayout(i, note));
+      todos.map((t, i) => {
+        t.push(generateLayout(i, t));
         return null;
       });
       setLayout(t);
     }
+  };
+
+  const deleteTodo = (todo) => {
+    if (!todo) return;
+    let temp = todos;
+    temp = temp.filter((t) => {
+      return t.id !== todo.id;
+    });
+
+    setTodos(temp);
+    let t = [];
+    temp.map((note, i) => {
+      t.push(generateLayout(i, note));
+      return null;
+    });
+    setLayout(t);
   };
 
   return (
@@ -123,7 +139,11 @@ const TodosGrid = ({ todosCollection }) => {
                   flexDirection="column"
                   p={6}
                 >
-                  <TodosContainer todoList={todo} updateTodo={updateTodo} />
+                  <TodosContainer
+                    todoList={todo}
+                    updateTodo={updateTodo}
+                    deleteTodo={deleteTodo}
+                  />
                 </Flex>
               );
             })}
@@ -136,6 +156,7 @@ const TodosGrid = ({ todosCollection }) => {
         btnRef={btnRef}
         isOpen={isOpen}
         updateTodo={updateTodo}
+        deleteTodo={deleteTodo}
       />
     </>
   );

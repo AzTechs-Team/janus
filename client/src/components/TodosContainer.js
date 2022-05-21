@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import ModalContainer from "./ModalContainer";
 
-const TodosContainer = ({ todoList, updateTodo }) => {
+const TodosContainer = ({ todoList, updateTodo, deleteTodo }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
@@ -63,6 +63,7 @@ const TodosContainer = ({ todoList, updateTodo }) => {
         btnRef={btnRef}
         isOpen={isOpen}
         updateTodo={updateTodo}
+        deleteTodo={deleteTodo}
       />
     </>
   );
