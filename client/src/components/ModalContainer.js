@@ -26,6 +26,7 @@ const ModalContainer = ({
   todoList,
   updateNote,
   updateTodo,
+  deleteNote,
 }) => {
   const [title, setTitle] = useState(
     note ? note.title : todoList ? todoList.title : ""
@@ -38,6 +39,16 @@ const ModalContainer = ({
       onClose();
     } else {
       updateTodo(title, text);
+      onClose();
+    }
+  };
+
+  const onDelete = () => {
+    if (id === "Notes") {
+      deleteNote(note);
+      onClose();
+    } else {
+      // updateTodo(title, text);
       onClose();
     }
   };
@@ -74,7 +85,12 @@ const ModalContainer = ({
             value={title}
           />
 
-          <MdDeleteForever color="#F56D64" size="28" />
+          <MdDeleteForever
+            color="#F56D64"
+            size="28"
+            onClick={onDelete}
+            cursor="pointer"
+          />
         </ModalHeader>
         <ModalBody>
           {id === "Notes" ? (
