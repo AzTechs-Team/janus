@@ -4,25 +4,40 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"log"
 	"net/http"
+	"os"
 	"strings"
 	"time"
+
+	"github.com/joho/godotenv"
 )
 
-func Ggs() {
+func goDotEnvVariable(key string) string {
+
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+
+	return os.Getenv(key)
+}
+
+func Ggs(url string) []string {
 	// Add your Computer Vision subscription key and endpoint to your environment variables.
-	subscriptionKey := "f49ad0084f014b96819aa2af05f22cff"
+	subscriptionKey := goDotEnvVariable("COG_KEY")
 	endpoint := "https://janus-vision.cognitiveservices.azure.com/"
 
 	uriBase := endpoint + "vision/v3.2/read/analyze"
-	const imageUrl = "https://cdn.discordapp.com/attachments/750019721193324544/974213952475131925/unknown.png"
+	imageUrl := url
 
-	// const params = "?visualFeatures=Description&details=Landmarks"
+	time.Sleep(time.Second * 5)
 	uri := uriBase
-	const imageUrlEnc = "{\"url\":\"" + imageUrl + "\"}"
+	imageUrlEnc := "{\"url\":\"" + imageUrl + "\"}"
 
 	reader := strings.NewReader(imageUrlEnc)
 
+	// time.Sleep(2 * time.Second)
 	// Create the HTTP client
 	client := &http.Client{
 		Timeout: time.Second * 2,
@@ -47,7 +62,6 @@ func Ggs() {
 	defer resp.Body.Close()
 
 	// Read the response body
-	// Note, data is a byte array
 	data, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		panic(err)
@@ -57,49 +71,47 @@ func Ggs() {
 	var f interface{}
 	json.Unmarshal(data, &f)
 
-	// Format and display the JSON result
-	// jsonFormatted, _ := json.MarshalIndent(f, "", "  ")
-	Ggs2(resp.Header.Get("Operation-Location"))
-}
+	uri2 := resp.Header.Get("Operation-Location")
+	fmt.Println(uri2)
+	time.Sleep(2 * time.Second)
 
-func Ggs2(operation_location string) {
-	// Add your Computer Vision subscription key and endpoint to your environment variables.
-	subscriptionKey := "f49ad0084f014b96819aa2af05f22cff"
-	uri := operation_location
-	// Create the HTTP client
-	client := &http.Client{
-		Timeout: time.Second * 2,
+	client2 := &http.Client{}
+	req2, err := http.NewRequest("GET", uri2, nil)
+	if err != nil {
+		panic(err)
 	}
+	req2.Header.Add("Ocp-Apim-Subscription-Key", subscriptionKey)
 
-	// Create the POST request, passing the image URL in the request body
-	req, err := http.NewRequest("GET", uri, nil)
+	// // Send the request and retrieve the response
+	resp2, err := client2.Do(req2)
 	if err != nil {
 		panic(err)
 	}
 
-	// Add request headers
-	req.Header.Add("Ocp-Apim-Subscription-Key", subscriptionKey)
+	defer resp2.Body.Close()
 
-	// Send the request and retrieve the response
-	resp, err := client.Do(req)
+	data2, err := ioutil.ReadAll(resp2.Body)
 	if err != nil {
 		panic(err)
 	}
+	var f1 map[string]interface{}
+	json.Unmarshal(data2, &f1)
 
-	defer resp.Body.Close()
+	// // Format and display the JSON result
+	jsonFormatted, _ := json.MarshalIndent(f1, "", "  ")
 
-	// Read the response body
-	// Note, data is a byte array
-	data, err := ioutil.ReadAll(resp.Body)
+	err = json.Unmarshal(jsonFormatted, &f1)
 	if err != nil {
 		panic(err)
 	}
+	// fmt.Print(f1["analyzeResult"].(map[string]interface{})["readResults"].([]interface{})[0].(map[string]interface{})["lines"].([]interface{})[0].(map[string]interface{})["text"])
+	var s []string
+	results := f1["analyzeResult"].(map[string]interface{})["readResults"].([]interface{})[0].(map[string]interface{})["lines"]
+	for _, item := range results.([]interface{}) {
+		t := item.(map[string]interface{})["text"].(string)
+		s = append(s, t)
+	}
+	fmt.Printf("%v", s)
 
-	// Parse the JSON data from the byte array
-	var f interface{}
-	json.Unmarshal(data, &f)
-
-	// Format and display the JSON result
-	// jsonFormatted, _ := json.MarshalIndent(f, "", "  ")
-	fmt.Print(resp)
+	return s
 }

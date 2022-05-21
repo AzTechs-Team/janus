@@ -43,7 +43,7 @@ const TodoUploadImage = ({
         </FileUploader>
         {image.map((i, j) => {
           return (
-            <Box position="relative">
+            <Box position="relative" key={i}>
               <Image
                 borderRadius="7px"
                 key={i}
