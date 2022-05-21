@@ -1,29 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Box, Container, HStack, Spacer, Text, VStack } from "@chakra-ui/react";
 import NameCard from "../components/NameCard";
 import BlurredBox from "../components/BlurredBox";
 import ProfileInfo from "../components/ProfileInfo";
-import { getUserInfo } from "../helpers/getUserInfo";
 
 const ProfileScreen = () => {
-  const details = {
-    name: "username01",
-    email: "email@email.com",
-    "Date of birth": "03/09/11",
-    "phone No.": "+XX XXXXXXXXXX",
-    gender: "Male",
-  };
+  const details = localStorage.getItem("userDetails")
+    ? JSON.parse(localStorage.getItem("userDetails"))
+    : {
+        name: "username01",
+        email: "email@email.com",
+        "Date of birth": "03/09/11",
+        "phone No.": "+XX XXXXXXXXXX",
+        gender: "Male",
+      };
 
-  const [userDetails, setUserDetails] = useState(details);
+  const [userDetails] = useState(details);
   const temp = [1, 2, 3, 4];
-
-  useEffect(() => {
-    const getDetails = async () => {
-      const info = await getUserInfo();
-      setUserDetails(info);
-    };
-    getDetails();
-  }, []);
 
   return (
     <Container
