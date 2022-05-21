@@ -7,8 +7,8 @@ import blurred_box_bg from "../assets/blurred_box_bg.png";
 const BlurredBox = () => {
   return (
     <Container
-      width={44}
-      height={16}
+      width={48}
+      height={14}
       bgImage={blurred_box_bg}
       bgPosition="center"
       centerContent
@@ -18,12 +18,12 @@ const BlurredBox = () => {
     >
       <Container
         className="blur"
-        width={40}
-        height={12}
+        width={44}
+        height={10}
         centerContent
         borderRadius="lg"
       >
-        <HStack pt={2} gridGap={1}>
+        <HStack pt={1} gridGap={2}>
           <Image src={extension_img} width={8} />
           <Text color="white" fontSize="md">
             Github
