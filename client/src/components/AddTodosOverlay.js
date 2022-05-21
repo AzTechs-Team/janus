@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Text, HStack, Box, Button } from "@chakra-ui/react";
+import { Text, Box } from "@chakra-ui/react";
 import TodoUploadImage from "./TodoUploadImage";
 import { handleImageFile } from "../helpers/uploadImage";
 
-const AddTodosOverlay = ({ onClose }) => {
+const AddTodosOverlay = ({ onClose, setText }) => {
   const fileTypes = ["JPG", "PNG"];
   const [image, setImage] = useState([]);
   const [todo, setTodo] = useState("");
@@ -38,6 +38,11 @@ const AddTodosOverlay = ({ onClose }) => {
     setTodoList(temp);
     setTodoList([...todoList]);
     setTodo("");
+    setText({
+      userId: "asd1",
+      id: new Date().toTimeString(),
+      todo: temp,
+    });
   };
 
   const onToggleTodo = (j) => {
@@ -82,7 +87,7 @@ const AddTodosOverlay = ({ onClose }) => {
           todoList={todoList}
         />
       </Box>
-      <HStack justifyContent="flex-end">
+      {/* <HStack justifyContent="flex-end">
         <Button
           bgColor="primary.200"
           color="accent.100"
@@ -107,7 +112,7 @@ const AddTodosOverlay = ({ onClose }) => {
         >
           Add Todo Collection
         </Button>
-      </HStack>
+      </HStack> */}
     </>
   );
 };

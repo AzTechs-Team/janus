@@ -1,8 +1,8 @@
-import { Box, Button, HStack } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import React, { useState } from "react";
 import TodoItem from "./TodoItem";
 
-const ReadTodosOverlay = ({ onClose, desc, todoList }) => {
+const ReadTodosOverlay = ({ todoList, setText }) => {
   const [todoItemList, setTodoItemList] = useState(todoList.todo);
 
   const onDeleteTodo = (j) => {
@@ -10,6 +10,9 @@ const ReadTodosOverlay = ({ onClose, desc, todoList }) => {
     temp.splice(j, 1);
     setTodoItemList(temp);
     setTodoItemList([...todoItemList]);
+    let x = todoList;
+    x.todo = temp;
+    setText(x);
   };
 
   const onToggleTodo = (j) => {
@@ -17,6 +20,9 @@ const ReadTodosOverlay = ({ onClose, desc, todoList }) => {
     temp[j].isDone = !temp[j].isDone;
     setTodoItemList(temp);
     setTodoItemList([...todoItemList]);
+    let x = todoList;
+    x.todo = temp;
+    setText(x);
   };
 
   return (
@@ -33,31 +39,6 @@ const ReadTodosOverlay = ({ onClose, desc, todoList }) => {
           />
         ))}
       </Box>
-      <HStack justifyContent="flex-end">
-        <Button
-          bgColor="primary.200"
-          color="accent.100"
-          _active={{ bgColor: "primary.200" }}
-          _hover={{ bgColor: "primary.200" }}
-          _focus={{ outlineStyle: "none" }}
-          size="sm"
-          px={8}
-          onClick={onClose}
-        >
-          Cancel
-        </Button>
-        <Button
-          bgColor="accent.100"
-          color="accent.700"
-          _active={{ bgColor: "accent.50" }}
-          _hover={{ bgColor: "accent.50" }}
-          _focus={{ outlineStyle: "none" }}
-          size="sm"
-          px={8}
-        >
-          Save
-        </Button>
-      </HStack>
     </Box>
   );
 };

@@ -73,7 +73,6 @@ const NotesGrid = ({ notesCollection }) => {
     onClose();
 
     setNotes(temp);
-    console.log(temp);
     let t = [];
     notes.map((note, i) => {
       t.push(generateLayout(i, note));

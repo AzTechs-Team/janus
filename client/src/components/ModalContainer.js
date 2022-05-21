@@ -37,8 +37,7 @@ const ModalContainer = ({
       updateNote(note, title, text);
       onClose();
     } else {
-      updateTodo(text);
-      console.log(text, "in modal contatiner, set text text");
+      updateTodo(title, text);
       onClose();
     }
   };
@@ -88,7 +87,7 @@ const ModalContainer = ({
           ) : id === "ReadTodos" ? (
             <ReadTodosOverlay todoList={text} setText={setText} />
           ) : (
-            <AddTodosOverlay onClose={onClose} />
+            <AddTodosOverlay onClose={onClose} setText={setText} />
           )}
         </ModalBody>
 
