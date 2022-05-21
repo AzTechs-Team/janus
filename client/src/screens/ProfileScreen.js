@@ -1,29 +1,50 @@
-import React, { useEffect, useState } from "react";
-import { Box, Container, HStack, Spacer, Text, VStack } from "@chakra-ui/react";
+import React, { useState } from "react";
+import {
+  Box,
+  Flex,
+  Container,
+  HStack,
+  Spacer,
+  Text,
+  Image,
+  VStack,
+} from "@chakra-ui/react";
 import NameCard from "../components/NameCard";
 import BlurredBox from "../components/BlurredBox";
 import ProfileInfo from "../components/ProfileInfo";
-import { getUserInfo } from "../helpers/getUserInfo";
+import notifications_btn from "../assets/notification_btn.png";
+import todo_btn from "../assets/todo_btn.png";
+import notes_btn from "../assets/notes_btn.png";
+import blurred_box_bg from "../assets/blurred_box_bg2.png";
 
 const ProfileScreen = () => {
-  const details = {
-    name: "username01",
-    email: "email@email.com",
-    "Date of birth": "03/09/11",
-    "phone No.": "+XX XXXXXXXXXX",
-    gender: "Male",
-  };
+  const details = localStorage.getItem("userDetails")
+    ? JSON.parse(localStorage.getItem("userDetails"))
+    : {
+        name: "username01",
+        email: "email@email.com",
+        "Date of birth": "03/09/11",
+        "phone No.": "+XX XXXXXXXXXX",
+        gender: "Male",
+      };
 
-  const [userDetails, setUserDetails] = useState(details);
-  const temp = [1, 2, 3, 4];
+  const extensions = [
+    {
+      name: "Notifications",
+      image: notifications_btn,
+    },
+    {
+      name: "Todos",
+      image: todo_btn,
+    },
+    {
+      name: "Notes",
+      image: notes_btn,
+    },
+  ];
 
-  useEffect(() => {
-    const getDetails = async () => {
-      const info = await getUserInfo();
-      setUserDetails(info);
-    };
-    getDetails();
-  }, []);
+  const [userDetails] = useState(details);
+  const temp = [1];
 
   return (
     <Container
@@ -59,12 +80,50 @@ const ProfileScreen = () => {
           ))}
         </Box>
         <Spacer />
-        <VStack gridGap={3}>
+
+        <VStack gridGap={2}>
           <Text fontWeight="bold" color="white">
             Linked accounts
           </Text>
           {temp.map((t) => (
             <BlurredBox key={t} />
+          ))}
+
+          <Text fontWeight="bold" color="white" pt={6}>
+            Your extensions
+          </Text>
+          {extensions.map((t) => (
+            <Container
+              width={48}
+              height={14}
+              bgImage={blurred_box_bg}
+              bgPosition="center"
+              centerContent
+              pt={2}
+              borderRadius="lg"
+              cursor="pointer"
+            >
+              <Box
+                className="blur"
+                width={44}
+                height={10}
+                centerContent
+                borderRadius="lg"
+              >
+                <Flex
+                  pt={1.5}
+                  pl={4}
+                  gridGap={3}
+                  flexDirection="row"
+                  alignItems="flex-start"
+                >
+                  <Image src={t.image} width={7} />
+                  <Text color="white" fontSize="md">
+                    {t.name}
+                  </Text>
+                </Flex>
+              </Box>
+            </Container>
           ))}
         </VStack>
       </HStack>

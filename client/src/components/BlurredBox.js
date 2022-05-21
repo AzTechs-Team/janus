@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, Container, Flex, HStack, Image, Text } from "@chakra-ui/react";
 
 import extension_img from "../assets/extension_img.png";
 import blurred_box_bg from "../assets/blurred_box_bg.png";
@@ -7,8 +7,8 @@ import blurred_box_bg from "../assets/blurred_box_bg.png";
 const BlurredBox = () => {
   return (
     <Container
-      width={44}
-      height={16}
+      width={48}
+      height={14}
       bgImage={blurred_box_bg}
       bgPosition="center"
       centerContent
@@ -16,20 +16,26 @@ const BlurredBox = () => {
       borderRadius="lg"
       cursor="pointer"
     >
-      <Container
+      <Box
         className="blur"
-        width={40}
-        height={12}
+        width={44}
+        height={10}
         centerContent
         borderRadius="lg"
       >
-        <HStack pt={2} gridGap={1}>
-          <Image src={extension_img} width={8} />
+        <Flex
+          pt={1.5}
+          pl={4}
+          gridGap={3}
+          flexDirection="row"
+          alignItems="flex-start"
+        >
+          <Image src={extension_img} width={7} />
           <Text color="white" fontSize="md">
             Github
           </Text>
-        </HStack>
-      </Container>
+        </Flex>
+      </Box>
     </Container>
   );
 };

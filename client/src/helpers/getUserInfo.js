@@ -4,6 +4,7 @@ export const getUserInfo = async () => {
       credentials: "include",
     });
     const info = await res.json();
+    localStorage.setItem("userDetails", JSON.stringify(info));
     return info;
   } catch (error) {
     return {};

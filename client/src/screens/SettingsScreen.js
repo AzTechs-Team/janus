@@ -11,7 +11,7 @@ const SettingsScreen = () => {
     setActive(active);
   };
   return (
-    <Flex flexDir="row" p="6" width="94vw">
+    <Flex flexDir="row" px="6" py="5" width="94vw">
       <ExtensionsCol
         active={active}
         values={Object.keys(info)}

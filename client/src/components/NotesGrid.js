@@ -81,6 +81,22 @@ const NotesGrid = ({ notesCollection }) => {
     setLayout(t);
   };
 
+  const deleteNote = (note) => {
+    if (!note) return;
+    let temp = notes;
+    temp = temp.filter((t) => {
+      return t.id !== note.id;
+    });
+
+    setNotes(temp);
+    let t = [];
+    notes.map((note, i) => {
+      t.push(generateLayout(i, note));
+      return null;
+    });
+    setLayout(t);
+  };
+
   return (
     <>
       <Flex flexDirection="column">
@@ -134,7 +150,11 @@ const NotesGrid = ({ notesCollection }) => {
                   flexDirection="column"
                   p={6}
                 >
-                  <NoteContainer note={note} updateNote={updateNote} />
+                  <NoteContainer
+                    note={note}
+                    updateNote={updateNote}
+                    deleteNote={deleteNote}
+                  />
                 </Flex>
               );
             })}
@@ -147,6 +167,7 @@ const NotesGrid = ({ notesCollection }) => {
         btnRef={btnRef}
         isOpen={isOpen}
         updateNote={updateNote}
+        deleteNote={deleteNote}
       />
     </>
   );

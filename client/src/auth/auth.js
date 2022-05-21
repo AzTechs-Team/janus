@@ -22,6 +22,7 @@ class Auth {
   async logout(redirectPath) {
     this.authenticated = false;
     localStorage.removeItem("login");
+    localStorage.removeItem("userDetails");
     try {
       await fetch("http://localhost:8082/api/Logout", {
         method: "POST",
