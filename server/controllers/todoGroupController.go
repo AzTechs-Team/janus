@@ -7,6 +7,8 @@ import (
 	"time"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/websocket/v2"
+
 	// main "github.com/nimit2801/janus"
 	connect "github.com/nimit2801/janus/database"
 	"github.com/nimit2801/janus/models"
@@ -15,6 +17,10 @@ import (
 )
 
 type Q struct{}
+
+var CC = new(websocket.Conn)
+
+var ws_ *fiber.Ctx
 
 func GithubPayload(ctx *fiber.Ctx) error {
 	var notif map[string]interface{}
@@ -28,9 +34,37 @@ func GithubPayload(ctx *fiber.Ctx) error {
 		panic(err)
 	}
 	fmt.Println(string(ans))
-	// main.CC.WriteMessage(1, make([]byte, 4))
+	CC.WriteMessage(1, ans)
+
 	return ctx.SendString("we did")
 }
+
+var Ws_ = websocket.New(func(c *websocket.Conn) {
+	log.Println("New Client connected :)")
+	log.Println(c.Locals("allowed"))  // true
+	log.Println(c.Params("id"))       // 123
+	log.Println(c.Query("v"))         // 1.0
+	log.Println(c.Cookies("session")) // ""
+
+	var (
+		mt  int
+		msg []byte
+		err error
+	)
+	CC = c
+	for {
+		mt, msg, err = c.ReadMessage()
+		if err != nil {
+			panic(err)
+		}
+		log.Println(mt, msg)
+		c.WriteMessage(mt, msg)
+		for i := 0; i < 5; i++ {
+			c.WriteMessage(mt, make([]byte, i))
+			log.Println(mt, i)
+		}
+	}
+})
 
 func CreateNewTodoGroup(ctx *fiber.Ctx) error {
 	cookie := ctx.Cookies("accessToken")
