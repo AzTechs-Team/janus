@@ -26,19 +26,17 @@ const ReadTodosOverlay = ({ todoList, setText }) => {
   };
 
   return (
-    <Box>
-      <Box overflowY="auto">
-        {todoItemList.map((item, id) => (
-          <TodoItem
-            key={id}
-            item={item}
-            id={id}
-            onDeleteTodo={onDeleteTodo}
-            onToggleTodo={onToggleTodo}
-            screen="Read"
-          />
-        ))}
-      </Box>
+    <Box overflowY="auto" h="45vh" mt={4}>
+      {todoItemList.map((item, id) => (
+        <TodoItem
+          key={id}
+          item={item}
+          id={id}
+          onDeleteTodo={onDeleteTodo}
+          onToggleTodo={onToggleTodo}
+          screen="Read"
+        />
+      ))}
     </Box>
   );
 };

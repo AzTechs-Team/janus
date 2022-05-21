@@ -15,6 +15,7 @@ import React, { useState } from "react";
 const buttons = (active, name, handleClick) => {
   return (
     <Box
+      key={name}
       bg="primary.900"
       paddingX={4}
       paddingY={2}

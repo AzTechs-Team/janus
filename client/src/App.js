@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Routes as Switch,
   Route,
@@ -17,8 +17,8 @@ import ExtensionsScreen from "./screens/ExtensionsScreen";
 import ExampleScreen from "./screens/ExampleScreen";
 import NotesScreen from "./screens/NotesScreen";
 import TodoScreen from "./screens/TodoScreen";
+import Notification from "./screens/NotificationScreen";
 import auth from "./auth/auth";
-import { getUserInfo } from "./helpers/getUserInfo";
 
 const App = () => {
   const navigate = useNavigate();
@@ -91,6 +91,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <BaseScreen children={<TodoScreen />} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/notification"
+          element={
+            <ProtectedRoute>
+              <BaseScreen children={<Notification />} />
             </ProtectedRoute>
           }
         />

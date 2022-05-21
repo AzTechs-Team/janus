@@ -11,14 +11,7 @@ import React from "react";
 import { BiSearchAlt } from "react-icons/bi";
 import { TiDelete } from "react-icons/ti";
 
-const ExtensionsTitleBar = ({
-  search,
-  setSearch,
-  onSearch,
-  reset,
-  title,
-  btn,
-}) => {
+const ExtensionsTitleBar = ({ search, setSearch, onSearch, reset, title }) => {
   const onClear = () => {
     setSearch("");
     reset();
