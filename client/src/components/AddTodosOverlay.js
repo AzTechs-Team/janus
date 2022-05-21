@@ -1,13 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, Box } from "@chakra-ui/react";
 import TodoUploadImage from "./TodoUploadImage";
 import { handleImageFile } from "../helpers/uploadImage";
+import { cvService } from "../helpers/cvService";
 
 const AddTodosOverlay = ({ onClose, setText }) => {
   const fileTypes = ["JPG", "PNG"];
   const [image, setImage] = useState([]);
   const [todo, setTodo] = useState("");
   const [todoList, setTodoList] = useState([]);
+
+  useEffect(() => {
+    const getDetails = async () => {
+      if (image.length > 0) {
+        const info = await cvService(image.at(-1));
+        if (info) {
+          let temp = [];
+          info.forEach((i) => {
+            temp.push({
+              value: i,
+              isDone: false,
+              createdAt: new Date().toTimeString(),
+            });
+          });
+          // console.log(temp);
+          setTodoList([...temp]);
+          setText({
+            userId: "asd1",
+            id: new Date().toTimeString(),
+            todo: temp,
+          });
+        }
+      }
+    };
+    getDetails();
+  }, [image]);
 
   const updateImageState = (url) => {
     let temp = image;
