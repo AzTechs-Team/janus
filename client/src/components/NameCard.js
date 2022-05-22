@@ -14,9 +14,12 @@ import extension_img from "../assets/extension_img.png";
 import profile_icon from "../assets/profile_icon.png";
 import auth from "../auth/auth";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { userState } from "../atoms/details";
 
 const NameCard = ({ content, id, downloadExtension, removeExtension }) => {
   const navigate = useNavigate();
+  const [userDetails, setUserDetails] = useRecoilState(userState);
 
   const btnTitle = id === 0 ? "Logout" : content["installed"];
   const btnColor = content["installed"] !== "Install" ? "#BD5050" : "#55904F";
@@ -63,7 +66,10 @@ const NameCard = ({ content, id, downloadExtension, removeExtension }) => {
           onClick={
             id === 0
               ? () => {
-                  auth.logout(() => navigate("/", { replace: true }));
+                  auth.logout(() => {
+                    navigate("/", { replace: true });
+                  });
+                  setUserDetails({});
                 }
               : func
           }

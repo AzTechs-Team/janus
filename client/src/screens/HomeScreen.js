@@ -17,12 +17,26 @@ import notifications_btn from "../assets/notification_btn.png";
 import todo_btn from "../assets/todo_btn.png";
 import notes_btn from "../assets/notes_btn.png";
 import blurred_box_bg from "../assets/blurred_box_bg2.png";
-import { useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import { userState } from "../atoms/details";
+import { getUserInfo } from "../helpers/getUserInfo";
 
 const HomeScreen = () => {
   const [date, setDate] = useState(new Date());
-  const userDetails = useRecoilValue(userState);
+  // const userDetails = useRecoilValue(userState);
+  const [userDetails, setUserDetails] = useRecoilState(userState);
+
+  useEffect(() => {
+    const getDetails = async () => {
+      const info = await getUserInfo();
+      info.extensionList = info.extensionList ? info.extensionList : [];
+      setUserDetails(info);
+    };
+    if (Object.keys(userDetails).length === 0) {
+      getDetails();
+    }
+  }, []);
+
   const extensions = [
     {
       name: "Notifications",
@@ -38,9 +52,11 @@ const HomeScreen = () => {
     },
   ];
 
-  let activeExtensions = extensions.filter((e) =>
-    userDetails.extensionList.includes(e.name)
-  );
+  let activeExtensions = userDetails
+    ? userDetails.extensionList
+      ? extensions.filter((e) => userDetails.extensionList.includes(e.name))
+      : []
+    : [];
 
   return (
     <Container

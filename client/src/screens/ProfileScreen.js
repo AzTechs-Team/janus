@@ -47,9 +47,11 @@ const ProfileScreen = () => {
     },
   ];
 
-  let activeExtensions = extensions.filter((e) =>
-    userDetails.extensionList.includes(e.name)
-  );
+  let activeExtensions = userDetails
+    ? userDetails.extensionList
+      ? extensions.filter((e) => userDetails.extensionList.includes(e.name))
+      : []
+    : [];
 
   // const [userDetails] = useState(details);
   const temp = [1];
