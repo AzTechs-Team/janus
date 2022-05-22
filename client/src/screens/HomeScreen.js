@@ -92,6 +92,7 @@ const HomeScreen = () => {
           </Text>
           {activeExtensions.map((t) => (
             <Container
+              key={t.name}
               width={48}
               height={16}
               bgImage={blurred_box_bg}

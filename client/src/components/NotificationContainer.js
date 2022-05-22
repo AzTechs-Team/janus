@@ -18,15 +18,21 @@ const getDescriptionLen = (desc) => {
   else return 200;
 };
 
-const NotificationContainer = ({ notification }) => {
+const NotificationContainer = ({ notification, onRemindMeLater }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+
   return (
     <>
       <HStack pb={2} px={3} spacing={4}>
-        <Image h={14} w={14} borderRadius="50px" src={notification.avatarUrl} />
+        <Image
+          h={14}
+          w={14}
+          borderRadius="50px"
+          src={notification.repo.imageUrl}
+        />
         <Text casing="uppercase" fontWeight="bold" fontSize="14px">
-          {notification.descriptive.repoName}
+          {notification.repo.org}
         </Text>
       </HStack>
 
@@ -38,23 +44,28 @@ const NotificationContainer = ({ notification }) => {
         mt={2}
         h="22vh"
       >
-        <HStack pb={1}>
+        <HStack
+          pb={1}
+          cursor="pointer"
+          onClick={() => window.open(notification.repoUrl, "_blank")}
+        >
           <Text
             casing="uppercase"
             fontWeight="bold"
             fontSize="12px"
             color="accent.100"
           >
-            {notification.descriptive.repoName}
+            {notification.repo.name}
           </Text>
           <FiExternalLink color="accent.100" size="10" />
         </HStack>
 
         <Text fontSize="10px">
-          {notification.desc.slice(
+          Issue:{" "}
+          {notification.body.slice(
             0,
             90,
-            getDescriptionLen(notification.desc)
+            getDescriptionLen(notification.body)
           ) + "..."}
         </Text>
         <Spacer></Spacer>
@@ -84,6 +95,7 @@ const NotificationContainer = ({ notification }) => {
             _hover={{ bgColor: "accent.600" }}
             _focus={{ outlineStyle: "none" }}
             _active={{ bgColor: "accent.600" }}
+            onClick={() => onRemindMeLater(notification.id)}
           >
             Remind Me Later
           </Button>
@@ -94,6 +106,7 @@ const NotificationContainer = ({ notification }) => {
         btnRef={btnRef}
         isOpen={isOpen}
         notification={notification}
+        onRemindMeLater={onRemindMeLater}
       />
     </>
   );

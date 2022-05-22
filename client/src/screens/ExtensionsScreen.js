@@ -17,10 +17,10 @@ const ExtensionsScreen = () => {
     let temp = info;
     Object.keys(info).forEach((extension) => {
       if (userDetails?.extensionList?.includes(extension)) {
-        console.log("in if", extension, userDetails.extensionList);
+        // console.log("in if", extension, userDetails.extensionList);
         temp[extension]["installed"] = "Uninstall";
       } else {
-        console.log("in else", extension, userDetails.extensionList);
+        // console.log("in else", extension, userDetails.extensionList);
 
         temp[extension]["installed"] = "Install";
       }

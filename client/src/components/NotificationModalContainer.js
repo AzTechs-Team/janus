@@ -20,9 +20,10 @@ const NotificationModalContainer = ({
   btnRef,
   isOpen,
   notification,
+  onRemindMeLater,
 }) => {
-  const repoName = notification.descriptive.repoName;
-  const description = notification.desc;
+  const repoName = notification.repo.name;
+  const description = notification.body;
 
   return (
     <Modal onClose={onClose} finalFocusRef={btnRef} isOpen={isOpen} isCentered>
@@ -44,24 +45,32 @@ const NotificationModalContainer = ({
           justifyContent="space-between"
           alignItems="center"
         >
-          <HStack pb={2} px={3} spacing={4}>
+          <HStack
+            pb={2}
+            px={3}
+            spacing={4}
+            cursor="pointer"
+            onClick={() => window.open(notification.repo.url, "_blank")}
+          >
             <Image
               h={24}
               w={24}
               borderRadius="50px"
-              src={notification.avatarUrl}
+              src={notification.repo.imageUrl}
             />
-            <Text casing="uppercase" fontSize="30px">
+            <Text casing="uppercase" fontSize="lg" width="48%">
               {repoName}
             </Text>
-            <FiExternalLink fontColor="accent.100" size="20" />
+            <FiExternalLink color="accent.100" size="20" />
           </HStack>
-          <Text casing="capitalize" fontSize="14px" fontWeight="normal">
-            {notification.onWhat +
-              " " +
-              notification.action +
-              " : By " +
-              notification.descriptive.author}
+          <Text
+            casing="capitalize"
+            fontSize="14px"
+            fontWeight="normal"
+            cursor="pointer"
+            onClick={() => window.open(notification.repoUrl, "_blank")}
+          >
+            {"Issue" + notification.action + " : By " + notification.creator}
           </Text>
         </ModalHeader>
 
@@ -86,7 +95,7 @@ const NotificationModalContainer = ({
               _focus={{ outlineStyle: "none" }}
               size="sm"
               px={8}
-              onClick={onClose}
+              onClick={() => onRemindMeLater(notification.id)}
             >
               Remind me later
             </Button>
