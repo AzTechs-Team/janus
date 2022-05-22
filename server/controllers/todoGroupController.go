@@ -64,19 +64,26 @@ func ReadAllTodogroup(ctx *fiber.Ctx) error {
 
 // Todo Update Single Todo Group
 
-// func UpdateSingleTodogroup(ctx *fiber.Ctx) error {
-// 	cookie := ctx.Cookies("accessToken")
-// 	ID := utils.StringID(cookie)
+func UpdateSingleTodogroup(ctx *fiber.Ctx) error {
+	// cookie := ctx.Cookies("accessToken")
+	// userId := utils.StringID(cookie)
 
-// 	TodoGroup := models.TodoGroup{}
-// 	if err := ctx.BodyParser(&TodoGroup); err != nil {
-// 		return err
-// 	}
-// 	ID_ := TodoGroup.ID
-// 	filter := bson.M{"_id": ID, "userId": ID_}
+	TodoGroup := models.TodoGroup{}
+	if err := ctx.BodyParser(&TodoGroup); err != nil {
+		return err
+	}
+	ID_ := TodoGroup.ID
+	filter := bson.M{"_id": ID_}
+	// update := bson.D{}
+	update := bson.D{
+		{"$set", bson.D{{"title", TodoGroup.Title}}},
+		{"$set", bson.D{{"todos", TodoGroup.Todos}}},
+	}
+	singleResult, err := connect.TodoGroupCollection.UpdateOne(connect.Ctx_, filter, update)
+	if err != nil {
+		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
+	}
 
-// 	singleResult := connect.TodoGroupCollection.FindOneAndUpdate(connect.Ctx_, filter, TodoGroup)
-
-// 	return ctx.Status(fiber.StatusAccepted).JSON(singleResult)
-// 	// return ctx.SendString("We're working <3")
-// }
+	return ctx.Status(fiber.StatusAccepted).JSON(singleResult)
+	// return ctx.SendString("We're working <3")
+}
