@@ -39,8 +39,6 @@ func CreateNewTodoGroup(ctx *fiber.Ctx) error {
 	})
 }
 
-// Todo: Read, Updade, Delete :D
-
 func ReadAllTodogroup(ctx *fiber.Ctx) error {
 	cookie := ctx.Cookies("accessToken")
 	ID := utils.StringID(cookie)
@@ -86,8 +84,6 @@ func UpdateSingleTodogroup(ctx *fiber.Ctx) error {
 	return ctx.Status(fiber.StatusAccepted).JSON(singleResult)
 	// return ctx.SendString("We're working <3")
 }
-
-// TodoGroup Delete Single Todo Group
 
 func DeleteSingleTodoGroup(ctx *fiber.Ctx) error {
 	TodoGroup := models.TodoGroup{}
