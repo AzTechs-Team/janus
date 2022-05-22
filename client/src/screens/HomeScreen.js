@@ -74,18 +74,11 @@ const HomeScreen = () => {
               height={16}
               bgImage={blurred_box_bg}
               bgPosition="center"
-              centerContent
               pt={2}
               borderRadius="lg"
               cursor="pointer"
             >
-              <Box
-                className="blur"
-                width={44}
-                height={12}
-                centerContent
-                borderRadius="lg"
-              >
+              <Box className="blur" width={44} height={12} borderRadius="lg">
                 <Flex
                   pt={2.5}
                   pl={4}
