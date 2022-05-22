@@ -21,7 +21,7 @@ import {
   validatePhone,
 } from "../auth/validators";
 
-const SignupForm = ({ animateSlider, isBlur }) => {
+const SignupForm = ({ animateSlider, isBlur, toast }) => {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +29,7 @@ const SignupForm = ({ animateSlider, isBlur }) => {
   const [err, setErr] = useState("");
   const navigate = useNavigate();
 
-  const handleSignup = async () => {
+  const handleSignup = async ({}) => {
     if (validateEmail(email)) {
       setErr("Enter valid email");
       return;
@@ -62,10 +62,18 @@ const SignupForm = ({ animateSlider, isBlur }) => {
         credentials: "include",
         body: info,
       });
-      if (res)
-        auth.login(() => {
-          navigate("/home", { replace: true });
+      if (res) {
+        toast({
+          title: `User created! Login now!`,
+          status: "success",
+          duration: 2000,
+          isClosable: true,
         });
+        console.log("in ressss", res);
+        // auth.login(() => {
+        //   navigate("/", { replace: true });
+        // });
+      }
     } catch (error) {
       setErr("Error signing up! Try again!");
     }

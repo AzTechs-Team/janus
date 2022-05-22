@@ -10,6 +10,6 @@ export const cvService = async (imgUrl) => {
     const info = await res.json();
     return info;
   } catch (error) {
-    return {};
+    return [];
   }
 };

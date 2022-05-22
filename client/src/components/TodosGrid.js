@@ -53,14 +53,14 @@ const TodosGrid = ({ todosCollection }) => {
     temp.map((n) => {
       if (n._id === todogrp._id) {
         flag = true;
-        todogrp.title = title;
+        n.title = title;
         n.todo = todogrp.todo;
       }
       return null;
     });
 
     if (!flag) {
-      todogrp.title = title;
+      temp.title = title;
       temp.push(todogrp);
       createTodos(todogrp);
       console.log("in !flag", temp);

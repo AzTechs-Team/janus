@@ -20,7 +20,7 @@ const TodosContainer = ({ todoList, updateTodo, deleteTodo }) => {
         {todoList.title}
       </Text>
       <Box>
-        {todoList.todos.slice(0, 3).map((t, i) => {
+        {todoList.todos?.slice(0, 3).map((t, i) => {
           return (
             <React.Fragment key={i}>
               <Text
@@ -53,7 +53,11 @@ const TodosContainer = ({ todoList, updateTodo, deleteTodo }) => {
         </Button>
         <Spacer />
         <Text color="accent.100" fontSize="xs" fontWeight="bold">
-          {todoList.createdAt}
+          {new Date(todoList.createdAt * 1000)
+            .toGMTString()
+            .split(" ")
+            .slice(1, 4)
+            .join(" ")}
         </Text>
       </HStack>
       <ModalContainer

@@ -14,7 +14,7 @@ const AddTodosOverlay = ({ onClose, setText }) => {
     const getDetails = async () => {
       if (image.length > 0) {
         const info = await cvService(image.at(-1));
-        if (info) {
+        if (info && info.length !== 0) {
           let temp = [];
           info.forEach((i) => {
             temp.push({
@@ -27,7 +27,7 @@ const AddTodosOverlay = ({ onClose, setText }) => {
           setText({
             userId: "asd1",
             id: new Date().toTimeString(),
-            todo: temp,
+            todos: temp,
           });
         }
       }

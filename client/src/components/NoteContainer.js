@@ -42,7 +42,11 @@ const NoteContainer = ({ note, updateNote, deleteNote }) => {
         </Button>
         <Spacer />
         <Text color="accent.100" fontSize="xs" fontWeight="bold">
-          5 May, 2022
+          {new Date(note.createdAt * 1000)
+            .toGMTString()
+            .split(" ")
+            .slice(1, 4)
+            .join(" ")}
         </Text>
       </HStack>
       <ModalContainer

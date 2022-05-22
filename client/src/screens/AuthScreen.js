@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Image, HStack } from "@chakra-ui/react";
+import { Box, Image, HStack, useToast } from "@chakra-ui/react";
 
 import LoginForm from "../components/LoginForm";
 import SignupForm from "../components/SignupForm";
@@ -12,6 +12,7 @@ const AuthScreen = () => {
   const animateSlider = () => {
     setView(!view);
   };
+  const toast = useToast();
 
   return (
     <Box bgColor="primary.900" w="100%">
@@ -37,6 +38,7 @@ const AuthScreen = () => {
       <HStack w="100%" top="0">
         <LoginForm animateSlider={animateSlider} isBlur={view ? false : true} />
         <SignupForm
+          toast={toast}
           animateSlider={animateSlider}
           isBlur={view ? true : false}
         />
