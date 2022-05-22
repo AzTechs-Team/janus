@@ -1,32 +1,21 @@
 export const todos = [
   {
     userid: "asd1",
-    title: "asd",
+    title: "Issues",
     id: "12312",
     todo: [
       {
-        value: "we love football",
+        value: "Resolve Issue 1",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value:
-          "we love footballwe love footballwe love footballwe love footballwe love footballwe love footballwe love footballwe love footballwe love footballwe love football",
+        value: "Resolve notification issue",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
-        isDone: true,
-        createdAt: "12 - April - 2022",
-      },
-      {
-        value: "we love football",
-        isDone: true,
-        createdAt: "12 - April - 2022",
-      },
-      {
-        value: "we love football",
+        value: "Check issue",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
@@ -35,134 +24,129 @@ export const todos = [
   },
   {
     userid: "asd2",
-    title: "lamadksfij",
+    title: "Sports",
     id: "1233",
     todo: [
       {
-        value: "we love football",
+        value: "Buy shoes",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
+        value: "Win some games",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
+        value: "Get good",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
-        isDone: true,
-        createdAt: "12 - April - 2022",
-      },
-      {
-        value: "we love football",
+        value: "Watch man united and cry",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
     ],
-    createdAt: "12 - April - 2022",
+    createdAt: "24 - April - 2022",
   },
   {
     userid: "asd3",
-    title: "asd",
+    title: "Submission",
     id: "123",
     todo: [
       {
-        value: "we love football",
+        value: "Minor submission",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
+        value: "AI - Lab manual",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
+        value: "DS - Lab manual",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
+        value: "CD assignment",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
+        value: "SE assignment",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
     ],
-    createdAt: "12 - April - 2022",
+    createdAt: "2 - May - 2022",
   },
   {
     userid: "asd4",
-    title: "asd",
+    title: "Watch list",
     id: "121",
     todo: [
       {
-        value: "we love football",
+        value: "Naruto",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
+        value: "Man utd losing",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
+        value: "Donny darko",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
+        value: "Breaking bad",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
+        value: "The boys",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
     ],
-    createdAt: "12 - April - 2022",
+    createdAt: "09 - May - 2022",
   },
   {
     userid: "asd5",
-    title: "asd",
+    title: "Medications",
     id: "13",
     todo: [
       {
-        value: "we love football",
+        value: "Paracetamol",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
+        value: "Cough syrup",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
+        value: "IV",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
+        value: "Digene",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
       {
-        value: "we love football",
+        value: "Combiflam",
         isDone: true,
         createdAt: "12 - April - 2022",
       },
     ],
-    createdAt: "12 - April - 2022",
+    createdAt: "21- May - 2022",
   },
 ];

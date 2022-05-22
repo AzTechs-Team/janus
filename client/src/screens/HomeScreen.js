@@ -47,9 +47,11 @@ const HomeScreen = () => {
     },
   ];
 
-  let activeExtensions = extensions.filter((e) =>
-    userDetails.extensionList.includes(e.name)
-  );
+  let activeExtensions = userDetails
+    ? userDetails.extensionList
+      ? extensions.filter((e) => userDetails.extensionList.includes(e.name))
+      : []
+    : [];
 
   return (
     <Container
@@ -79,7 +81,7 @@ const HomeScreen = () => {
               height={16}
               bgImage={blurred_box_bg}
               bgPosition="center"
-              pt={2}
+              p={2}
               borderRadius="lg"
               cursor="pointer"
               onClick={() => {
