@@ -7,6 +7,9 @@ import bg from "../assets/notes_bg.png";
 import "../theme/grid.css";
 import { GrAdd } from "react-icons/gr";
 import ModalContainer from "./ModalContainer";
+import { useRecoilState } from "recoil";
+import { notesState } from "../atoms/notes";
+import { createNote, delNote, postNotes } from "../helpers/notesService";
 
 const getRatio = (note) => {
   const len = note.description.length;
@@ -39,7 +42,7 @@ const generateLayout = (i, note) => {
 };
 
 const NotesGrid = ({ notesCollection }) => {
-  const [notes, setNotes] = useState(notesCollection);
+  const [notes, setNotes] = useRecoilState(notesState);
   const [layout, setLayout] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
@@ -54,41 +57,44 @@ const NotesGrid = ({ notesCollection }) => {
   }, [notes]);
 
   const updateNote = (note, title, text) => {
-    let temp = notes;
-    if (note) {
+    let temp = JSON.parse(JSON.stringify(notes));
+    let tempNote = note ? JSON.parse(JSON.stringify(note)) : null;
+    if (tempNote) {
       temp.map((n, i) => {
-        if (n.id === note.id) {
-          note.title = title;
-          note.description = text;
+        if (n._id === tempNote._id) {
+          n.title = title;
+          n.description = text;
         }
         return null;
       });
+      postNotes({ title: title, description: text, _id: tempNote._id });
     } else {
       temp.push({
-        id: (temp.length + 1).toString(),
         title: title,
         description: text,
       });
+      createNote({ title: title, description: text });
     }
-    onClose();
+    setNotes([...temp]);
 
-    setNotes(temp);
     let t = [];
-    notes.map((note, i) => {
+    temp.map((note, i) => {
       t.push(generateLayout(i, note));
       return null;
     });
     setLayout(t);
+    onClose();
   };
 
   const deleteNote = (note) => {
     if (!note) return;
-    let temp = notes;
+    let temp = JSON.parse(JSON.stringify(notes));
     temp = temp.filter((t) => {
-      return t.id !== note.id;
+      return t._id !== note._id;
     });
 
-    setNotes(temp);
+    setNotes([...temp]);
+    delNote({ _id: note._id });
     let t = [];
     notes.map((note, i) => {
       t.push(generateLayout(i, note));
