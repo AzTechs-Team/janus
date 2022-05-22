@@ -16,17 +16,21 @@ import notifications_btn from "../assets/notification_btn.png";
 import todo_btn from "../assets/todo_btn.png";
 import notes_btn from "../assets/notes_btn.png";
 import blurred_box_bg from "../assets/blurred_box_bg2.png";
+import { useRecoilValue } from "recoil";
+import { userState } from "../atoms/details";
 
 const ProfileScreen = () => {
-  const details = localStorage.getItem("userDetails")
-    ? JSON.parse(localStorage.getItem("userDetails"))
-    : {
-        name: "username01",
-        email: "email@email.com",
-        "Date of birth": "03/09/11",
-        "phone No.": "+XX XXXXXXXXXX",
-        gender: "Male",
-      };
+  const userDetails = useRecoilValue(userState);
+
+  // const details = localStorage.getItem("userDetails")
+  //   ? JSON.parse(localStorage.getItem("userDetails"))
+  //   : {
+  //       name: "username01",
+  //       email: "email@email.com",
+  //       "Date of birth": "03/09/11",
+  //       "phone No.": "+XX XXXXXXXXXX",
+  //       gender: "Male",
+  //     };
 
   const extensions = [
     {
@@ -43,7 +47,11 @@ const ProfileScreen = () => {
     },
   ];
 
-  const [userDetails] = useState(details);
+  let activeExtensions = extensions.filter((e) =>
+    userDetails.extensionList.includes(e.name)
+  );
+
+  // const [userDetails] = useState(details);
   const temp = [1];
 
   return (
@@ -92,7 +100,7 @@ const ProfileScreen = () => {
           <Text fontWeight="bold" color="white" pt={6}>
             Your extensions
           </Text>
-          {extensions.map((t) => (
+          {activeExtensions.map((t) => (
             <Container
               width={48}
               height={14}

@@ -4,18 +4,19 @@ import ExtensionsCol from "../components/ExtensionsCol";
 import ExtensionsContent from "../components/ExtensionsContent";
 import { info } from "../assets/content/extensions";
 import { manageExtensions } from "../helpers/manageExtensions";
+import { useRecoilState } from "recoil";
+import { userState } from "../atoms/details";
 
 const ExtensionsScreen = () => {
-  const [userDetails, setUserDetails] = useState(
-    JSON.parse(localStorage.getItem("userDetails"))
-  );
+  const [userDetails, setUserDetails] = useRecoilState(userState);
+
   const [active, setActive] = useState("Todos");
   const [extensionsInfo, setExtensionsInfo] = useState(info);
 
   useEffect(() => {
     let temp = info;
     Object.keys(info).forEach((extension) => {
-      if (userDetails.extensionList.includes(extension)) {
+      if (userDetails?.extensionList.includes(extension)) {
         console.log("in if", extension, userDetails.extensionList);
         temp[extension]["installed"] = "Uninstall";
       } else {
@@ -32,26 +33,29 @@ const ExtensionsScreen = () => {
   };
 
   const downloadExtension = (id) => {
-    let t = userDetails;
-    t.extensionList.push(id);
-    // setUserDetails(t);
-    setUserDetails({ ...t });
-
+    setUserDetails((curVal) => ({
+      ...curVal,
+      extensionList: curVal.extensionList.concat(id),
+    }));
+    // console.log(userDetails.extensionList);
     let e = extensionsInfo;
     e[id]["installed"] = "Uninstall";
     setExtensionsInfo({ ...e });
-    manageExtensions(t.extensionList.toString());
+    manageExtensions(userDetails.extensionList.concat(id).toString());
   };
 
   const removeExtension = (id) => {
-    let t = userDetails;
-    t.extensionList = t.extensionList.filter((i) => i !== id);
-    setUserDetails({ ...t });
+    setUserDetails((curVal) => ({
+      ...curVal,
+      extensionList: curVal.extensionList.filter((i) => i !== id && i !== ""),
+    }));
 
     let e = extensionsInfo;
     e[id]["installed"] = "Install";
     setExtensionsInfo({ ...e });
-    manageExtensions(t.extensionList.toString());
+    manageExtensions(
+      userDetails.extensionList.filter((i) => i !== id && i !== "").toString()
+    );
   };
 
   return (

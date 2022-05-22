@@ -22,7 +22,8 @@
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.1.1",
     "react-scripts": "4.0.3",
-    "recharts": "^2.1.9"
+    "recharts": "^2.1.9",
+    "recoil": "^0.7.3-alpha.2"
   },
   "scripts": {
     "dev": "concurrently \"SET BROWSER=none && npm start\" \"wait-on http://localhost:3000 && electron-forge start\"",

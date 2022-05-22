@@ -15,6 +15,8 @@ import notificationExtension from "../assets/notification_btn.png";
 import profile from "../assets/profile_btn.png";
 import settings from "../assets/settings_btn.png";
 import todoExtension from "../assets/todo_btn.png";
+import { useRecoilValue } from "recoil";
+import { userState } from "../atoms/details";
 
 const largeBtn = (src, alt) => {
   return (
@@ -56,13 +58,28 @@ const smallBtn = (src, alt, navigate, setActive) => {
 };
 
 const SideNav = () => {
-  const nav = {
+  const userDetails = useRecoilValue(userState);
+  const extensions = userDetails.extensionList;
+
+  const AllNav = {
     Home: { path: "/home", img: active_extension },
     Notes: { path: "/notes", img: notesExtension },
     Todos: { path: "/todos", img: todoExtension },
-    Notification: { path: "/notification", img: notificationExtension },
+    Notifications: { path: "/notification", img: notificationExtension },
     "Download extensions": { path: "/extensions", img: more_extensions },
   };
+
+  let nav = {
+    Home: AllNav["Home"],
+    "Download extensions": AllNav["Download extensions"],
+  };
+
+  extensions?.forEach((extension) => {
+    if (Object.keys(AllNav).includes(extension)) {
+      nav[extension] = AllNav[extension];
+    }
+  });
+
   const [active, setActive] = useState("Home");
   const navigate = useNavigate();
 
