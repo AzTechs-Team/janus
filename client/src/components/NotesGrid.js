@@ -13,8 +13,8 @@ import { createNote, delNote, postNotes } from "../helpers/notesService";
 
 const getRatio = (note) => {
   const len = note.description.length;
-  if (len <= 25) return 4;
-  else if (len <= 50) return 8;
+  if (len <= 50) return 4;
+  else if (len <= 150) return 8;
   else return 12;
 };
 

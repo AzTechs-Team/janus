@@ -4,8 +4,8 @@ export const info = {
     title: "Todos Manager",
     description: `A Cli-application for managing notes and todos`,
     overview: `
-    Todos Manager is a cli-application to simplify the process to maintaining a list of tasks to complete. 
-      It also has commands to help store random todos and retrive them for later use
+      Todos Manager is a cli-application to simplify the process to maintaining a list of tasks to complete. 
+        It also has commands to help store random todos and retrive them for later use
     `,
     about: `
     This extension helps you create multiple todo. Not only you can create one todo, you can group multiple todos and group it in one.
@@ -42,7 +42,7 @@ export const info = {
     <br>Notes can be eaily prioritized by just dragging and dropping.
     <br><br>
     To add a note:
-    <p>1) Click add todo.
+    <p>1) Click add notes.
     <p>2) Type in notes in the textbox.
     <p>3) Click add to add notes to the colection.
     <p>4) CRUD functionalities can be performed on notes.
