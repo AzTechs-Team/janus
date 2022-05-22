@@ -71,13 +71,15 @@ const ProfileScreen = () => {
           p={12}
           borderRadius="2xl"
         >
-          {Object.keys(userDetails).map((detail) => (
-            <ProfileInfo
-              text={detail}
-              placeholder={userDetails[detail]}
-              key={detail}
-            />
-          ))}
+          {Object.keys(userDetails)
+            .slice(1, 4)
+            .map((detail) => (
+              <ProfileInfo
+                text={detail}
+                placeholder={userDetails[detail]}
+                key={detail}
+              />
+            ))}
         </Box>
         <Spacer />
 
