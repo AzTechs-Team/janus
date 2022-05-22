@@ -9,6 +9,8 @@ import {
   Image,
   VStack,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+
 import NameCard from "../components/NameCard";
 import BlurredBox from "../components/BlurredBox";
 import ProfileInfo from "../components/ProfileInfo";
@@ -30,7 +32,7 @@ const ProfileScreen = () => {
 
   const extensions = [
     {
-      name: "Notifications",
+      name: "Notification",
       image: notifications_btn,
     },
     {
@@ -42,6 +44,14 @@ const ProfileScreen = () => {
       image: notes_btn,
     },
   ];
+
+  const nav = {
+    Notes: { path: "/notes" },
+    Todos: { path: "/todos" },
+    Notification: { path: "/notification" },
+    Profile: { path: "/profile" },
+  };
+  const navigate = useNavigate();
 
   const [userDetails] = useState(details);
   const temp = [1];
@@ -104,6 +114,9 @@ const ProfileScreen = () => {
               pt={2}
               borderRadius="lg"
               cursor="pointer"
+              onClick={() => {
+                navigate(nav[t.name].path);
+              }}
             >
               <Box
                 className="blur"

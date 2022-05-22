@@ -197,6 +197,9 @@ export const info = {
     title: "Help",
     description: `<br>
     Contact developers if you need any additional help.
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    Made with lob<3
+    <br>Aztechs
     `,
   },
 };

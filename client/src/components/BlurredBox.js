@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Flex, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, Container, Flex, Image, Text } from "@chakra-ui/react";
 
 import extension_img from "../assets/extension_img.png";
 import blurred_box_bg from "../assets/blurred_box_bg.png";

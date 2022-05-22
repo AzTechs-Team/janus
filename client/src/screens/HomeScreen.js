@@ -8,10 +8,11 @@ import {
   Flex,
   Box,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import GraphContainer from "../components/GraphContainer";
-import BlurredBox from "../components/BlurredBox";
 import WelcomeBox from "../components/WelcomeBox";
 import DashboardNav from "../components/DashboardNav";
 import { getUserInfo } from "../helpers/getUserInfo";
@@ -22,10 +23,17 @@ import blurred_box_bg from "../assets/blurred_box_bg2.png";
 
 const HomeScreen = () => {
   const [date, setDate] = useState(new Date());
+  const nav = {
+    Notes: { path: "/notes" },
+    Todos: { path: "/todos" },
+    Notification: { path: "/notification" },
+    Profile: { path: "/profile" },
+  };
+  const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState({});
   const extensions = [
     {
-      name: "Notifications",
+      name: "Notification",
       image: notifications_btn,
     },
     {
@@ -78,6 +86,9 @@ const HomeScreen = () => {
               pt={2}
               borderRadius="lg"
               cursor="pointer"
+              onClick={() => {
+                navigate(nav[t.name].path);
+              }}
             >
               <Box
                 className="blur"

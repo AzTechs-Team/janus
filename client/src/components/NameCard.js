@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  MdOutlineKeyboardArrowDown,
-  MdLogout,
-  MdOutlineStyle,
-} from "react-icons/md";
+import { MdOutlineKeyboardArrowDown, MdLogout } from "react-icons/md";
 import {
   Button,
   ButtonGroup,
