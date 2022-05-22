@@ -19,6 +19,7 @@ export const info = {
     Required todo-group can be also be searched through search bar.
     `,
     settings: `
+    Overview of things a user can do with installing this extension: <br>
     1) You can drag and drop respective todo-group.<br>
     2) You can search through your todo-group.<br>
     3) All todo-groups can be deleted and updated whenever required.<br>
@@ -46,26 +47,35 @@ export const info = {
     Required notes can be also be searched through search bar.
     `,
     settings: `
+    Overview of things a user can do with installing this extension: <br>
     1) You can drag and drop respective notes. <br>
     2) You can search through your notes list. <br>
     3) Notes can be updated and deleted whenever required.
     `,
   },
   Notifications: {
-    title: "Notifications Manager",
-    description: `Notifications handler`,
+    title: "Github Notification Manager",
+    description: `Handle all your github notifications in one place`,
     overview: `
-    Aliquam maximus ullamcorper.Aliquam tristique lectus id magna vulputate, et lacinia augue tempus. porta.
-    Donec vulputate sapien in eros pharetra lacinia. Aliquam luctus risus ex, ut facilisis risus pulvinar non.
-    Donec vulputate sapien in eros pharetra lacinia. Aliquam luctus risus ex, ut facilisis risus pulvinar non.Nunc rhoncus arcu ut mi mattis, 
-    id eleifend nibh venenatis. Aliquam maximus ullamcorper.Aliquam tristique lectus id magna vulputate, et lacinia augue tempus. porta.
-    Nunc ullamcorper felis felis, sed bibendum nisi lobortis quis. Praesent congue nisi ut facilisis hendrerit. Proin a tortor eu tortor dictum feugiat. 
-    Sed tortor erat, vulputate
+    Github Notification manager helps user to interact with all the notification they recieve from the github.<br><br>
+    As this extension works on webhook feature, user has to add the webhook they receive after installing to all rhe repositories they need notification from.<br><br>
+    A very handy tool for developers to keep up with all important notifications.
     `,
     about: `
-     Manage your notification.
+     This extension helps you manage your github notifications at one place. From issues to comments and every notification is directly displayed on the extension screen. <br><br>
+     Interaction with the notification:<br>
+     1) Can access the repository of respective notification by simply clicking on the name of the repository.<br>
+     2) Can read the notification which is being sent.<br>
+     3) Can ignore the notification by clicking "Remind Me Later"
     `,
     settings: `
+    Installing this extension:<br>
+    1) After clicking "install", a dialog box appears with a webhook link.<br>
+    2) Add this webhook to your repository to recieve notifications.<br>
+    3) Select Application/json as content type on "Add wwebhook" page.<br>
+    4) Extension is installed after adding the webhook to the repo.<br>
+<br>
+    Overview of things a user can do with installing this extension: <br>
     1) You can drag and drop respective notifications.<br>
     2) You can search through your notification list.
     `,
