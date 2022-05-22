@@ -28,7 +28,6 @@ func GithubPayload(ctx *fiber.Ctx) error {
 	if err := ctx.BodyParser(&notif); err != nil {
 		fmt.Print("error hai :D")
 	}
-	// hookActiveCheck(notif)
 	// we have clientId here
 	// fmt.Println(notif["action"])
 	// new_ := notif["action"]
@@ -106,16 +105,10 @@ func checkConnections() {
 	}
 }
 
-// func hookActiveCheck(notif map[string]interface{}) {
-// 	var res map[string]interface{}
-// 	res["hook_active"] = notif["hook"]
-// 	res["repo"] = notif["repository"]
-// }
-
 func routerForGitHubPayloads(clientId string, notif map[string]interface{}) {
 	_, found := CC[clientId]
 	if found {
-		if CC[clientId].online == true {
+		if CC[clientId].online {
 			log.Println("inside loop ", clientId)
 			CC[clientId].c.WriteJSON(notif)
 		} else {
