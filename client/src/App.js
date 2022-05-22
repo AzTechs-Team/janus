@@ -41,12 +41,11 @@ const App = () => {
   useEffect(() => {
     const getDetails = async () => {
       const info = await getUserInfo();
+      info.extensionList = info.extensionList ? info.extensionList : [];
       setUserDetails(info);
     };
     getDetails();
-  }, []);
-
-  // console.log("app js", userDetails);
+  }, [setUserDetails]);
 
   return (
     <Box bgColor="primary.900">

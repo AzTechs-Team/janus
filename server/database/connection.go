@@ -25,6 +25,7 @@ func goDotEnvVariable(key string) string {
 
 var Collection *mongo.Collection
 var TodoGroupCollection *mongo.Collection
+var NoteCollection *mongo.Collection
 var Ctx_ = context.TODO()
 var Stringiy = "Hello World"
 var SecretKey = goDotEnvVariable("SECRET-KEY")
@@ -44,6 +45,7 @@ func ConnectPlease() {
 
 	Collection = client.Database("testDatabases").Collection("test")
 	TodoGroupCollection = client.Database("testDatabases").Collection("todoGroup")
+	NoteCollection = client.Database("testDatabases").Collection("note")
 	if err != nil {
 		log.Fatal(err)
 	}

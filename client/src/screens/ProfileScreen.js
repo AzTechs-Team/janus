@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Flex,
@@ -49,6 +49,12 @@ const ProfileScreen = () => {
     },
   ];
 
+  let activeExtensions = userDetails
+    ? userDetails.extensionList
+      ? extensions.filter((e) => userDetails.extensionList.includes(e.name))
+      : []
+    : [];
+
   const nav = {
     Notes: { path: "/notes" },
     Todos: { path: "/todos" },
@@ -56,12 +62,6 @@ const ProfileScreen = () => {
     Profile: { path: "/profile" },
   };
   const navigate = useNavigate();
-
-  let activeExtensions = userDetails
-    ? userDetails.extensionList
-      ? extensions.filter((e) => userDetails.extensionList.includes(e.name))
-      : []
-    : [];
 
   // const [userDetails] = useState(details);
   const temp = [1];
