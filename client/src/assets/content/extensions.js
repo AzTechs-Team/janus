@@ -1,5 +1,6 @@
 export const info = {
   Todos: {
+    id: "Todos",
     title: "Todos Manager",
     description: `A Cli-application for managing notes and todos`,
     overview: `
@@ -25,8 +26,10 @@ export const info = {
     4) Todos can also be deleted and updated whenever required.<br>
     5) Todos can be ticked off by simply checking the box.
     `,
+    installed: "Install",
   },
   Notes: {
+    id: "Notes",
     title: "Notes Manager",
     description: `Virtual Sticky notes`,
     overview: `
@@ -50,8 +53,10 @@ export const info = {
     2) You can search through your notes list. <br>
     3) Notes can be updated and deleted whenever required.
     `,
+    installed: "Install",
   },
   Notifications: {
+    id: "Notifications",
     title: "Notifications Manager",
     description: `Notifications handler`,
     overview: `
@@ -69,5 +74,6 @@ export const info = {
     1) You can drag and drop respective notifications.<br>
     2) You can search through your notification list.
     `,
+    installed: "Install",
   },
 };
