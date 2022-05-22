@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 
 const TabsContainer = ({ content }) => {
   return (

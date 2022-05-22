@@ -8,6 +8,8 @@ import {
   Flex,
   Box,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
+
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import GraphContainer from "../components/GraphContainer";
@@ -37,9 +39,17 @@ const HomeScreen = () => {
     }
   }, []);
 
+  const nav = {
+    Notes: { path: "/notes" },
+    Todos: { path: "/todos" },
+    Notification: { path: "/notification" },
+    Profile: { path: "/profile" },
+  };
+  const navigate = useNavigate();
+
   const extensions = [
     {
-      name: "Notifications",
+      name: "Notification",
       image: notifications_btn,
     },
     {
@@ -89,6 +99,9 @@ const HomeScreen = () => {
               pt={2}
               borderRadius="lg"
               cursor="pointer"
+              onClick={() => {
+                navigate(nav[t.name].path);
+              }}
             >
               <Box className="blur" width={44} height={12} borderRadius="lg">
                 <Flex

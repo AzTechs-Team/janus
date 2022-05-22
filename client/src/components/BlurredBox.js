@@ -23,6 +23,9 @@ const BlurredBox = () => {
           gridGap={3}
           flexDirection="row"
           alignItems="flex-start"
+          onClick={() =>
+            window.open("https://github.com/AzTechs-Team/janus", "_blank")
+          }
         >
           <Image src={extension_img} width={7} />
           <Text color="white" fontSize="md">

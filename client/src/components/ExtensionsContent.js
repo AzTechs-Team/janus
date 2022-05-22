@@ -22,7 +22,6 @@ const ExtensionsContent = ({ content, downloadExtension, removeExtension }) => {
         <VStack paddingTop={10} gridGap={3}>
           <ExtensionQuickLinks />
           <BlurredBox />
-          <BlurredBox />
         </VStack>
       </HStack>
     </Container>
