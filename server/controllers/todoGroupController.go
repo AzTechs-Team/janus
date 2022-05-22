@@ -11,6 +11,7 @@ import (
 	"github.com/nimit2801/janus/models"
 	"github.com/nimit2801/janus/utils"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func CreateNewTodoGroup(ctx *fiber.Ctx) error {
@@ -62,8 +63,6 @@ func ReadAllTodogroup(ctx *fiber.Ctx) error {
 	// return ctx.SendString("We're working <3")
 }
 
-// Todo Update Single Todo Group
-
 func UpdateSingleTodogroup(ctx *fiber.Ctx) error {
 	// cookie := ctx.Cookies("accessToken")
 	// userId := utils.StringID(cookie)
@@ -86,4 +85,22 @@ func UpdateSingleTodogroup(ctx *fiber.Ctx) error {
 
 	return ctx.Status(fiber.StatusAccepted).JSON(singleResult)
 	// return ctx.SendString("We're working <3")
+}
+
+// TodoGroup Delete Single Todo Group
+
+func DeleteSingleTodoGroup(ctx *fiber.Ctx) error {
+	TodoGroup := models.TodoGroup{}
+	if err := ctx.BodyParser(&TodoGroup); err != nil {
+		return err
+	}
+	ID_ := TodoGroup.ID
+	filter := bson.M{"_id": ID_}
+	var deletedDocument *mongo.DeleteResult
+	deletedDocument, err := connect.TodoGroupCollection.DeleteOne(connect.Ctx_, filter)
+	if err != nil {
+		panic(err)
+	}
+
+	return ctx.Status(fiber.StatusAccepted).JSON(deletedDocument)
 }
