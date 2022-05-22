@@ -38,7 +38,12 @@ const NameCard = ({ content, id, downloadExtension, removeExtension }) => {
         alt="Dan Abramov"
       />
       <VStack alignItems="flex-start" color="white" width="45%">
-        <Text fontSize="3xl" fontWeight="extrabold" letterSpacing={1}>
+        <Text
+          fontSize="3xl"
+          fontWeight="extrabold"
+          width="40vw"
+          letterSpacing={1}
+        >
           {content["title"]}
         </Text>
         <Text fontSize="sm">{content["description"]}</Text>

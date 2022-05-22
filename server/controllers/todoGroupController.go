@@ -17,8 +17,15 @@ import (
 )
 
 type Q struct{}
+type websocketsConnections struct {
+	c        *websocket.Conn
+	clientId string
+}
 
-var CC = new(websocket.Conn)
+// Dynamic link
+// /api/Payload/clientId
+
+var CC = []*websocketsConnections{}
 
 var ws_ *fiber.Ctx
 
@@ -27,42 +34,59 @@ func GithubPayload(ctx *fiber.Ctx) error {
 	if err := ctx.BodyParser(&notif); err != nil {
 		fmt.Print("error hai :D")
 	}
+	// we have clientId here
 	fmt.Println(notif["action"])
 	// new_ := notif["action"]
-	ans, err := json.MarshalIndent(&notif, "", "    ")
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(string(ans))
-	CC.WriteMessage(1, ans)
+	// ans, err := json.MarshalIndent(&notif, "", "    ")
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// fmt.Println(string(ans))
+	fmt.Println(&CC)
+	// CC.WriteMessage(1, ans)
 
 	return ctx.SendString("we did")
 }
 
 var Ws_ = websocket.New(func(c *websocket.Conn) {
 	log.Println("New Client connected :)")
-	log.Println(c.Locals("allowed"))  // true
-	log.Println(c.Params("id"))       // 123
-	log.Println(c.Query("v"))         // 1.0
-	log.Println(c.Cookies("session")) // ""
-
+	log.Println(c.Locals("allowed"))       // true
+	log.Println(c.Params("id", "123"))     // 123
+	log.Println(c.Query("v"))              // 1.0
+	log.Println(c.Cookies("access-token")) // ""
 	var (
 		mt  int
 		msg []byte
 		err error
 	)
-	CC = c
+
+	// CC = append(CC, c)
+
+	// fmt.Println(, "are we here?")
 	for {
 		mt, msg, err = c.ReadMessage()
 		if err != nil {
 			panic(err)
 		}
-		log.Println(mt, msg)
-		c.WriteMessage(mt, msg)
-		for i := 0; i < 5; i++ {
-			c.WriteMessage(mt, make([]byte, i))
-			log.Println(mt, i)
+		var jsonMap map[string]string
+		json.Unmarshal([]byte(msg), &jsonMap)
+		ans, err := json.MarshalIndent(&jsonMap, "", "    ")
+		if err != nil {
+			panic(err)
 		}
+		if len(jsonMap["clientId"]) != 0 {
+			clientId := jsonMap["clientId"]
+			cc := new(websocketsConnections)
+			cc.c = c
+			fmt.Println(clientId)
+			cc.clientId = clientId
+			url := "http://b397-103-240-207-189.ngrok.io" + "/api/Payload/" + clientId
+			c.WriteMessage(mt, []byte(url))
+			CC = append(CC, cc)
+		}
+		log.Println("message from user:")
+		fmt.Println(string(ans))
+
 	}
 })
 
