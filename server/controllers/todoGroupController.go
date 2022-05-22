@@ -11,6 +11,7 @@ import (
 	"github.com/nimit2801/janus/models"
 	"github.com/nimit2801/janus/utils"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func CreateNewTodoGroup(ctx *fiber.Ctx) error {
@@ -38,8 +39,6 @@ func CreateNewTodoGroup(ctx *fiber.Ctx) error {
 	})
 }
 
-// Todo: Read, Updade, Delete :D
-
 func ReadAllTodogroup(ctx *fiber.Ctx) error {
 	cookie := ctx.Cookies("accessToken")
 	ID := utils.StringID(cookie)
@@ -62,21 +61,42 @@ func ReadAllTodogroup(ctx *fiber.Ctx) error {
 	// return ctx.SendString("We're working <3")
 }
 
-// Todo Update Single Todo Group
+func UpdateSingleTodogroup(ctx *fiber.Ctx) error {
+	// cookie := ctx.Cookies("accessToken")
+	// userId := utils.StringID(cookie)
 
-// func UpdateSingleTodogroup(ctx *fiber.Ctx) error {
-// 	cookie := ctx.Cookies("accessToken")
-// 	ID := utils.StringID(cookie)
+	TodoGroup := models.TodoGroup{}
+	if err := ctx.BodyParser(&TodoGroup); err != nil {
+		return err
+	}
+	ID_ := TodoGroup.ID
+	filter := bson.M{"_id": ID_}
+	// update := bson.D{}
+	update := bson.D{
+		{"$set", bson.D{{"title", TodoGroup.Title}}},
+		{"$set", bson.D{{"todos", TodoGroup.Todos}}},
+	}
+	singleResult, err := connect.TodoGroupCollection.UpdateOne(connect.Ctx_, filter, update)
+	if err != nil {
+		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
+	}
 
-// 	TodoGroup := models.TodoGroup{}
-// 	if err := ctx.BodyParser(&TodoGroup); err != nil {
-// 		return err
-// 	}
-// 	ID_ := TodoGroup.ID
-// 	filter := bson.M{"_id": ID, "userId": ID_}
+	return ctx.Status(fiber.StatusAccepted).JSON(singleResult)
+	// return ctx.SendString("We're working <3")
+}
 
-// 	singleResult := connect.TodoGroupCollection.FindOneAndUpdate(connect.Ctx_, filter, TodoGroup)
+func DeleteSingleTodoGroup(ctx *fiber.Ctx) error {
+	TodoGroup := models.TodoGroup{}
+	if err := ctx.BodyParser(&TodoGroup); err != nil {
+		return err
+	}
+	ID_ := TodoGroup.ID
+	filter := bson.M{"_id": ID_}
+	var deletedDocument *mongo.DeleteResult
+	deletedDocument, err := connect.TodoGroupCollection.DeleteOne(connect.Ctx_, filter)
+	if err != nil {
+		panic(err)
+	}
 
-// 	return ctx.Status(fiber.StatusAccepted).JSON(singleResult)
-// 	// return ctx.SendString("We're working <3")
-// }
+	return ctx.Status(fiber.StatusAccepted).JSON(deletedDocument)
+}
