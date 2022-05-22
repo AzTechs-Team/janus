@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Text,
   Spacer,
@@ -47,7 +47,7 @@ const NotificationContainer = ({ notification }) => {
           >
             {notification.descriptive.repoName}
           </Text>
-          <FiExternalLink fontColor="accent.100" size="10" />
+          <FiExternalLink color="accent.100" size="10" />
         </HStack>
 
         <Text fontSize="10px">

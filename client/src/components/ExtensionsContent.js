@@ -5,7 +5,8 @@ import TabsContainer from "./TabsContainer";
 import ExtensionQuickLinks from "./ExtensionQuickLinks";
 import BlurredBox from "./BlurredBox";
 
-const ExtensionsContent = ({ content }) => {
+const ExtensionsContent = ({ content, downloadExtension, removeExtension }) => {
+  const props = { content, downloadExtension, removeExtension };
   return (
     <Container
       bgColor="primary.800"
@@ -14,13 +15,12 @@ const ExtensionsContent = ({ content }) => {
       height="100%"
       maxW="100%"
     >
-      <NameCard content={content} id={1} />
+      <NameCard id={1} {...props} />
       <HStack alignItems="flex-start">
         <TabsContainer content={content} />
         <Spacer />
         <VStack paddingTop={10} gridGap={3}>
           <ExtensionQuickLinks />
-          <BlurredBox />
           <BlurredBox />
         </VStack>
       </HStack>

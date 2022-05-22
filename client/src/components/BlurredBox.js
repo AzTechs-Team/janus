@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Container, Flex, HStack, Image, Text } from "@chakra-ui/react";
+import { Box, Container, Flex, Image, Text } from "@chakra-ui/react";
 
 import extension_img from "../assets/extension_img.png";
 import blurred_box_bg from "../assets/blurred_box_bg.png";
@@ -16,19 +16,16 @@ const BlurredBox = () => {
       borderRadius="lg"
       cursor="pointer"
     >
-      <Box
-        className="blur"
-        width={44}
-        height={10}
-        centerContent
-        borderRadius="lg"
-      >
+      <Box className="blur" width={44} height={10} borderRadius="lg">
         <Flex
           pt={1.5}
           pl={4}
           gridGap={3}
           flexDirection="row"
           alignItems="flex-start"
+          onClick={() =>
+            window.open("https://github.com/AzTechs-Team/janus", "_blank")
+          }
         >
           <Image src={extension_img} width={7} />
           <Text color="white" fontSize="md">

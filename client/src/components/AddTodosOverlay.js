@@ -23,7 +23,6 @@ const AddTodosOverlay = ({ onClose, setText }) => {
               createdAt: new Date().toTimeString(),
             });
           });
-          // console.log(temp);
           setTodoList([...temp]);
           setText({
             userId: "asd1",

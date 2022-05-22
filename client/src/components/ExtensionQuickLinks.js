@@ -2,9 +2,14 @@ import React from "react";
 import { Box, HStack, VStack, Text } from "@chakra-ui/react";
 import { BiLink } from "react-icons/bi";
 
-const linkComponent = (item) => {
+const linkComponent = (item, link) => {
   return (
-    <HStack key={item} color="accent.100" cursor="pointer">
+    <HStack
+      key={item}
+      color="accent.100"
+      cursor="pointer"
+      onClick={() => window.open(link, "_blank")}
+    >
       <BiLink />
       <Text>{item}</Text>
     </HStack>
@@ -12,12 +17,14 @@ const linkComponent = (item) => {
 };
 
 const ExtensionQuickLinks = () => {
-  const links = [
-    "Quick Link 1",
-    "Quick Link 2",
-    "Quick Link 3",
-    "Quick Link 4",
-  ];
+  const links = {
+    "Quick Links 1":
+      "https://github.com/Azure-Samples/cognitive-services-quickstart-code/blob/master/go/ComputerVision/REST/go-print-text.md",
+    "Quick Links 2":
+      "https://strml.github.io/react-grid-layout/examples/0-showcase.html",
+    "Quick Links 3": "https://github.com/gofiber/websocket",
+    "Quick Links 4": "https://github.com/shreyaparadkar/imprint",
+  };
 
   return (
     <Box
@@ -29,10 +36,10 @@ const ExtensionQuickLinks = () => {
       borderRadius="xl"
     >
       <VStack>
-        <Text fontWeight="bold" mb={4}>
+        <Text fontWeight="bold" mb={3}>
           Quick Links
         </Text>
-        {links.map((l) => linkComponent(l))}
+        {Object.keys(links).map((l) => linkComponent(l, links[l]))}
       </VStack>
     </Box>
   );

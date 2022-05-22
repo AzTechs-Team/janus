@@ -2,6 +2,7 @@ package controller
 
 import (
 	"fmt"
+	"strings"
 
 	"time"
 
@@ -124,6 +125,34 @@ func User(ctx *fiber.Ctx) error {
 
 	return ctx.Status(200).JSON(user)
 	// return ctx.SendString("We're working <3")
+}
+
+func ManageExtensions(ctx *fiber.Ctx) error {
+	cookie := ctx.Cookies("accessToken")
+
+	if len(cookie) == 0 {
+		return ctx.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"message": "You're not authourized",
+		})
+	}
+	ID := utils.StringID(cookie)
+	var user models.User
+	filter := bson.D{{"_id", ID}}
+	ext := ctx.Query("extension")
+	splitExt := strings.Split(ext, ",")
+
+	fmt.Println(ext, "ext")
+	fmt.Println(splitExt, "split")
+	result, err_ := connect.Collection.UpdateOne(connect.Ctx_, filter, bson.D{
+		{"$set", bson.D{{"extensionList", splitExt}}},
+	})
+	if err_ != nil {
+		panic(err_)
+		return err_
+	}
+
+	fmt.Println("fldskjflksadjflks", result)
+	return ctx.Status(200).JSON(user)
 }
 
 func panic(err error) {
