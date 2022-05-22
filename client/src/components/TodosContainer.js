@@ -20,7 +20,7 @@ const TodosContainer = ({ todoList, updateTodo, deleteTodo }) => {
         {todoList.title}
       </Text>
       <Box>
-        {todoList.todo.slice(0, 3).map((t, i) => {
+        {todoList.todos.slice(0, 3).map((t, i) => {
           return (
             <React.Fragment key={i}>
               <Text

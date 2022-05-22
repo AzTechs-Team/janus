@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container } from "@chakra-ui/react";
 import "react-calendar/dist/Calendar.css";
 import ExtensionsTitleBar from "../components/ExtensionsTitleBar";
 import TodosGrid from "../components/TodosGrid";
 import { todos } from "../assets/content/todos";
+import { getTodos } from "../helpers/todosService";
+import { useRecoilState } from "recoil";
+import { todosState } from "../atoms/todos";
 
 const TodoScreen = () => {
-  const [todosCollection, setTodosCollections] = useState(todos);
+  const [todosCollection, setTodosCollections] = useRecoilState(todosState);
   const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    const getDetails = async () => {
+      const info = await getTodos();
+      setTodosCollections([...info]);
+      console.log(info);
+    };
+    getDetails();
+  }, []);
 
   const onSearch = (text) => {
     if (text) {

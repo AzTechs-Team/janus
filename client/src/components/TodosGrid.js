@@ -6,6 +6,9 @@ import "../theme/grid.css";
 import TodosContainer from "./TodosContainer";
 import { GrAdd } from "react-icons/gr";
 import ModalContainer from "./ModalContainer";
+import { useRecoilState } from "recoil";
+import { todosState } from "../atoms/todos";
+import { createTodos, delTodos, postTodos } from "../helpers/todosService";
 
 const TodosGrid = ({ todosCollection }) => {
   let x_loc = 0;
@@ -30,7 +33,7 @@ const TodosGrid = ({ todosCollection }) => {
     };
   }, []);
 
-  const [todos, setTodos] = useState(todosCollection);
+  const [todos, setTodos] = useRecoilState(todosState);
   const [layout, setLayout] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
@@ -45,10 +48,10 @@ const TodosGrid = ({ todosCollection }) => {
   }, [generateLayout, todos]);
 
   const updateTodo = (title, todogrp) => {
-    let temp = todos;
+    let temp = JSON.parse(JSON.stringify(todos));
     let flag = false;
     temp.map((n) => {
-      if (n.id === todogrp.id) {
+      if (n._id === todogrp._id) {
         flag = true;
         todogrp.title = title;
         n.todo = todogrp.todo;
@@ -59,13 +62,17 @@ const TodosGrid = ({ todosCollection }) => {
     if (!flag) {
       todogrp.title = title;
       temp.push(todogrp);
+      createTodos(todogrp);
+      console.log("in !flag", temp);
+    } else {
+      postTodos(todogrp);
     }
 
-    setTodos(temp);
+    setTodos([...temp]);
     if (!flag) {
       let t = [];
-      todos.map((t, i) => {
-        t.push(generateLayout(i, t));
+      temp.map((x, i) => {
+        t.push(generateLayout(i, x));
         return null;
       });
       setLayout(t);
@@ -74,12 +81,13 @@ const TodosGrid = ({ todosCollection }) => {
 
   const deleteTodo = (todo) => {
     if (!todo) return;
-    let temp = todos;
+    let temp = JSON.parse(JSON.stringify(todos));
     temp = temp.filter((t) => {
-      return t.id !== todo.id;
+      return t._id !== todo._id;
     });
 
-    setTodos(temp);
+    setTodos([...temp]);
+    delTodos(todo);
     let t = [];
     temp.map((note, i) => {
       t.push(generateLayout(i, note));

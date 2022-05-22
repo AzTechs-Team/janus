@@ -65,9 +65,7 @@ const AddTodosOverlay = ({ onClose, setText }) => {
     setTodoList([...todoList]);
     setTodo("");
     setText({
-      userId: "asd1",
-      id: new Date().toTimeString(),
-      todo: temp,
+      todos: temp,
     });
   };
 

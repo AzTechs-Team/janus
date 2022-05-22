@@ -3,25 +3,25 @@ import React, { useState } from "react";
 import TodoItem from "./TodoItem";
 
 const ReadTodosOverlay = ({ todoList, setText }) => {
-  const [todoItemList, setTodoItemList] = useState(todoList.todo);
+  const [todoItemList, setTodoItemList] = useState(todoList.todos);
 
   const onDeleteTodo = (j) => {
-    let temp = todoItemList;
+    let temp = JSON.parse(JSON.stringify(todoItemList));
     temp.splice(j, 1);
-    setTodoItemList(temp);
-    setTodoItemList([...todoItemList]);
-    let x = todoList;
-    x.todo = temp;
+    setTodoItemList([...temp]);
+    // setTodoItemList([...todoItemList]);
+    let x = JSON.parse(JSON.stringify(todoList));
+    x.todos = temp;
     setText(x);
   };
 
   const onToggleTodo = (j) => {
-    let temp = todoItemList;
+    let temp = JSON.parse(JSON.stringify(todoItemList));
     temp[j].isDone = !temp[j].isDone;
-    setTodoItemList(temp);
-    setTodoItemList([...todoItemList]);
-    let x = todoList;
-    x.todo = temp;
+    setTodoItemList([...temp]);
+    // setTodoItemList([...todoItemList]);
+    let x = JSON.parse(JSON.stringify(todoList));
+    x.todos = temp;
     setText(x);
   };
 
