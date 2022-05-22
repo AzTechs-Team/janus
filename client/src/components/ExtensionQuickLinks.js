@@ -36,7 +36,7 @@ const ExtensionQuickLinks = () => {
       borderRadius="xl"
     >
       <VStack>
-        <Text fontWeight="bold" mb={4}>
+        <Text fontWeight="bold" mb={3}>
           Quick Links
         </Text>
         {Object.keys(links).map((l) => linkComponent(l, links[l]))}

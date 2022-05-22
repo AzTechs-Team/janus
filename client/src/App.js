@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Routes as Switch,
   Route,
@@ -19,12 +19,14 @@ import NotesScreen from "./screens/NotesScreen";
 import TodoScreen from "./screens/TodoScreen";
 import Notification from "./screens/NotificationScreen";
 import auth from "./auth/auth";
+import { getUserInfo } from "./helpers/getUserInfo";
+import { useRecoilState } from "recoil";
+import { userState } from "./atoms/details";
 
 const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  // const user = useState(getUserInfo);
-
+  //
   useEffect(() => {
     if (localStorage.login) {
       // const login = JSON.parse(localStorage.login);
@@ -33,6 +35,18 @@ const App = () => {
       auth.logout(() => navigate("/"));
     }
   }, [location.pathname, navigate]);
+
+  const [userDetails, setUserDetails] = useRecoilState(userState);
+
+  useEffect(() => {
+    const getDetails = async () => {
+      const info = await getUserInfo();
+      setUserDetails(info);
+    };
+    getDetails();
+  }, []);
+
+  // console.log("app js", userDetails);
 
   return (
     <Box bgColor="primary.900">
@@ -74,7 +88,9 @@ const App = () => {
           path="/extensions"
           element={
             <ProtectedRoute>
-              <BaseScreen children={<ExtensionsScreen />} />
+              <BaseScreen
+                children={<ExtensionsScreen userInfo={userDetails} />}
+              />
             </ProtectedRoute>
           }
         />

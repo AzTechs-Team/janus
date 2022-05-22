@@ -15,11 +15,12 @@ import "react-calendar/dist/Calendar.css";
 import GraphContainer from "../components/GraphContainer";
 import WelcomeBox from "../components/WelcomeBox";
 import DashboardNav from "../components/DashboardNav";
-import { getUserInfo } from "../helpers/getUserInfo";
 import notifications_btn from "../assets/notification_btn.png";
 import todo_btn from "../assets/todo_btn.png";
 import notes_btn from "../assets/notes_btn.png";
 import blurred_box_bg from "../assets/blurred_box_bg2.png";
+import { useRecoilValue } from "recoil";
+import { userState } from "../atoms/details";
 
 const HomeScreen = () => {
   const [date, setDate] = useState(new Date());
@@ -30,7 +31,7 @@ const HomeScreen = () => {
     Profile: { path: "/profile" },
   };
   const navigate = useNavigate();
-  const [userDetails, setUserDetails] = useState({});
+  const userDetails = useRecoilValue(userState);
   const extensions = [
     {
       name: "Notification",
@@ -46,13 +47,9 @@ const HomeScreen = () => {
     },
   ];
 
-  useEffect(() => {
-    const getDetails = async () => {
-      const info = await getUserInfo();
-      setUserDetails(info);
-    };
-    getDetails();
-  }, []);
+  let activeExtensions = extensions.filter((e) =>
+    userDetails.extensionList.includes(e.name)
+  );
 
   return (
     <Container
@@ -70,19 +67,18 @@ const HomeScreen = () => {
         <WelcomeBox name={userDetails.name} />
         <Calendar onChange={setDate} value={date} className="calendar" />
       </HStack>
-      <HStack pt={4} spacing={6}>
+      <HStack pt={4} spacing={6} alignItems="flex-start">
         <GraphContainer />
         <VStack spacing="4">
           <Text fontWeight="bold" color="white" pt={1}>
             Your extensions
           </Text>
-          {extensions.map((t) => (
+          {activeExtensions.map((t) => (
             <Container
               width={48}
               height={16}
               bgImage={blurred_box_bg}
               bgPosition="center"
-              centerContent
               pt={2}
               borderRadius="lg"
               cursor="pointer"
@@ -90,13 +86,7 @@ const HomeScreen = () => {
                 navigate(nav[t.name].path);
               }}
             >
-              <Box
-                className="blur"
-                width={44}
-                height={12}
-                centerContent
-                borderRadius="lg"
-              >
+              <Box className="blur" width={44} height={12} borderRadius="lg">
                 <Flex
                   pt={2.5}
                   pl={4}

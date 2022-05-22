@@ -15,8 +15,19 @@ import profile_icon from "../assets/profile_icon.png";
 import auth from "../auth/auth";
 import { useNavigate } from "react-router-dom";
 
-const NameCard = ({ content, id }) => {
+const NameCard = ({ content, id, downloadExtension, removeExtension }) => {
   const navigate = useNavigate();
+
+  const btnTitle = id === 0 ? "Logout" : content["installed"];
+  const btnColor = content["installed"] !== "Install" ? "#BD5050" : "#55904F";
+
+  const btnHoverColor =
+    content["installed"] !== "Install" ? "#9B4444" : "#396039";
+
+  const func =
+    content["installed"] === "Install"
+      ? () => downloadExtension(content.id)
+      : () => removeExtension(content.id);
 
   return (
     <HStack marginBottom={12} gridGap={6}>
@@ -43,38 +54,30 @@ const NameCard = ({ content, id }) => {
           width={36}
           textAlign="left"
           color="white"
-          bgColor={id === 0 ? "#BD5050" : "#55904F"}
+          bgColor={btnColor}
           _focus={{
             outlineStyle: "none",
           }}
-          _active={{
-            background: id === 0 ? "#BD5050" : "#55904F",
-          }}
-          _hover={{
-            background: id === 0 ? "#9B4444" : "#396039",
-          }}
+          _active={{ bgColor: btnColor }}
+          _hover={{ bgColor: btnHoverColor }}
           onClick={
             id === 0
               ? () => {
                   auth.logout(() => navigate("/", { replace: true }));
                 }
-              : null
+              : func
           }
         >
-          {id === 0 ? "Logout" : "Install"}
+          {btnTitle}
         </Button>
         <IconButton
           color="white"
-          bgColor={id === 0 ? "#9B4444" : "#396039"}
-          _active={{
-            background: id === 0 ? "#9B4444" : "#396039",
-          }}
+          bgColor={btnColor}
           _focus={{
             outlineStyle: "none",
           }}
-          _hover={{
-            background: id === 0 ? "#BD5050" : "#55904F",
-          }}
+          _active={{ bgColor: btnColor }}
+          _hover={{ bgColor: btnHoverColor }}
           icon={id === 0 ? <MdLogout /> : <MdOutlineKeyboardArrowDown />}
         />
       </ButtonGroup>
